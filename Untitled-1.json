@@ -1,0 +1,689 @@
+{
+    "status": 0,
+    "msg": null,
+    "data": [
+        {
+            "id": "/wy",
+            "fid": 1,
+            "text": "物业管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "resource",
+                    "fid": 9,
+                    "text": "资源管理",
+                    "userId": 1,
+                    "prId": 1,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "houselist",
+                            "fid": 20,
+                            "text": "房产资料",
+                            "userId": 1,
+                            "prId": 9,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "carlist",
+                            "fid": 21,
+                            "text": "车位管理",
+                            "userId": 1,
+                            "prId": 9,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "",
+                            "fid": 22,
+                            "text": "广告位",
+                            "userId": 1,
+                            "prId": 9,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "customer",
+                    "fid": 10,
+                    "text": "客户管理",
+                    "userId": 1,
+                    "prId": 1,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "clientlist",
+                            "fid": 23,
+                            "text": "客户资料",
+                            "userId": 1,
+                            "prId": 10,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/cw",
+            "fid": 5,
+            "text": "财务中心",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "finance",
+                    "fid": 14,
+                    "text": "财务管理",
+                    "userId": 1,
+                    "prId": 5,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "projectlist",
+                            "fid": 182,
+                            "text": "收费项目",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "rateslist",
+                            "fid": 29,
+                            "text": "收费标准",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "receivablelist",
+                            "fid": 30,
+                            "text": "应收管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "receiptlist",
+                            "fid": 31,
+                            "text": "收款管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "handlelist",
+                            "fid": 32,
+                            "text": "应付管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "paylist",
+                            "fid": 33,
+                            "text": "付款管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "remissionlist",
+                            "fid": 34,
+                            "text": "减免管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "transfer",
+                            "fid": 35,
+                            "text": "转账管理",
+                            "userId": 1,
+                            "prId": 14,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/sy",
+            "fid": 2,
+            "text": "商业管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "lease",
+                    "fid": 11,
+                    "text": "租赁管理",
+                    "userId": 1,
+                    "prId": 2,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "leaselist",
+                            "fid": 24,
+                            "text": "租赁合同",
+                            "userId": 1,
+                            "prId": 11,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "property",
+                            "fid": 187,
+                            "text": "物业合同",
+                            "userId": 1,
+                            "prId": 11,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/kf",
+            "fid": 3,
+            "text": "客服管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "service",
+                    "fid": 12,
+                    "text": "客户服务",
+                    "userId": 1,
+                    "prId": 3,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "suggest",
+                            "fid": 26,
+                            "text": "投诉管理",
+                            "userId": 1,
+                            "prId": 12,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "",
+                            "fid": 25,
+                            "text": "维修管理",
+                            "userId": 1,
+                            "prId": 12,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/sb",
+            "fid": 4,
+            "text": "设备管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "equipment",
+                    "fid": 13,
+                    "text": "设备能耗",
+                    "userId": 1,
+                    "prId": 4,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "chargelist",
+                            "fid": 27,
+                            "text": "费表设置",
+                            "userId": 1,
+                            "prId": 13,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "meterreadinglist",
+                            "fid": 28,
+                            "text": "用户抄表",
+                            "userId": 1,
+                            "prId": 13,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/bb",
+            "fid": 6,
+            "text": "报表中心",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "financial",
+                    "fid": 15,
+                    "text": "物业财务报表",
+                    "userId": 1,
+                    "prId": 6,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "receivable",
+                            "fid": 36,
+                            "text": "应收明细表",
+                            "userId": 1,
+                            "prId": 15,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "uncollected",
+                            "fid": 38,
+                            "text": "未收明细表",
+                            "userId": 1,
+                            "prId": 15,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "received",
+                            "fid": 37,
+                            "text": "实收明细表",
+                            "userId": 1,
+                            "prId": 15,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "precollected",
+                            "fid": 39,
+                            "text": "应收冲抵明细表",
+                            "userId": 1,
+                            "prId": 15,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "",
+                            "fid": 40,
+                            "text": "充值明细表",
+                            "userId": 1,
+                            "prId": 15,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "leaseReport",
+                    "fid": 200,
+                    "text": "租赁报表",
+                    "userId": 1,
+                    "prId": 6,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "housinglist",
+                            "fid": 201,
+                            "text": "不动产明细表",
+                            "userId": 1,
+                            "prId": 200,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "rentoutlist",
+                            "fid": 202,
+                            "text": "不动产出租明细表",
+                            "userId": 1,
+                            "prId": 200,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "report",
+                    "fid": 16,
+                    "text": "物业基础报表",
+                    "userId": 1,
+                    "prId": 6,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "",
+                            "fid": 41,
+                            "text": "房产明细表",
+                            "userId": 1,
+                            "prId": 16,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "",
+                            "fid": 42,
+                            "text": "客户明细表",
+                            "userId": 1,
+                            "prId": 16,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/xt",
+            "fid": 7,
+            "text": "系统管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "organization",
+                    "fid": 17,
+                    "text": "组织架构",
+                    "userId": 1,
+                    "prId": 7,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "department",
+                            "fid": 43,
+                            "text": "部门管理",
+                            "userId": 1,
+                            "prId": 17,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "station",
+                            "fid": 44,
+                            "text": "岗位管理",
+                            "userId": 1,
+                            "prId": 17,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "users",
+                            "fid": 45,
+                            "text": "用户管理",
+                            "userId": 1,
+                            "prId": 17,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "notice",
+                    "fid": 18,
+                    "text": "通知公告",
+                    "userId": 1,
+                    "prId": 7,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "",
+                            "fid": 46,
+                            "text": "发送公告",
+                            "userId": 1,
+                            "prId": 18,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/kz",
+            "fid": 8,
+            "text": "扩展模板",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "sms",
+                    "fid": 19,
+                    "text": "短信中心",
+                    "userId": 1,
+                    "prId": 8,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": "dreamSend",
+                            "fid": 47,
+                            "text": "短信管理",
+                            "userId": 1,
+                            "prId": 19,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "/zy",
+            "fid": 174,
+            "text": "资源管理",
+            "userId": 1,
+            "prId": -1,
+            "expanded": "true",
+            "leaf": "false",
+            "type": "2",
+            "children": [
+                {
+                    "id": "merchants",
+                    "fid": 175,
+                    "text": "招商管理",
+                    "userId": 1,
+                    "prId": 174,
+                    "expanded": "true",
+                    "leaf": "false",
+                    "type": "3",
+                    "children": [
+                        {
+                            "id": null,
+                            "fid": 179,
+                            "text": "招商业态",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "brandlist",
+                            "fid": 176,
+                            "text": "品牌管理",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "organization",
+                            "fid": 181,
+                            "text": "hr",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": null,
+                            "fid": 178,
+                            "text": "招商规划",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": "clientblist",
+                            "fid": 180,
+                            "text": "客商管理",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        },
+                        {
+                            "id": null,
+                            "fid": 177,
+                            "text": "商家评价管理",
+                            "userId": 1,
+                            "prId": 175,
+                            "expanded": "false",
+                            "leaf": "true",
+                            "type": "4",
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "success": true
+}
