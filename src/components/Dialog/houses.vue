@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { customerList } from "@/api/wy/customer/clientlist";
+import { customerList } from "@/api/wy/customer/commoditylist";
 import { getHousesTree } from "@/api/treeList";
 export default {
   data() {

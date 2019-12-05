@@ -1,7 +1,0 @@
-export { default as RoomInfo } from './RoomInfo'
-export { default as RoomCurrentOwner } from './RoomCurrentOwner'
-export { default as RoomCurrentTenant } from './RoomCurrentTenant'
-export { default as BuildDetail } from './BuildDetail'
-export { default as BuildInfo } from './BuildInfo'
-export { default as TowerInfo } from './TowerInfo'
-export { default as FloorInfo } from './FloorInfo'

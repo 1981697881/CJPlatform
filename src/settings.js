@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '融歆N9',
+  title: '管理平台',
 
   /**
    * @type {boolean} true | false
@@ -13,7 +13,7 @@ module.exports = {
    * @description Whether show the logo in sidebar
    */
   sidebarLogo: true,
-  
+
   /**
    * @type {boolean} true | false
    * @description Whether need tagsView

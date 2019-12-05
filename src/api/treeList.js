@@ -38,7 +38,17 @@ export function deptTree(prId, type, userId){
     data
   })
 }
-
+export function getJurisdiction(jurisdictionId,type) {
+  const data = {
+    jurisdictionId: jurisdictionId == null ? 1 : jurisdictionId,
+    type: type == null ? 1 : type,
+  }
+  return request({
+    url: '/back/system/jur/getJurisdictionTree.do',
+    method: 'post',
+    data
+  })
+}
 export function getReceiveItemFormatList(){
   return request({
     url: '/back/fin/receive/getReceiveItemFormatList.do',

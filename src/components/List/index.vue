@@ -3,6 +3,7 @@
     <el-table
       :data="list.list"
       border
+      stripe
       size="mini"
       :highlight-current-row="true"
       @row-dblclick="dblclick"

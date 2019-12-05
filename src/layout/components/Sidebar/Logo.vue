@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: '融歆智慧管理平台N9',
-      logo: require('@/assets/logo/logo.png')
+      title: '管理平台',
+      logo: require('@/assets/logo/magic.png')
     }
   }
 }
@@ -35,7 +35,6 @@ export default {
 .sidebarLogoFade-enter-active {
   transition: opacity 1.5s;
 }
-
 .sidebarLogoFade-enter,
 .sidebarLogoFade-leave-to {
   opacity: 0;

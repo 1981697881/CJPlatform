@@ -12,23 +12,33 @@
           <i class="el-icon-setting" style="margin-right:5px"/><span class="user-name">{{name}}</span>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+         <!-- <router-link to="/">
             <el-dropdown-item>
               系统帮助
             </el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>切换用户</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>修改密码</el-dropdown-item>
-          </a>
+          </a>-->
+          <el-dropdown-item>
+            <span style="display:block;" @click="alterPWD">修改密码</span>
+          </el-dropdown-item>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">退出系统</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      title="修改密码"
+      v-if="visible"
+      :width="'70%'"
+      destroy-on-close
+    >
+      <alter></alter>
+
+    </el-dialog>
   </div>
 </template>
 
@@ -36,11 +46,12 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Alter from "@/components/Alter"
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger,
+    Hamburger, Alter,
   },
   computed: {
     ...mapGetters([
@@ -49,7 +60,16 @@ export default {
       'name'
     ])
   },
+    data() {
+        return {
+            visible: null,
+            fid: null,
+        };
+    },
   methods: {
+      alterPWD() {
+          this.visible = true
+    },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
@@ -128,7 +148,7 @@ export default {
             border-radius: 10px;
           }
         }
-        
+
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;

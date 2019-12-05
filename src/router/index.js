@@ -59,6 +59,85 @@ export const StaticRouterMap = [{
       }
     }]
   },
+  {
+    path: '/resource',
+    component: Layout,
+    name: 'Resource',
+    meta: {
+      title: '基础资料',
+      icon: "component"
+    },
+    children: [{
+      path: 'commodity',
+      component: () => import('@/views/resource/commoditylist/index'),
+      name: 'Commodity',
+      meta: {
+        title: '商品信息'
+      },
+    },{
+      path: 'rate',
+      component: () => import('@/views/resource/ratelist/index'),
+      name: 'Rate',
+      meta: {
+        title: '价格信息'
+      },
+    },{
+      path: 'stock',
+      component: () => import('@/views/resource/stocklist/index'),
+      name: 'Stock',
+      meta: {
+        title: '库存信息'
+      },
+    }]
+  },{
+    path: '/indent',
+    component: Layout,
+    name: 'Indent',
+    meta: {
+      title: '订单管理',
+      icon: 'nested'
+    },
+    children: [{
+      path: 'sales',
+      component: () => import('@/views/indent/sales/index'),
+      name: 'Sales',
+      meta: {
+        title: '客户订单'
+      },
+    },{
+      path: 'returns',
+      component: () => import('@/views/indent/returns/index'),
+      name: 'Returns',
+      meta: {
+        title: '退货订单'
+      },
+    }]
+  },{
+    path: '/system',
+    component: Layout,
+    name: 'System',
+    meta: {
+      title: '系统设置',
+      icon: "bug"
+    },
+    children: [{
+      path: 'users',
+      component: () => import('@/views/system/users/index'),
+      name: 'Users',
+      meta: {
+        title: '用户管理'
+      },
+    },
+      {
+      path: 'permissions',
+      component: () => import('@/views/system/permissions/index'),
+      name: 'Permissions',
+      meta: {
+        title: '权限管理'
+      },
+    }
+    ]
+  },
   /* {
     path: '/wy',
     component: Layout,
@@ -85,7 +164,7 @@ export const StaticRouterMap = [{
           },
           {
             path: 'clients',
-            component: () => import('@/views/wy/customer/clientlist/index'),
+            component: () => import('@/views/wy/customer/commoditylist/index'),
             name: 'Clients',
             meta: {
               title: '客户管理'

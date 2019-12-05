@@ -90,7 +90,19 @@ div:focus {
         margin-top: 8px
       }
     }
-    
+    &-containerOther {
+      padding: 10px;
+      min-height: calc(100vh - 151px);
+      box-shadow: 0 1px 4px rgba(0,21,41,0.08);
+      .list-header{
+        font-size:12px;
+        border-radius: 4px;
+      }
+      .list-main{
+        margin-top: 8px
+      }
+    }
+
   }
 }
 .el-scrollbar__wrap {

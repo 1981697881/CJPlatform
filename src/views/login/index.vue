@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">融歆智慧管理平台N9</h3>
+        <h3 class="title">管理平台</h3>
       </div>
 
       <el-form-item prop="username">
@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-    
+
     </el-form>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
         //校验
-        //callback(new Error('Please enter the correct user name')) 
+        //callback(new Error('Please enter the correct user name'))
         callback()
       } else {
         callback()

@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { customerList } from "@/api/wy/customer/clientlist";
+import { customerList } from "@/api/wy/customer/commoditylist";
 export default {
   data() {
     return {

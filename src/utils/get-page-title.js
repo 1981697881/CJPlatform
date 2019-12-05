@@ -1,6 +1,6 @@
 import defaultSettings from '@/settings'
 
-const title = defaultSettings.title || '融歆N9'
+const title = defaultSettings.title || '管理平台'
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

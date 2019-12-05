@@ -7,6 +7,7 @@ import _router from '../router/router' // 获取组件的方法
  */
 export function addRouter(routerlist) {
   const router = []
+  console.log(routerlist)
   routerlist.forEach(e => {
     let e_new = {
       path: e.id || 'norouter-'+e.fid,
@@ -16,13 +17,13 @@ export function addRouter(routerlist) {
     if (e.redirect) { // 重定向
       e_new = Object.assign({}, e_new, { redirect: e.redirect })
     }
-    
+
     if (e.text) {// meta
       e_new = Object.assign({}, e_new, {
         meta: { title: e.text, icon: e.type==2?(e.icon || 'nested') : '' }
       })
-    } 
-    
+    }
+
     if (e.children) { // 下级
       e_new = Object.assign({}, e_new, { children: addRouter(e.children) })
     }
@@ -30,6 +31,6 @@ export function addRouter(routerlist) {
     e_new.component = e_new.component || _router('error')
     router.push(e_new)
   })
-  
+
   return router
 }

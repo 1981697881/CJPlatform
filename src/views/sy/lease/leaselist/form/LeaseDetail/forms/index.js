@@ -1,6 +1,0 @@
-export { default as DInfo } from './DInfo'
-export { default as DReceive } from './DReceive'
-export { default as DPay } from './DPay'
-export { default as DMore} from './DMore'
-export { default as DLog} from './DLog'
-export { default as DExecute} from './DExecute'
