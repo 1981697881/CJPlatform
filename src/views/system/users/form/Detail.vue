@@ -1,14 +1,33 @@
 <template>
   <div>
-    <el-form v-model="form" label-width="100px" :size="'mini'">
+    <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'用户名称'">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item :label="'uid'" >
+            <el-input v-model="form.uid"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'用户账号'">
+          <el-form-item :label="'平台'" prop="plaIds">
+          <el-select v-model="form.plaIds" multiple placeholder="请选择">
+            <el-option
+              v-for="item in plaArray"
+              :key="item.plaId"
+              :label="item.platformName"
+              :value="item.plaId">
+            </el-option>
+          </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item :label="'用户名称'" prop="username">
+            <el-input v-model="form.username"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item :label="'用户账号'" prop="code">
             <el-input v-model="form.code"></el-input>
           </el-form-item>
         </el-col>
@@ -28,34 +47,31 @@
 
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'用户权限'">
-            <el-select class="width-full" v-model="form.idType" placeholder="请选择用户权限">
-              <el-option label="管理员1" value="1"></el-option>
-              <el-option label="管理员2" value="2"></el-option>
+          <el-form-item :label="'用户权限'" prop="rid">
+            <el-select v-model="form.rid" class="width-full" placeholder="请选择用户权限">
+              <el-option :label="t.rName" :value="t.rid" v-for="(t,i) in buildFormat" :key="i"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'是否启用'">
-            <el-switch v-model="form.nationality"></el-switch>
+          <el-form-item :label="'是否启用'" >
+            <el-switch v-model="form.status"></el-switch>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <div slot="footer" style="text-align:center">
-        <el-button @click.native="visible= false">取 消</el-button>
-        <el-button type="primary" @click.native="saveData">保存</el-button>
+        <el-button type="primary" @click="saveData('form')">保存</el-button>
       </div>
   </div>
 </template>
 
 <script>
-import { buildFormat } from "@/api/wy/format";
-import { getCustomerById, saveCustomer } from "@/api/wy/customer/commoditylist";
+import {getRoles,saveUsers,getUsers,updateUsers,getPlas} from "@/api/system/users";
 
 export default {
   props: {
-    fid: {
+      uid: {
       type: Number,
       default: null
     }
@@ -63,62 +79,77 @@ export default {
   data() {
     return {
       form: {
-        fid: null,
-        buildId: null, // 所属项目
-        name: null, // 客户名称
-        code: null, // 客户编号
-        sex: null, // 性别
-        phone: null, // 联系号码
-        contact: null, // 联系人
-        qq: null, // QQ号码
-        email: null, // Email邮箱
-        nationality: null, // 国籍
-        idAddress: null, // 户口所在地
-        idType: null, // 证件类型
-        idCard: null, // 证件号码
-        urgencyContact: null, // 紧急联系人
-        urgencyPhone: null, // 紧急联系电话
-        faxNo: null, // 座机（传真）
-        address: null, // 联系地址
-        vipCard: null, // 会员卡号
-        accessCode: null, // 门禁卡编号
-        invoiceTitle: null, // 发票抬头
-        faxNo: null, // 纳税识别号
-        buyDate: null, // 购买日期
-        sellDate: null, // 出售日期
-        rentStartTime: null, // 租赁开始日期
-        rentEndTime: null, // 租赁结束日期
-        receiver: null, // 接待人员
-        receiverTime: null // 接待时间
+          uid: null,
+          username: null, // 名称
+        code: null, // 账号
+          rid:null,
+          plaIds:null,
       },
-      buildFormat: []
+        rules: {
+            username: [
+                {required: true, message: '请输入名稱', trigger: 'blur'},
+            ],
+            code: [
+                {required: true, message: '请输入账号', trigger: 'blur'},
+            ],
+            rid: [
+                {required: true, message: '请选择角色', trigger: 'change'},
+            ],
+            plaIds: [
+                {required: true, message: '请选择平台', trigger: 'change'},
+            ],
+
+        },
+      buildFormat: [],
+        plaArray:[],
     };
   },
   created() {
+      this.form.uid=this.uid
     this.fetchFormat();
   },
   mounted() {
-    if (this.fid) {
-      this.fetchData(this.fid);
+    if (this.form.uid) {
+      this.fetchData(this.form.uid);
     }
   },
   methods: {
-    saveData() {
-      if(!this.form.buildId) return this.$message({
-        message: "请选择房产",
-        type: "warning"
-      });
-      saveCustomer(this.form).then(res => {
-        console.log(res)
-      });
+    saveData(form) {
+        this.$refs[form].validate((valid) => {
+            //判断必填项
+            if (valid) {
+                console.log(this.uid)
+                if (typeof (this.uid) != undefined && this.uid != null) {
+                    updateUsers(this.form).then(res => {
+                        this.$emit('hideDialog', false)
+                        this.$emit('uploadList')
+                    });
+                }else{
+                    saveUsers(this.form).then(res => {
+                        this.$emit('hideDialog', false)
+                        this.$emit('uploadList')
+                    });
+                }
+
+
+            }else {
+                return false;
+            }
+        })
+
     },
     fetchFormat() {
-      buildFormat().then(res => {
+        getRoles().then(res => {
+            console.log(res)
         this.buildFormat = res.data;
       });
+        getPlas().then(res => {
+            console.log(res)
+            this.plaArray = res.data;
+        });
     },
     fetchData(val) {
-      getCustomerById(val).then(res => {
+        getUsers(val).then(res => {
         this.form = res.data;
       });
     }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="list.list"
+      :data="list.records"
       border
       stripe
       size="mini"
@@ -21,11 +21,20 @@
         v-for="(t,i) in columns"
         :key="i"
         :prop="t.name"
+        v-if="t.default!=undefined?t.default:true"
         :label="t.text"
         :width="t.width?t.width:(selfAdaption?'':'120px')"
         show-overflow-tooltip
         align="center"
       ></el-table-column>
+      <!--<el-table-column
+        fixed="right"
+        label="操作"
+        width="100">
+        <template slot-scope="scope">
+          <el-button  type="text" size="small"  @click.native="">添加</el-button>
+        </template>
+      </el-table-column>-->
       <slot name="after"></slot>
     </el-table>
 
@@ -33,9 +42,9 @@
       <el-pagination
         @size-change="handleSize"
         @current-change="handleCurrent"
-        :current-page="list.pageNum"
-        :page-sizes="[5, 10, 20, 30]"
-        :page-size="list.pageSize"
+        :current-page="list.current"
+        :page-sizes="[50, 100, 250, 500]"
+        :page-size="list.size"
         :page-count="list.pages?list.pages:0"
         layout="total, sizes, prev, pager, next, jumper"
         :total="list.total?list.total:0"

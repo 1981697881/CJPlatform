@@ -40,7 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { customerList } from "@/api/wy/customer/commoditylist";
+import { stockList } from "@/api/resource/stock";
 import List from "@/components/List";
 
 export default {
@@ -57,12 +57,12 @@ export default {
       type: null,
       columns: [
         { text: "fid", name: "fid" },
-        { text: "商品名称", name: "name" },
-        { text: "商品编号", name: "code" },
-        { text: "规格型号", name: "contact" },
-        { text: "仓库", name: "phone" },
-        { text: "数量", name: "qq" },
-          { text: "更新时间", name: "qq" },
+        { text: "商品名称", name: "goodName" },
+        { text: "商品编号", name: "goodCode" },
+        { text: "规格型号", name: "standard" },
+        { text: "仓库", name: "wareHouseName" },
+        { text: "数量", name: "num" },
+          { text: "更新时间", name: "updateTime" },
       ]
     };
   },
@@ -77,16 +77,16 @@ export default {
     }
   }, */
   methods: {
-    //监听每页显示几条
-    handleSize(val) {
-      this.list.pageSize = val
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
-    //监听当前页
-    handleCurrent(val) {
-      this.list.pageNum = val;
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
+      //监听每页显示几条
+      handleSize(val) {
+          this.list.size = val
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
+      //监听当前页
+      handleCurrent(val) {
+          this.list.current = val;
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
     dblclick(obj) {
       const data = {
         fid : obj.row.fid,
@@ -96,14 +96,13 @@ export default {
     },
     fetchData(fid, type) {
       this.loading = true;
-
       const data = {
       /*  fid: fid,
         type: type,*/
-        pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 5
+          pageNum: this.list.current || 1,
+          pageSize: this.list.size || 50
       };
-        customerList(data).then(res => {
+        stockList(data).then(res => {
         this.loading = false;
         this.list = res.data;
       });

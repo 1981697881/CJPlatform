@@ -40,7 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { customerList } from "@/api/wy/customer/commoditylist";
+import { rateList } from "@/api/resource/rate";
 import List from "@/components/List";
 
 export default {
@@ -60,7 +60,7 @@ export default {
         { text: "商品名称", name: "name" },
         { text: "商品编号", name: "code" },
         { text: "规格", name: "contact" },
-        { text: "型号", name: "phone" },
+        { text: "数量", name: "phone" },
         { text: "单位", name: "qq" },
       ]
     };
@@ -76,16 +76,16 @@ export default {
     }
   }, */
   methods: {
-    //监听每页显示几条
-    handleSize(val) {
-      this.list.pageSize = val
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
-    //监听当前页
-    handleCurrent(val) {
-      this.list.pageNum = val;
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
+      //监听每页显示几条
+      handleSize(val) {
+          this.list.size = val
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
+      //监听当前页
+      handleCurrent(val) {
+          this.list.current = val;
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
     dblclick(obj) {
       const data = {
         fid : obj.row.fid,
@@ -99,10 +99,10 @@ export default {
       const data = {
       /*  fid: fid,
         type: type,*/
-        pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 5
+          pageNum: this.list.current || 1,
+          pageSize: this.list.size || 50
       };
-        customerList(data).then(res => {
+        rateList(data).then(res => {
         this.loading = false;
         this.list = res.data;
       });

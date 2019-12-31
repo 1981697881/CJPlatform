@@ -10,9 +10,9 @@
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-search">查询</el-button>
         </el-col>
-        <!--<el-col :span="2">
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">商品同步</el-button>
-        </el-col>-->
+        <el-col :span="2">
+          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">价格同步</el-button>
+        </el-col>
       </el-row>
     </el-form>
   </div>

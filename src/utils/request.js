@@ -11,7 +11,7 @@ import {
 import querystring from 'querystring'
 // create an axios instance
 const service = axios.create({
-  baseURL: (process.env.NODE_ENV === 'production'?'http://47.106.37.87:8081':'')+process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: (process.env.NODE_ENV === 'production'?'http://test.gzfzdev.com:8080':'')+process.env.VUE_APP_BASE_API, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 20000 // request timeout
 })
@@ -58,11 +58,11 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    const res = response.data
+    const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
     // console.log(response)
     if (response.status !== 200) {
-      
+
       Message({
         message: res.msg || '操作失败',
         type: 'error',
@@ -91,7 +91,7 @@ service.interceptors.response.use(
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       if(res.msg!="登陆成功" && res.msg!=null){
-        if(res.status==0){
+        if(res.status==20000){
           Message({
             message:res.msg,
             type:'success',
@@ -105,7 +105,9 @@ service.interceptors.response.use(
           })
         }
       }
-      
+      store.dispatch('user/addToken',response.headers.authorization).then(() => {
+
+      })
       return res
     }
   },

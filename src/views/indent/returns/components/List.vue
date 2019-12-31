@@ -33,6 +33,7 @@
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
+       @row-click="rowClick"
     />
 
   </div>
@@ -40,7 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { customerList } from "@/api/wy/customer/commoditylist";
+import { returnsList ,receiving} from "@/api/indent/returns";
 import List from "@/components/List";
 
 export default {
@@ -56,14 +57,15 @@ export default {
       list: {},
       type: null,
       columns: [
-          { text: "fid", name: "fid" },
-          { text: "退货单号", name: "name" },
+          { text: "reOdId", name: "reOdId" },
+          { text: "orderId", name: "orderId" },
+          { text: "退货单号", name: "returnOrderNum" },
           { text: "客户名称", name: "code" },
           { text: "数量", name: "contact" },
           { text: "金额", name: "phone" },
-          { text: "申请时间", name: "qq" },
+          { text: "申请时间", name: "createTime" },
           { text: "退货原因", name: "qq" },
-          { text: "状态", name: "qq" },
+          { text: "状态", name: "isAudit" },
       ]
     };
   },
@@ -88,23 +90,28 @@ export default {
       this.list.pageNum = val;
       this.fetchData(this.node.data.fid,this.node.data.type);
     },
+      //监听单击某一行
+      rowClick(obj) {
+          this.$store.dispatch("list/setClickData", obj.row);
+      },
     dblclick(obj) {
-      const data = {
-        fid : obj.row.fid,
-        type : obj.row.type
-      }
-      this.$emit('showDialog',data)
+      this.$emit('showDialog',obj.row)
     },
+      //收货确认
+      Receiving(val){
+          receiving(val).then(res => {
+              this.$emit('uploadList')
+          });
+      },
     fetchData(fid, type) {
       this.loading = true;
-
       const data = {
       /*  fid: fid,
         type: type,*/
         pageNum: this.list.pageNum || 1,
         pageSize: this.list.pageSize || 5
       };
-        customerList(data).then(res => {
+        returnsList(data).then(res => {
         this.loading = false;
         this.list = res.data;
       });

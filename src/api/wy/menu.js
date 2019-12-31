@@ -1,17 +1,17 @@
 import request from '@/utils/request'
+import {
+  getToken
+} from '@/utils/auth'
 
 export function getRouter(userId) {
   const data = {
     userId: userId
   }
-  console.log(request({
-    url: '/back/system/jur/getUserMenu.do',
-    method: 'post',
-    data
-  }))
   return request({
-    url: '/back/system/jur/getUserMenu.do',
-    method: 'post',
-    data
+    url: '/sysMenu/getUserMenu',
+    method: 'get',
+    headers: {
+      'authorization': getToken('rx'),
+    },
   })
 }

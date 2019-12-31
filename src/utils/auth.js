@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 
 const TokenKey = 'rx'
 
-export function getToken() {
+export function getToken(TokenKey) {
   return Cookies.get(TokenKey)
 }
 

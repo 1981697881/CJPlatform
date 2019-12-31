@@ -41,7 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { customerList } from "@/api/wy/customer/commoditylist";
+import { usersList } from "@/api/system/users";
 import List from "@/components/List";
 
 export default {
@@ -57,13 +57,13 @@ export default {
       list: {},
       type: null,
       columns: [
-        { text: "fid", name: "fid" },
-        { text: "用户名称", name: "name" },
+        { text: "uid", name: "uid" },
+        { text: "用户名称", name: "username" },
         { text: "登录账号", name: "code" },
         { text: "联系电话", name: "contact" },
         { text: "所属公司", name: "phone" },
           { text: "权限", name: "phone" },
-        { text: "状态", name: "qq" },
+        { text: "状态", name: "status" },
       ]
     };
   },
@@ -78,22 +78,18 @@ export default {
     }
   }, */
   methods: {
-    //监听每页显示几条
-    handleSize(val) {
-      this.list.pageSize = val
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
-    //监听当前页
-    handleCurrent(val) {
-      this.list.pageNum = val;
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
+      //监听每页显示几条
+      handleSize(val) {
+          this.list.size = val
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
+      //监听当前页
+      handleCurrent(val) {
+          this.list.current = val;
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
     dblclick(obj) {
-      const data = {
-        fid : obj.row.fid,
-        type : obj.row.type
-      }
-      this.$emit('showDialog',data)
+      this.$emit('showDialog',obj.row)
     },
       //监听单击某一行
       rowClick(obj) {
@@ -105,10 +101,10 @@ export default {
       const data = {
       /*  fid: fid,
         type: type,*/
-        pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 5
+          pageNum: this.list.current || 1,
+          pageSize: this.list.size || 50
       };
-        customerList(data).then(res => {
+        usersList(data).then(res => {
         this.loading = false;
         this.list = res.data;
       });

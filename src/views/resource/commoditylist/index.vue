@@ -3,9 +3,9 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @showDialog="handlerDialog"/>
+        <tabs-bar @addUnit="handlerTabs"  @showDialog="handlerDialog"/>
       </div>
-      <list  ref="list"  @showDialog="handlerDialog"/>
+      <list  ref="list" @uploadList="upload" @showDialog="handlerDialog"/>
     </div>
 
     <el-dialog
@@ -16,7 +16,6 @@
       destroy-on-close
     >
       <customer-info :fid="fid"></customer-info>
-
     </el-dialog>
   </div>
 </template>
@@ -56,7 +55,11 @@ export default {
     },
     handlerTabs(prId) {
       this.$refs.list.addUnit(prId);
-    }
+    },
+      //更新列表
+      upload(){
+          this.$refs.list.fetchData()
+      }
   }
 };
 </script>

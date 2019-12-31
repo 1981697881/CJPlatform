@@ -29,9 +29,9 @@ router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
-  const hasToken = getToken()
+  const hasToken = getToken('rx')
+  console.log(hasToken)
   if (hasToken) {
-
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({
@@ -39,17 +39,16 @@ router.beforeEach(async (to, from, next) => {
       })
       NProgress.done()
     } else {
-
       if (hasMenu) {
         // 获取了动态路由 hasMenu一定true,就无需再次请求 直接放行
         const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
         next()
       } else {
-        try {
+        next()
+        /*try {
           // get user info
           await store.dispatch('user/getInfo')
-
           next()
         } catch (error) {
           // remove token and go to login page to re-login
@@ -57,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()
-        }
+        }*/
       }
       } else {
         // hasMenu为false,一定没有获取动态路由,就跳转到获取动态路由的方法
@@ -70,6 +69,8 @@ router.beforeEach(async (to, from, next) => {
 
   } else {
     /* has no token*/
+    console.log(to.path)
+    console.log(whiteList.indexOf(to.path) !== -1)
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

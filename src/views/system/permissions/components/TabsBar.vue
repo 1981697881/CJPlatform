@@ -3,8 +3,8 @@
     <el-form v-model="search" :size="'mini'" :label-width="'80px'">
       <el-button-group style="float:right">
         <el-button :size="'mini'" type="primary" @click="handlerBtn">新增</el-button>
-        <el-button :size="'mini'" type="primary">修改</el-button>
-        <el-button :size="'mini'" type="primary">保存权限</el-button>
+        <el-button :size="'mini'" type="primary" @click="handlerAlter">修改</el-button>
+        <el-button :size="'mini'" type="primary" @click="saveRole">保存权限</el-button>
         <el-button :size="'mini'" type="primary">删除</el-button>
       </el-button-group>
     </el-form>
@@ -23,7 +23,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["node"])
+    ...mapGetters(["node","clickData"])
   },
   methods:{
     handleTab(node){
@@ -39,9 +39,22 @@ export default {
         })
       }
     },
+      saveRole(){
+          this.$emit("saveRoles")
+      },
     handlerBtn(){
-      this.$emit("add-unit")
-    }
+      this.$emit("showDialog",{rid:null})
+    },
+      handlerAlter(){
+          if (this.clickData.rid) {
+              this.$emit('showDialog',{rid: this.clickData.rid })
+          } else {
+              this.$message({
+                  message: "无选中行",
+                  type: "warning"
+              });
+          }
+      }
   }
 };
 </script>

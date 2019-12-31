@@ -1,15 +1,14 @@
 import request from '@/utils/request'
 
 export function login(data) {
-  
   return request({
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest'
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
     },
-    url: '/back/system/user/login.do',
+    url: '/user/login',
     method: 'post',
-    params:data
+    data
   })
 }
 

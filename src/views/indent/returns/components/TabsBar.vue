@@ -11,7 +11,10 @@
           <el-button :size="'mini'" type="primary" icon="el-icon-search">查询</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">审核</el-button>
+          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleAudit">审核</el-button>
+        </el-col>
+        <el-col :span="2">
+          <el-button :size="'mini'" type="primary" icon="el-icon-plus"  @click="Receiving">收货确认</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -31,12 +34,37 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["node"])
+    ...mapGetters(["node","clickData"])
   },
   methods:{
-    handleTab(node){
-        this.$emit('showDialog')
-    }
+      Receiving(){
+          if (this.clickData.reOdId) {
+              this.$emit('receiving',{
+                  reOdId:this.clickData.reOdId,
+              })
+          } else {
+              this.$message({
+                  message: "无选中行",
+                  type: "warning"
+              });
+          }
+      },
+      handleAudit(){
+          if (this.clickData.reOdId) {
+              this.$emit('showDialog',{
+                  orderId:this.clickData.orderId,
+                  reOdId:this.clickData.reOdId,
+                  returnOrderNum:this.clickData.returnOrderNum,
+                  createTime:this.clickData.createTime
+              })
+          } else {
+              this.$message({
+                  message: "无选中行",
+                  type: "warning"
+              });
+          }
+
+      },
   }
 };
 </script>

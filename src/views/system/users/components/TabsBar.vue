@@ -11,10 +11,10 @@
           <el-button :size="'mini'" type="primary" icon="el-icon-search">查询</el-button>
         </el-col>
         <el-button-group style="float:right">
-          <el-button :size="'mini'" type="primary" @click="handleTab(node)">新增</el-button>
-          <el-button :size="'mini'" type="primary" >修改</el-button>
+          <el-button :size="'mini'" type="primary" @click="handleAdd">新增</el-button>
+          <el-button :size="'mini'" type="primary" @click="handleAlter">修改</el-button>
           <el-button :size="'mini'" type="primary" >用户信息同步</el-button>
-          <el-button :size="'mini'" type="primary" @click="handleDisable">禁用</el-button>
+          <el-button :size="'mini'" type="primary" @click="">禁用</el-button>
           <el-button :size="'mini'" type="primary">启用</el-button>
           <el-button :size="'mini'" type="primary">密码重置</el-button>
         </el-button-group>
@@ -39,12 +39,12 @@ export default {
     ...mapGetters(["node","clickData"])
   },
   methods:{
-    handleTab(node){
-            this.$emit('showDialog')
+      handleAdd(node){
+            this.$emit('showDialog',{uid: null })
     },
-      handleDisable(){
-          if (this.clickData.fid) {
-              console.log(this.clickData)
+      handleAlter(){
+          if (this.clickData.uid) {
+              this.$emit('showDialog',{uid: this.clickData.uid })
           } else {
               this.$message({
                   message: "无选中行",

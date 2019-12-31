@@ -47,6 +47,7 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import Alter from "@/components/Alter"
+import {getToken} from '@/utils/auth' // get token from cookie
 
 export default {
   components: {
@@ -57,13 +58,15 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'name'
+      /*'name',
+        'username'*/
     ])
   },
     data() {
         return {
             visible: null,
             fid: null,
+            name:getToken('un')
         };
     },
   methods: {

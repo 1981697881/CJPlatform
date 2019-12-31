@@ -41,7 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { customerList } from "@/api/wy/customer/commoditylist";
+import { salesList ,delivery} from "@/api/indent/sales";
 import List from "@/components/List";
 
 export default {
@@ -56,49 +56,49 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "fid", name: "fid" },
-        { text: "订单单号", name: "name" },
+        { text: "oid", name: "oid" },
+        { text: "订单单号", name: "orderId" },
         { text: "客户名称", name: "code" },
         { text: "数量", name: "contact" },
         { text: "金额", name: "phone" },
-        { text: "下单时间", name: "qq" },
-          { text: "审核状态", name: "qq" },
-          { text: "发货状态", name: "qq" },
+        { text: "下单时间", name: "createTime" },
+          { text: "审核状态", name: "auditStatus" },
+          { text: "发货状态", name: "status" },
       ]
     };
   },
   methods: {
-    //监听每页显示几条
-    handleSize(val) {
-      this.list.pageSize = val
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
-    //监听当前页
-    handleCurrent(val) {
-      this.list.pageNum = val;
-      this.fetchData(this.node.data.fid,this.node.data.type);
-    },
+      //监听每页显示几条
+      handleSize(val) {
+          this.list.size = val
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
+      //监听当前页
+      handleCurrent(val) {
+          this.list.current = val;
+          this.fetchData(this.node.data.fid,this.node.data.type);
+      },
     dblclick(obj) {
-      const data = {
-        fid : obj.row.fid,
-        type : obj.row.type
-      }
-      this.$emit('showDialog',data)
+      this.$emit('showDialog',obj.row)
     },
+      Delivery(val){
+          delivery(val).then(res => {
+              this.$emit('uploadList')
+          });
+      },
       //监听单击某一行
       rowClick(obj) {
           this.$store.dispatch("list/setClickData", obj.row);
       },
     fetchData(fid, type) {
       this.loading = true;
-
       const data = {
       /*  fid: fid,
         type: type,*/
-        pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 5
+          pageNum: this.list.current || 1,
+          pageSize: this.list.size || 50
       };
-        customerList(data).then(res => {
+        salesList(data).then(res => {
         this.loading = false;
         this.list = res.data;
       });

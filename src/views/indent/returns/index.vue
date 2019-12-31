@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @showDialog="handlerDialog"/>
+        <tabs-bar  @showDialog="handlerDialog" @receiving="receiving"/>
       </div>
       <list  ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -15,7 +15,7 @@
       :width="'50%'"
       destroy-on-close
     >
-      <customer-info :fid="fid"></customer-info>
+      <customer-info @hideDialog="hideWindow" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime"></customer-info>
 
     </el-dialog>
   </div>
@@ -43,20 +43,28 @@ export default {
         this.$refs.list.fetchData()
     },
   methods: {
-    saveData(){
-
-    },
+      hideWindow(val){
+          this.visible = val
+      },
+      receiving(obj){
+          if(obj){
+              console.log(obj.reOdId)
+              this.$refs.list.Receiving(obj.reOdId)
+              this.$refs.list.fetchData()
+          }
+      },
     handlerDialog(obj){
-      if(obj)this.fid = obj.fid
+      if(obj)this.reOdId = obj.reOdId;this.returnOrderNum=obj.returnOrderNum;this.createTime=obj.createTime;this.orderId=obj.orderId;
       this.visible = true
     },
     handlerNode(node) {
       console.log(node.data)
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
-    handlerTabs(prId) {
-      this.$refs.list.addUnit(prId);
-    }
+      //更新列表
+      upload(){
+          this.$refs.list.fetchData()
+      }
   }
 };
 </script>

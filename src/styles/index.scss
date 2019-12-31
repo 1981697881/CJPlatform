@@ -71,14 +71,14 @@ div:focus {
   // box-shadow: 0 1px 4px rgba(0,21,41,0.08);
   .list {
     &-tree {
-      width: 210px;
+      width: 220px;
       height: calc(100vh - 151px);
       position: absolute;
       padding: 10px;
       box-shadow: 0 1px 4px rgba(0,21,41,0.08);
     }
     &-container {
-      margin-left: 220px;
+      margin-left: 230px;
       padding: 10px;
       min-height: calc(100vh - 151px);
       box-shadow: 0 1px 4px rgba(0,21,41,0.08);
