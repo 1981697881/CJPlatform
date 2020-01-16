@@ -29,7 +29,6 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
@@ -57,11 +56,11 @@ export default {
       list: {},
       type: null,
       columns: [
-        { text: "uid", name: "uid" },
-        { text: "用户名称", name: "username" },
-        { text: "登录账号", name: "code" },
-        { text: "联系电话", name: "contact" },
-        { text: "所属公司", name: "phone" },
+        { text: "uid", name: "uid" ,default:false},
+        { text: "用户名称", name: "name" },
+        { text: "登录账号", name: "username" },
+        { text: "联系电话", name: "tel" },
+        { text: "所属公司", name: "come" },
           { text: "权限", name: "phone" },
         { text: "状态", name: "status" },
       ]

@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @showDialog="handlerDialog"/>
+        <tabs-bar @addUnit="handlerTabs" @showTable="loadList" @showDialog="handlerDialog"/>
       </div>
       <list :id="treeId" ref="list" :pr-id="floorId" @showDialog="handlerDialog"/>
     </div>
@@ -40,12 +40,15 @@ export default {
     };
   },
     mounted() {
-        this.$refs.list.fetchData()
+       /* this.$refs.list.fetchData()*/
     },
   methods: {
     saveData(){
 
     },
+      loadList(val){
+          this.$refs.list.fetchData(val)
+      },
     handlerDialog(obj){
       if(obj)this.fid = obj.fid
 

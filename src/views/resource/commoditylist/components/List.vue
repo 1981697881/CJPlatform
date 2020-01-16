@@ -1,12 +1,13 @@
 <template>
-  <div>
-     <el-table class="list-main" :data="list.records" border size="mini" :highlight-current-row="true" >
+  <div class="list-main">
+     <el-table :height="height" :data="list.records" border size="mini" :highlight-current-row="true" >
       <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
       <el-table-column
         v-for="(t,i) in columns"
         :key="i"
         align="center"
         :prop="t.name"
+
         :label="t.text"
         v-if="t.default!=undefined?t.default:true"
         :width="t.width?t.width:''"
@@ -37,10 +38,11 @@
       v-if="visible"
       :width="'40%'"
       destroy-on-close
+
     >
       <div style="text-align: center">
         <el-upload
-          action="/file/Goods/imgUpload"
+          action="web/file/Goods/imgUpload"
           list-type="picture-card"
           accept="png,jpg,jpeg"
           :headers="headers"
@@ -52,31 +54,39 @@
           :on-preview="handlePictureCardPreview"
           :on-change="handleChange"
           :file-list="fileList"
+          ref="upload"
           :on-remove="handleRemove">
           <i class="el-icon-plus"></i>
         </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="">
+        <el-dialog :visible.sync="dialogVisible"  append-to-body >
+          <img width="100%"  :src="dialogImageUrl" alt="">
         </el-dialog>
       </div>
+    <!--  <div slot="footer" style="text-align:center">
+        <el-button @click.native="submitUpload">上传</el-button>
+      </div>-->
     </el-dialog>
   </div>
 </template>
 
 <script>
+    import axios from 'axios';
 import { mapGetters } from "vuex";
-import { commodityList ,alterCommodity} from "@/api/resource/commodity";
-import List from "@/components/List";
+import { commodityList ,alterCommodity,delImg} from "@/api/resource/commodity";
 import {
     getToken
 } from '@/utils/auth'
 export default {
-  components: {
-    List
-  },
   computed: {
     ...mapGetters(["node"])
   },
+    props: {
+        //是否自定义高度 默认100%
+        height:{
+            type:String,
+            default:"100%"
+        },
+    },
   data() {
     return {
         headers:{
@@ -91,14 +101,14 @@ export default {
         visible:null,
         fileList: [],
       loading: false,
-        limitCount:1,
+        limitCount:3,
       list: {},
       type: null,
       columns: [
         { text: "gid", name: "gid" ,default:false},
           { text: "商品编码", name: "goodCode" },
         { text: "商品名称", name: "goodName" },
-        { text: "规格型号", name: "model" },
+        { text: "规格型号", name: "standard" },
         { text: "单位", name: "unitOfMea" },
       ]
     };
@@ -117,34 +127,81 @@ export default {
       handleChange(file, fileList){
           this.hideUpload = fileList.length >= this.limitCount;
       },
+      uploadFile(file){
+          this.formDate.append('imgS', file.file);
+      },
+      //批量上传图片
+      submitUpload() {
+          this.formDate = new FormData();
+          this.$refs.upload.submit();
+          this.formDate.append('gid', this.imgData.gid);
+          let config = {
+              headers: {
+                  'authorization': getToken('rx'),
+                  'Content-Type': 'multipart/form-data'
+              }
+          }
+          console.log(this.formDate)
+          axios.post("/web/file/Goods/imgUpload", this.formDate,config).then(res => {
+              if(res.data.flag){
+                this.visible=false;
+                  this.$message({
+                      message: res.msg,
+                      type: "success"
+                  });
+                  this.$emit('uploadList')
+              }
+          }).catch( res => {
+              console.log(res)
+          })
+
+      },
       handleEdit(index,row){
           this.hideUpload = false;
           this.visible = true;
           this.imgData.gid=row.gid;
-          if(row.img){
-              this.hideUpload = true;
+          this.fileList=[];
+          if(row.img != ''&& row.img!=null){
+              let imgArray=row.img.split(',');
+              if(imgArray.length>0){
+                  if(imgArray.length>=3){
+                      this.hideUpload = true;
+                  }else{
+                      this.hideUpload = false;
+                  }
+                  this.fileList=[]
+                  for(let i in imgArray){
+                      this.fileList.push({
+                          url:'http://120.78.168.141:8091/web'+imgArray[i]
+                      })
+                  }
+              }else{
+                  this.fileList = [];
+              }
+          }
+         /* if(row.img){
               if(this.fileList.length>0){
-                  this.fileList[0].url = 'http://test.gzfzdev.com:8080'+row.img;
+                  this.fileList[0].url = 'http://120.78.168.141:8091'+row.img;
               }else{
                   this.fileList=[]
                   this.fileList.push({
-                      url:'http://test.gzfzdev.com:8080'+row.img
+                      url:'http://120.78.168.141:8091'+row.img
                   })
               }
           }else{
               this.fileList = [];
-          }
+          }*/
           console.log(this.fileList)
       },
-      uploadError(res){
+      uploadError(res,file){
           this.$message({
               message: res.msg,
               type: "warning"
           });
           this.$emit('uploadList')
       },
-      uploadSuccess(res){
-          console.log(123)
+      uploadSuccess(res,file,fileList){
+          file.url='http://120.78.168.141:8091/web/good/img/'+res.data;
           this.$message({
               message: res.msg,
               type: "success"
@@ -152,10 +209,12 @@ export default {
           this.$emit('uploadList')
       },
       handleRemove(file, fileList) {
+          var val = file.url.split('http://120.78.168.141:8091/web/good/img/')[1]
+          console.log(val)
           this.loading = true;
-          alterCommodity({
+          delImg({
               gid:this.imgData.gid,
-              img:''
+              img:val
           }).then(res => {
               this.$message({
                   message: res.msg,
@@ -165,7 +224,7 @@ export default {
                   this.hideUpload = fileList.length >= this.limitCount;
                   this.$emit('uploadList')
                   this.loading = false;
-                  this.visible=false;
+                  //this.visible=false;
               }
           });
       },

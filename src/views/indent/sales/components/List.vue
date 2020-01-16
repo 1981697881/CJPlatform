@@ -29,7 +29,6 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
@@ -56,11 +55,10 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "oid", name: "oid" },
+        { text: "oid", name: "oid",default:false },
         { text: "订单单号", name: "orderId" },
-        { text: "客户名称", name: "code" },
-        { text: "数量", name: "contact" },
-        { text: "金额", name: "phone" },
+        { text: "客户名称", name: "username" },
+        { text: "金额", name: "price" },
         { text: "下单时间", name: "createTime" },
           { text: "审核状态", name: "auditStatus" },
           { text: "发货状态", name: "status" },
@@ -100,7 +98,9 @@ export default {
       };
         salesList(data).then(res => {
         this.loading = false;
-        this.list = res.data;
+            if(res.flag&&res.data!=null){
+                this.list = res.data;
+            }
       });
     }
   }

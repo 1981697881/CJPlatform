@@ -19,7 +19,7 @@ NProgress.configure({
 
 const whiteList = ['/login'] // no redirect whitelist
 
-var hasMenu = true//是否有路由 *
+var hasMenu = false//是否有路由 *
 router.beforeEach(async (to, from, next) => {
 
 
@@ -30,14 +30,13 @@ router.beforeEach(async (to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken('rx')
-  console.log(hasToken)
-  if (hasToken) {
+  if (typeof(hasToken)!='undefined') {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
-      next({
+     /* next({
         path: '/'
       })
-      NProgress.done()
+      NProgress.done()*/
     } else {
       if (hasMenu) {
         // 获取了动态路由 hasMenu一定true,就无需再次请求 直接放行
@@ -45,10 +44,10 @@ router.beforeEach(async (to, from, next) => {
       if (hasGetUserInfo) {
         next()
       } else {
-        next()
-        /*try {
+        try {
           // get user info
-          await store.dispatch('user/getInfo')
+          //await store.dispatch('user/getInfo')
+          console.log(next())
           next()
         } catch (error) {
           // remove token and go to login page to re-login
@@ -56,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()
-        }*/
+        }
       }
       } else {
         // hasMenu为false,一定没有获取动态路由,就跳转到获取动态路由的方法
@@ -91,9 +90,15 @@ function gotoRouter(to, next) {
   getRouter(store.getters.token) // 使用useid获取路由
     .then(res => {
       console.log('解析后端动态路由', res.data)
-      const asyncRouter = addRouter(res.data) // 进行递归解析
+
+      res.data[0].map(val=>{
+        val.type = 1
+      })
+      console.log('解析后端动态路由', res.data)
+      const asyncRouter = addRouter(res.data[0]) // 进行递归解析
       // 一定不能写在静态路由里面,否则会出现,访问动态路由404的情况.所以在这列添加
       asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
+      console.log(asyncRouter)
       return asyncRouter
     })
     .then(asyncRouter => {

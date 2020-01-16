@@ -29,10 +29,8 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
-      @dblclick="dblclick"
     />
 
   </div>
@@ -56,12 +54,13 @@ export default {
       list: {},
       type: null,
       columns: [
-        { text: "fid", name: "fid" },
+        { text: "gid", name: "gid",default:false },
         { text: "商品名称", name: "goodName" },
         { text: "商品编号", name: "goodCode" },
         { text: "规格型号", name: "standard" },
         { text: "仓库", name: "wareHouseName" },
         { text: "数量", name: "num" },
+          { text: "价格", name: "price" },
           { text: "更新时间", name: "updateTime" },
       ]
     };
@@ -94,11 +93,12 @@ export default {
       }
       this.$emit('showDialog',data)
     },
-    fetchData(fid, type) {
+    fetchData(val) {
       this.loading = true;
       const data = {
       /*  fid: fid,
         type: type,*/
+          plaId:val,
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };

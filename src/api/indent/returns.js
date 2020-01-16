@@ -13,9 +13,21 @@ export function returnsList(data) {
     method: 'get',
   })
 }
+
 // 修改 根据id查询
 export function getReturnOrder(data) {
   const url = '/returnOrder/getById/' + data
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+    },
+    url: url,
+    method: 'get',
+  })
+}
+// 根据id查询
+export function getOrderGoodsById(data) {
+  const url = '/returnOrder/getOrderGoodsById/' + data
   return request({
     headers: {
       'authorization': getToken('rx'),

@@ -88,7 +88,7 @@ export default {
     //是否自适应宽度，不自适应宽度默认为120px
     selfAdaption: {
       type: Boolean,
-      default: false
+      default:true
     },
     //是否自定义高度 默认100%
     height:{
@@ -147,5 +147,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+  .el-table__body tr.current-row>td{
+    background-color: #f19944 !important;
+    /* color: #f19944; */  /* 设置文字颜色，可以选择不设置 */
+  }
+  /* 用来设置当前页面element全局table 鼠标移入某行时的背景色*/
+  .el-table--enable-row-hover .el-table__body tr:hover>td {
+    background-color: #f19944;
+    /* color: #f19944; */ /* 设置文字颜色，可以选择不设置 */
+  }
+
 </style>

@@ -59,7 +59,7 @@ export const StaticRouterMap = [{
       }
     }]
   },
-  {
+ /* {
     path: '/resource',
     component: Layout,
     name: 'Resource',
@@ -137,117 +137,7 @@ export const StaticRouterMap = [{
       },
     }
     ]
-  },
-  /* {
-    path: '/wy',
-    component: Layout,
-    redirect: '/wy/resource',
-    name: 'Wy',
-    meta: {
-      title: '物业管理系统',
-      icon: 'nested'
-    },
-    children: [{
-        path: 'resource',
-        component: () => import('@/views/wy/resource/index'),
-        name: 'Resource',
-        meta: {
-          title: '资源管理'
-        },
-        children: [{
-            path: 'houses',
-            component: () => import('@/views/wy/resource/houselist/index'),
-            name: 'Houses',
-            meta: {
-              title: '房产资料'
-            },
-          },
-          {
-            path: 'clients',
-            component: () => import('@/views/wy/customer/commoditylist/index'),
-            name: 'Clients',
-            meta: {
-              title: '客户管理'
-            }
-          },
-          {
-            path: 'carPark',
-            component: notpage,
-            name: 'CarPark',
-            meta: {
-              title: '车位管理'
-            }
-          },
-        ]
-      },
-      {
-        path: 'lease',
-        component: notpage,
-        name: 'Lease',
-        meta: {
-          title: '租赁管理'
-        },
-        children: [{
-            path: 'lease-manage',
-            component: notpage,
-            name: 'Lease-manage',
-            meta: {
-              title: '租赁合同'
-            }
-          },
-          {
-            path: 'lease-contract',
-            component: notpage,
-            name: 'Lease-contract',
-            meta: {
-              title: '返租合同'
-            }
-          }
-        ]
-      },
-      {
-        path: 'finance',
-        component: notpage,
-        name: 'Finance',
-        meta: {
-          title: '财务管理'
-        },
-        children: [{
-            path: 'receipt-standard',
-            component: notpage,
-            name: 'Receipt-standard',
-            meta: {
-              title: '收费标准'
-            }
-          },
-          {
-            path: 'receipt-manage',
-            component: notpage,
-            name: 'Receipt-manage',
-            meta: {
-              title: '收款管理'
-            }
-          },
-          {
-            path: 'payables',
-            component: notpage,
-            name: 'Payables',
-            meta: {
-              title: '应付管理'
-            }
-          },
-          {
-            path: 'receivable',
-            component: notpage,
-            name: 'Receivable',
-            meta: {
-              title: '应收管理'
-            }
-          }
-        ]
-      },
-    ]
-  }, */
+  },*/
   /* {
     path: 'external-link',
     component: Layout,

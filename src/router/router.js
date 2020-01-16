@@ -5,11 +5,17 @@ export default file => {
 const map = {
   Layout: () => import('@/layout'),
   error: () => import('@/views/404'),
-  '/resource': () => import('@/layout'), // 1 - 物业管理
+  'resource': () => import('@/views/resource/index'),
 
-  'clientlist': () => import('@/views/resource/commoditylist/index'), // 3 - 物业管理/客户管理 - 客户资料
+  'commodity': () => import('@/views/resource/commoditylist/index'),
+  'rate': () => import('@/views/resource/ratelist/index'),
+  'stock': () => import('@/views/resource/stocklist/index'),
 
-  '/system': () => import('@/layout'), // 1 - 商业管理
-  'organization': () => import('@/views/system/users/index'), // 3 - 商业管理/租赁管理 - 租赁合同
+  'indent': () => import('@/views/indent/index'),
+  'returns': () => import('@/views/indent/returns/index'),
+  'sales': () => import('@/views/indent/sales/index'),
 
+  'system': () => import('@/views/system/index'),
+  'permissions': () => import('@/views/system/permissions/index'),
+  'users': () => import('@/views/system/users/index')
 }

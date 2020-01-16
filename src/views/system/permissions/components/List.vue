@@ -46,7 +46,7 @@ export default {
       type: null,
         checkDate:null,
       columns: [
-        { text: "rid", name: "rid" },
+        { text: "rid", name: "rid" ,default:false},
         { text: "角色名称", name: "roleName" },
         { text: "类型", name: "roleLevel" },
         { text: "创建时间", name: "contact" },

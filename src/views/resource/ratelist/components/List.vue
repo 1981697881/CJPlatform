@@ -29,10 +29,8 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
-      @dblclick="dblclick"
     />
 
   </div>
@@ -56,12 +54,15 @@ export default {
       list: {},
       type: null,
       columns: [
-        { text: "fid", name: "fid" },
-        { text: "商品名称", name: "name" },
-        { text: "商品编号", name: "code" },
+        { text: "uid", name: "uid",default:false },
+          { text: "gid", name: "gid",default:false },
+          { text: "客户名称", name: "username" },
+        { text: "商品名称", name: "goodName" },
+        { text: "商品编号", name: "goodCode" },
         { text: "规格", name: "contact" },
-        { text: "数量", name: "phone" },
-        { text: "单位", name: "qq" },
+        { text: "数量", name: "num" },
+          { text: "价格", name: "price" },
+        { text: "单位", name: "" },
       ]
     };
   },

@@ -87,3 +87,14 @@ export function addRoleMenu(data) {
     data: data
   })
 }
+// 下拉
+export function getPermission(data) {
+  const url = '/Admin/permission/list'
+  return request({
+    headers: {
+      'authorization': getToken('rx')
+    },
+    url: url,
+    method: 'get'
+  })
+}

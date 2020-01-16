@@ -3,61 +3,69 @@
     <el-form v-model="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'reOdId'">
+          <el-form-item :label="'reOdId'" style="display: none">
             <el-input v-model="form.reOdId"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-        <el-form-item :label="'returnOrderNum'">
-          <el-input v-model="form.returnOrderNum"></el-input>
+          <el-form-item :label="'申请时间'">
+            <el-input v-model="form.createTime" :disabled="true"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+        <el-form-item :label="'退货单号'">
+          <el-input v-model="form.returnOrderNum" :disabled="true"></el-input>
         </el-form-item>
       </el-col>
         <el-col :span="12">
-          <el-form-item :label="'orderId'">
-            <el-input v-model="form.orderId"></el-input>
+          <el-form-item :label="'orderId'" style="display: none">
+            <el-input v-model="form.orderId" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'客户名称'">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item :label="'客户名称'" >
+            <el-input v-model="form.name" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'客户编号'">
-            <el-input v-model="form.code"></el-input>
+          <el-form-item :label="'客户编号'" >
+            <el-input v-model="form.code" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item :label="'申请时间'">
-            <el-input v-model="form.createTime"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
+        <el-col :span="24">
           <el-form-item :label="'退货原因'">
-            <el-input v-model="form.code"></el-input>
+            <el-input v-model="form.reason"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20" type="flex" justify="center">
           <el-upload
+            :disabled="true"
+            :on-preview="handlePictureCardPreview"
             action="https://jsonplaceholder.typicode.com/posts/"
+            :class="{hide:hideUpload}"
+            :file-list="fileList"
             list-type="picture-card">
             <i class="el-icon-plus"></i>
           </el-upload>
-
+        <el-dialog :visible.sync="dialogVisible" append-to-body size="tiny">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
       </el-row>
       <el-row :gutter="20">
         <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true" >
+          <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
           <el-table-column
             v-for="(t,i) in columns"
             :key="i"
             :prop="t.name"
             :label="t.text"
-            :width="t.width?t.width:'120px'"
+            v-if="t.default!=undefined?t.default:true"
+            :width="t.width?t.width:''"
           ></el-table-column>
         </el-table>
         <!--<list
@@ -78,7 +86,7 @@
 </template>
 
 <script>
-    import {getReturnOrder,auditOrder,Dismissed} from "@/api/indent/returns";
+    import {getReturnOrder,auditOrder,Dismissed,getOrderGoodsById} from "@/api/indent/returns";
     export default {
         props: {
             orderId: {
@@ -96,7 +104,19 @@
             createTime: {
                 type: String,
                 default: null
-            }
+            },
+            img: {
+                type: String,
+                default: null
+            },
+            username: {
+                type: String,
+                default: null
+            },
+            reason: {
+                type: String,
+                default: null
+            },
         },
         data() {
             return {
@@ -107,29 +127,56 @@
                     createTime:null,
                     name: null, // 客户名称
                     code: null, // 客户编号
+                    reason:null,
                 },
+                limitCount:5,
+                fileList:[],
+                dialogImageUrl: '',
+                dialogVisible: false,
+                hideUpload: true,
                 loading: false,
                 list: [],
                 type: null,
                 columns: [
-                    { text: "shopId", name: "shopId" },
-                    { text: "商品名称", name: "name" },
-                    { text: "商品编码", name: "code" },
-                    { text: "退货数量", name: "number" },
-                    { text: "价格", name: "phone" },
+                    { text: "gid", name: "gid" ,default:false},
+                    { text: "商品名称", name: "goodName" },
+                    { text: "商品编码", name: "goodCode" },
+                    { text: "退货数量", name: "num" },
+                    { text: "价格", name: "price" },
                 ],
             };
         },
         mounted() {
+            console.log(this.img)
+            let imgArray=this.img.split(',');
+            if(this.img != ''){
+                if(imgArray.length>0){
+                    this.fileList=[]
+                    for(let i in imgArray){
+                        this.fileList.push({
+                            url:'http://120.78.168.141:8091/web'+imgArray[i]
+                        })
+                    }
+                    console.log(this.fileList)
+                }else{
+                    this.fileList = [];
+                }
+            }
             this.form.reOdId=this.reOdId
             this.form.orderId=this.orderId
             this.form.returnOrderNum=this.returnOrderNum
             this.form.createTime=this.createTime
+            this.form.name=this.username
+            this.form.reason=this.reason
             if (this.form.reOdId) {
                 this.fetchData(this.form.reOdId);
             }
         },
         methods: {
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
             audit() {
                 let list=this.list
                 if (list.length > 0) {
@@ -152,13 +199,17 @@
                 })
             },
             fetchData(val) {
-                getReturnOrder(val).then(res => {
-                    this.list = res.data["returnOrders"]
+                getOrderGoodsById(val).then(res => {
+                    this.list = res.data
                 });
             },
         }
     };
 </script>
 
-<style>
+<style lang="scss" >
+  .hide .el-upload--picture-card {
+    display: none;
+  }
 </style>
+

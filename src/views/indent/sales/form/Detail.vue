@@ -3,7 +3,7 @@
     <el-form v-model="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'oid'">
+          <el-form-item :label="'oid'" style="display: none">
             <el-input v-model="form.oid"></el-input>
           </el-form-item>
         </el-col>
@@ -11,35 +11,37 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item :label="'订单编号'">
-            <el-input v-model="form.orderId"></el-input>
+            <el-input v-model="form.orderId" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item :label="'下单日期'">
-            <el-input v-model="form.createTime"></el-input>
+            <el-input v-model="form.createTime" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item :label="'客户名称'">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.name" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item :label="'客户编号'">
-            <el-input v-model="form.code"></el-input>
+            <el-input v-model="form.code" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
        <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true" >
+         <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
      <el-table-column
        v-for="(t,i) in columns"
        :key="i"
        :prop="t.name"
        :label="t.text"
        :width="t.width?t.width:'120px'"
+       v-if="t.default!=undefined?t.default:true"
      ></el-table-column>
          <el-table-column
            fixed="right"
@@ -101,6 +103,10 @@ export default {
      createTime: {
          type: String,
          default: null
+     },
+     username: {
+         type: String,
+         default: null
      }
  },
  data() {
@@ -119,7 +125,7 @@ export default {
        obj:{},
        type: null,
        columns: [
-           { text: "gid", name: "gid" },
+           { text: "gid", name: "gid",default:false },
            { text: "商品名称", name: "goodName" },
            { text: "商品编码", name: "goodCode" },
            { text: "下单数量", name: "num" },
@@ -134,6 +140,7 @@ export default {
  mounted() {
      this.form.oid=this.oid
      this.form.orderId=this.orderId
+     this.form.name=this.username
      this.form.createTime=this.createTime
    if (this.form.oid) {
      this.fetchData(this.form.oid);

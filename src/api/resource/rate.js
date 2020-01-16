@@ -5,7 +5,7 @@ import {
 // 查询订单列表
 export function rateList(data) {
   //查询分页数据
-  const url = '/cjsh-user-price/list/' + data.pageNum + '/' + data.pageSize
+  const url = '/Admin/price/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
       'authorization': getToken('rx'),

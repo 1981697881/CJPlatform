@@ -12,10 +12,10 @@
       :visible.sync="visible"
       title="基本信息"
       v-if="visible"
-      :width="'50%'"
+      :width="'70%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime"></customer-info>
+      <customer-info @hideDialog="hideWindow" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
 
     </el-dialog>
   </div>
@@ -35,6 +35,9 @@ export default {
     return {
       visible: null,
       fid: null,
+        img:null,
+        reason:null,
+        username:null,
       treeId: null, // null
       floorId: null
     };
@@ -54,7 +57,7 @@ export default {
           }
       },
     handlerDialog(obj){
-      if(obj)this.reOdId = obj.reOdId;this.returnOrderNum=obj.returnOrderNum;this.createTime=obj.createTime;this.orderId=obj.orderId;
+      if(obj)this.reOdId = obj.reOdId;this.returnOrderNum=obj.returnOrderNum;this.createTime=obj.createTime;this.orderId=obj.orderId;this.img=obj.img;this.username=obj.username;this.reason=obj.reason;
       this.visible = true
     },
     handlerNode(node) {

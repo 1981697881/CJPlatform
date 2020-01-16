@@ -63,6 +63,19 @@ export function updateUsers(data) {
     data: data
   })
 }
+// 重置密码
+export function resetPWD(data) {
+  const url = '/Admin/user/reset'
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'put',
+    data: data
+  })
+}
 // 下拉平台
 export function getPlas(data) {
   const url = '/Admin/pla/list'

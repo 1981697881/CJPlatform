@@ -1,14 +1,26 @@
 <template>
   <div class="list-header">
     <el-form v-model="search" :size="'mini'" :label-width="'80px'">
-      <el-row :gutter="10">
-        <el-col :span="6">
+      <el-row :gutter="12">
+        <el-col :span="4">
           <el-form-item :label="'商品名称'">
             <el-input v-model="search.name" />
           </el-form-item>
         </el-col>
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-search">查询</el-button>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="'平台'" prop="plaIdS">
+            <el-select v-model="plaIdS"  placeholder="请选择" @change="selectChange">
+              <el-option
+                v-for="(t,i) in plaArray"
+                :key="i"
+                :label="t.platformName"
+                :value="t.plaId">
+              </el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">库存同步</el-button>
@@ -22,21 +34,40 @@
 // ---------------------------  新增客户没做完
 
 import { mapGetters } from "vuex";
+import {getPlas} from "@/api/system/users";
 export default {
   data() {
     return {
       search: {
         name: ""
-      }
+      },
+        plaIdS:null,
+        plaArray: [],
     };
   },
   computed: {
     ...mapGetters(["node"])
   },
+    mounted() {
+        this.fetchFormat();
+    },
   methods:{
+      selectChange(val){
+          this.$emit('showTable',val)
+      },
     handleTab(node){
-        this.$emit('showDialog')
-    }
+        /*this.$emit('showDialog')*/
+    },
+      fetchFormat() {
+          getPlas().then(res => {
+              if(res.flag){
+                  console.log(res)
+                  this.$emit('showTable',res.data[0].plaId)
+                  this.plaArray = res.data;
+                  this.plaIdS = res.data[0].plaId;
+              }
+          });
+      },
   }
 };
 </script>

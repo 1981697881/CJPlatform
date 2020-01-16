@@ -3,7 +3,7 @@
     <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'rid'">
+          <el-form-item :label="'rid'" style="display: none">
             <el-input v-model="form.rid"></el-input>
           </el-form-item>
         </el-col>
@@ -21,6 +21,21 @@
             </el-select>
           </el-form-item>
         </el-col>
+
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item :label="'字段权限'" >
+            <el-select v-model="form.pidS" multiple  placeholder="请选择">
+              <el-option
+                v-for="(t,i) in pArray"
+                :key="i"
+                :label="t.permissionName"
+                :value="t.pid">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
     <div slot="footer" style="text-align:center">
@@ -30,7 +45,7 @@
 </template>
 
 <script>
-import {saveRoles,updateRoles,getRoles} from "@/api/system/permissions";
+import {saveRoles,updateRoles,getRoles,getPermission} from "@/api/system/permissions";
 
 export default {
   props: {
@@ -46,6 +61,8 @@ export default {
           roleName: null, // 名称
           roleLevel:null,
       },
+        pidS:[],
+        pArray:[],
         rules: {
             roleName: [
                 {required: true, message: '请输入名稱', trigger: 'blur'},
@@ -55,13 +72,14 @@ export default {
             ],
 
         },
-      levelFormat: [['1','一级'],['2','二级']]
+      levelFormat: [[1,'一级'],[2,'二级']]
     };
   },
   created() {
       this.form.rid=this.rid
   },
   mounted() {
+      this.fetchFormat();
     if (this.form.rid) {
       this.fetchData(this.form.rid);
     }
@@ -90,6 +108,11 @@ export default {
         })
 
     },
+      fetchFormat() {
+          getPermission().then(res => {
+              this.pArray = res.data;
+          });
+      },
     fetchData(val) {
         getRoles(val).then(res => {
         this.form = res.data;

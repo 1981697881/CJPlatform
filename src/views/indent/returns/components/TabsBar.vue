@@ -51,12 +51,7 @@ export default {
       },
       handleAudit(){
           if (this.clickData.reOdId) {
-              this.$emit('showDialog',{
-                  orderId:this.clickData.orderId,
-                  reOdId:this.clickData.reOdId,
-                  returnOrderNum:this.clickData.returnOrderNum,
-                  createTime:this.clickData.createTime
-              })
+              this.$emit('showDialog',this.clickData)
           } else {
               this.$message({
                   message: "无选中行",

@@ -29,7 +29,6 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
@@ -57,14 +56,12 @@ export default {
       list: {},
       type: null,
       columns: [
-          { text: "reOdId", name: "reOdId" },
-          { text: "orderId", name: "orderId" },
+          { text: "reOdId", name: "reOdId" ,default:false},
+          { text: "orderId", name: "orderId" ,default:false},
           { text: "退货单号", name: "returnOrderNum" },
-          { text: "客户名称", name: "code" },
-          { text: "数量", name: "contact" },
-          { text: "金额", name: "phone" },
+          { text: "客户名称", name: "username" },
           { text: "申请时间", name: "createTime" },
-          { text: "退货原因", name: "qq" },
+          { text: "退货原因", name: "reason" },
           { text: "状态", name: "isAudit" },
       ]
     };
@@ -113,7 +110,9 @@ export default {
       };
         returnsList(data).then(res => {
         this.loading = false;
-        this.list = res.data;
+            if(res.flag&&res.data!=null){
+                this.list = res.data;
+            }
       });
     }
   }

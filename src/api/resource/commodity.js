@@ -27,3 +27,16 @@ export function alterCommodity(form) {
     data
   })
 }
+// 刪除圖片
+export function delImg(form) {
+  const data = form
+  return request({
+    url: '/file/Goods/deleteImg',
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    data
+  })
+}

@@ -9,8 +9,12 @@ export function stockList(data) {
   return request({
     headers: {
       'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
     },
     url: url,
-    method: 'get',
+    method: 'post',
+    data:{
+      plaId:data.plaId
+    }
   })
 }

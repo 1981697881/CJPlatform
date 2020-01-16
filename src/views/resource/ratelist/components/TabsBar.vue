@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     handleTab(node){
-        this.$emit('showDialog')
+     /*   this.$emit('showDialog')*/
     }
   }
 };

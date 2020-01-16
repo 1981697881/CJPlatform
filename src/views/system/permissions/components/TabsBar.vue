@@ -5,7 +5,6 @@
         <el-button :size="'mini'" type="primary" @click="handlerBtn">新增</el-button>
         <el-button :size="'mini'" type="primary" @click="handlerAlter">修改</el-button>
         <el-button :size="'mini'" type="primary" @click="saveRole">保存权限</el-button>
-        <el-button :size="'mini'" type="primary">删除</el-button>
       </el-button-group>
     </el-form>
   </div>

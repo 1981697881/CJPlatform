@@ -20,10 +20,7 @@
     </el-form>
   </div>
 </template>
-
 <script>
-// ---------------------------  新增客户没做完
-
 import { mapGetters } from "vuex";
 export default {
     components: {},
@@ -59,11 +56,7 @@ export default {
       },
       handleAudit(){
         if (this.clickData.oid) {
-            this.$emit('showDialog',{
-                oid:this.clickData.oid,
-                orderId:this.clickData.orderId,
-                createTime:this.clickData.createTime
-            })
+            this.$emit('showDialog',this.clickData)
         } else {
             this.$message({
                 message: "无选中行",

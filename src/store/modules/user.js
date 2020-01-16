@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo,changePassword } from '@/api/user'
 import { getToken, setToken, removeToken, setUserName, setPassword } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -34,14 +34,15 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-       const { data } = response
-       /* commit('SET_TOKEN', data.fid)
-        setToken(data.fid)*/
-        commit('SET_USERNAME', username)
-        commit('SET_PASSWORD', password)
-        setUserName(username)
-        setPassword(password)
-        resolve()
+        console.log(response)
+          const { data } = response
+          /* commit('SET_TOKEN', data.fid)
+           setToken(data.fid)*/
+          commit('SET_USERNAME', username)
+          commit('SET_PASSWORD', password)
+          setUserName(username)
+          setPassword(password)
+          resolve(response)
       }).catch(error => {
         reject(error)
       })
@@ -68,10 +69,23 @@ const actions = {
       })
     })
   },
-
+  // 修改密码
+  changePassword({ commit }, info) {
+    return new Promise((resolve, reject) => {
+      changePassword(info).then(response => {
+          commit('SET_TOKEN', '')
+          removeToken()
+          resetRouter()
+          resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
+      console.log(state.token)
        logout({fid:state.token}).then(() => {
         commit('SET_TOKEN', '')
         removeToken()
