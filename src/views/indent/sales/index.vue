@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @showDialog="handlerDialog" @theDelivery="delivery"/>
+        <tabs-bar @showDialog="handlerDialog" @theDelivery="delivery" @queryBtn="query" @uploadList="upload"/>
       </div>
       <list ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -63,9 +63,13 @@ export default {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
       //更新列表
-      upload(){
+      upload() {
           this.$refs.list.fetchData()
-      }
+      },
+    //更新列表
+    query(val) {
+      this.$refs.list.fetchData(val)
+    }
   }
 };
 </script>

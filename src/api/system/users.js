@@ -11,7 +11,10 @@ export function usersList(data) {
       'authorization': getToken('rx')
     },
     url: url,
-    method: 'get'
+    method: 'get',
+    params: {
+      q: data.query
+    }
   })
 }
 

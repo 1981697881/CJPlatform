@@ -11,6 +11,9 @@ export function returnsList(data) {
     },
     url: url,
     method: 'get',
+    params: {
+      query: data.query
+    }
   })
 }
 

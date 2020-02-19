@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar  @showDialog="handlerDialog" @uploadList="upload"/>
+        <tabs-bar  @showDialog="handlerDialog" @uploadList="upload" @queryBtn="query"/>
       </div>
       <list  ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -53,10 +53,15 @@ export default {
     handlerNode(node) {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
-      //更新列表
-      upload(){
-          this.$refs.list.fetchData()
-      }
+    //更新列表
+    upload() {
+      this.$refs.list.fetchData()
+    },
+    //查询
+    query(val) {
+      console.log(val)
+      this.$refs.list.fetchData(val)
+    }
   }
 };
 </script>

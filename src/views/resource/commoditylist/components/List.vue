@@ -232,11 +232,12 @@ export default {
           this.dialogImageUrl = file.url;
           this.dialogVisible = true;
       },
-    fetchData(fid, type) {
+    fetchData(val) {
       this.loading = true;
       const data = {
       /*  fid: fid,
         type: type,*/
+        query: val || '',
         pageNum: this.list.current || 1,
         pageSize: this.list.size || 50
       };

@@ -61,7 +61,7 @@ export default {
         { text: "金额", name: "price" },
         { text: "下单时间", name: "createTime" },
           { text: "审核状态", name: "auditStatus" },
-          { text: "发货状态", name: "status" },
+          { text: "订单状态", name: "status" },
       ]
     };
   },
@@ -88,11 +88,12 @@ export default {
       rowClick(obj) {
           this.$store.dispatch("list/setClickData", obj.row);
       },
-    fetchData(fid, type) {
+    fetchData(val) {
       this.loading = true;
       const data = {
       /*  fid: fid,
         type: type,*/
+        query: val || '',
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };

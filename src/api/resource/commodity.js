@@ -11,7 +11,10 @@ export function commodityList(data) {
       'authorization': getToken('rx'),
     },
     url: url,
-    method: 'get',
+    method: 'post',
+    data: {
+      query: data.query
+    }
   })
 }
 // 修改商品信息

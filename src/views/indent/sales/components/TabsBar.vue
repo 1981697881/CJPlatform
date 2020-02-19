@@ -10,6 +10,9 @@
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-search" @click="query">查询</el-button>
         </el-col>
+        <el-col :span="2">
+          <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
+        </el-col>
         <el-col :span="2" >
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleAudit">审核</el-button>
         </el-col>
@@ -48,12 +51,16 @@ export default {
               });
           }
       },
-      //关键字查询
-      query(){
-          if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-
-          }
-      },
+    //关键字查询
+    query(){
+      if((typeof this.search.keyword != null) && (this.search.keyword !='')){
+        this.$emit('queryBtn',this.search.keyword)
+      }
+    },
+    upload() {
+      this.$emit('uploadList')
+      this.search.keyword = ''
+    },
       handleAudit(){
         if (this.clickData.oid) {
             this.$emit('showDialog',this.clickData)

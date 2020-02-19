@@ -12,5 +12,8 @@ export function rateList(data) {
     },
     url: url,
     method: 'get',
+    params: {
+      q: data.query || ''
+    }
   })
 }

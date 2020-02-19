@@ -13,8 +13,9 @@ export function stockList(data) {
     },
     url: url,
     method: 'post',
-    data:{
-      plaId:data.plaId
+    data: {
+      plaId: data.plaId,
+      goodName: data.goodName
     }
   })
 }

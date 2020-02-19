@@ -24,7 +24,7 @@
       ></el-pagination>
     </div>-->
     <list
-       class="list-main"
+      class="list-main"
       :columns="columns"
       :loading="loading"
       :list="list"
@@ -32,88 +32,89 @@
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
-       @row-click="rowClick"
+      @row-click="rowClick"
     />
 
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { usersList } from "@/api/system/users";
-import List from "@/components/List";
+  import {mapGetters} from "vuex";
+  import {usersList} from "@/api/system/users";
+  import List from "@/components/List";
 
-export default {
-  components: {
-    List
-  },
-  computed: {
-    ...mapGetters(["node"])
-  },
-  data() {
-    return {
-      loading: false,
-      list: {},
-      type: null,
-      columns: [
-        { text: "uid", name: "uid" ,default:false},
-        { text: "用户名称", name: "name" },
-        { text: "登录账号", name: "username" },
-        { text: "联系电话", name: "tel" },
-        { text: "所属公司", name: "come" },
-          { text: "权限", name: "phone" },
-        { text: "状态", name: "status" },
-      ]
-    };
-  },
-  /* watch: {
-    node(val) {
-      console.log(val)
-      this.fid = val.data.fid;
-      this.type =  val.data.type
-      console.log(this.fid)
-      console.log(this.type)
-      this.fetchData();
-    }
-  }, */
-  methods: {
+  export default {
+    components: {
+      List
+    },
+    computed: {
+      ...mapGetters(["node"])
+    },
+    data() {
+      return {
+        loading: false,
+        list: {},
+        type: null,
+        columns: [
+          {text: "uid", name: "uid", default: false},
+          {text: "用户名称", name: "name"},
+          {text: "登录账号", name: "username"},
+          {text: "联系电话", name: "tel"},
+          {text: "所属公司", name: "come"},
+          {text: "权限", name: "phone"},
+          {text: "状态", name: "status"},
+        ]
+      };
+    },
+    /* watch: {
+      node(val) {
+        console.log(val)
+        this.fid = val.data.fid;
+        this.type =  val.data.type
+        console.log(this.fid)
+        console.log(this.type)
+        this.fetchData();
+      }
+    }, */
+    methods: {
       //监听每页显示几条
       handleSize(val) {
-          this.list.size = val
-          this.fetchData(this.node.data.fid,this.node.data.type);
+        this.list.size = val
+        this.fetchData(this.node.data.fid, this.node.data.type);
       },
       //监听当前页
       handleCurrent(val) {
-          this.list.current = val;
-          this.fetchData(this.node.data.fid,this.node.data.type);
+        this.list.current = val;
+        this.fetchData(this.node.data.fid, this.node.data.type);
       },
-    dblclick(obj) {
-      this.$emit('showDialog',obj.row)
-    },
+      dblclick(obj) {
+        this.$emit('showDialog', obj.row)
+      },
       //监听单击某一行
       rowClick(obj) {
-          this.$store.dispatch("list/setClickData", obj.row);
+        this.$store.dispatch("list/setClickData", obj.row);
       },
-    fetchData(fid, type) {
-      this.loading = true;
+      fetchData(val) {
+        this.loading = true;
 
-      const data = {
-      /*  fid: fid,
-        type: type,*/
+        const data = {
+          /*  fid: fid,
+            type: type,*/
+          query: val || '',
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
-      };
+        };
         usersList(data).then(res => {
-        this.loading = false;
-        this.list = res.data;
-      });
+          this.loading = false;
+          this.list = res.data;
+        });
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.list-main {
-  height: calc(100vh - 300px);
-}
+  .list-main {
+    height: calc(100vh - 300px);
+  }
 </style>

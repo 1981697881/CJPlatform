@@ -11,6 +11,9 @@ export function salesList(data) {
     },
     url: url,
     method: 'get',
+    params: {
+      query: data.query
+    }
   })
 }
 // 根据id查询单据详情

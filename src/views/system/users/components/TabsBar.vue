@@ -4,16 +4,17 @@
       <el-row :gutter="10">
         <el-col :span="6">
           <el-form-item :label="'关键字'">
-            <el-input v-model="search.name"/>
+            <el-input v-model="search.keyword"/>
           </el-form-item>
         </el-col>
         <el-col :span="2">
-          <el-button :size="'mini'" type="primary" icon="el-icon-search">查询</el-button>
+          <el-button :size="'mini'" type="primary" icon="el-icon-search" @click="query">查询</el-button>
         </el-col>
         <el-button-group style="float:right">
           <el-button :size="'mini'" type="primary" @click="handleAdd">新增</el-button>
           <el-button :size="'mini'" type="primary" @click="handleAlter">修改</el-button>
-          <el-button :size="'mini'" type="primary">用户信息同步</el-button>
+          <el-button :size="'mini'" type="primary">刷新</el-button>
+          <el-button :size="'mini'" type="primary" @click="upload">用户信息同步</el-button>
           <el-button :size="'mini'" type="primary">禁用</el-button>
           <el-button :size="'mini'" type="primary">启用</el-button>
           <el-button :size="'mini'" type="primary" @click="reset">密码重置</el-button>
@@ -32,7 +33,7 @@
         data() {
             return {
                 search: {
-                    name: ""
+                  keyword: null
                 }
             };
         },
@@ -57,6 +58,16 @@
                     });
                 }
             },
+          //关键字查询
+          query(){
+            if((typeof this.search.keyword != null) && (this.search.keyword !='')){
+              this.$emit('queryBtn',this.search.keyword)
+            }
+          },
+          upload() {
+            this.$emit('uploadList')
+            this.search.keyword = ''
+          },
             handleAlter() {
                 if (this.clickData.uid) {
                     this.$emit('showDialog', {uid: this.clickData.uid})

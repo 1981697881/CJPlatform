@@ -95,10 +95,12 @@ export default {
     },
     fetchData(val) {
       this.loading = true;
+      console.log(val)
       const data = {
       /*  fid: fid,
         type: type,*/
-          plaId:val,
+          plaId:  val.plaId,
+          goodName:  val == undefined ? '' : val.goodName,
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };

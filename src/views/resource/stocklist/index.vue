@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @showTable="loadList" @showDialog="handlerDialog"/>
+        <tabs-bar @addUnit="handlerTabs" @uploadList="upload" @showTable="loadList" @showDialog="handlerDialog"/>
       </div>
       <list :id="treeId" ref="list" :pr-id="floorId" @showDialog="handlerDialog"/>
     </div>
@@ -62,7 +62,12 @@ export default {
     handlerTabs(prId) {
       this.$refs.list.addUnit(prId);
       this.floorId = prId;
-    }
+    },
+    //更新列表
+    upload(val) {
+      this.$refs.list.fetchData(val)
+      this.search.keyword = ''
+    },
   }
 };
 </script>

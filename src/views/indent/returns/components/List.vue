@@ -100,11 +100,12 @@ export default {
               this.$emit('uploadList')
           });
       },
-    fetchData(fid, type) {
+    fetchData(val) {
       this.loading = true;
       const data = {
       /*  fid: fid,
         type: type,*/
+        query: val || '',
         pageNum: this.list.pageNum || 1,
         pageSize: this.list.pageSize || 5
       };
