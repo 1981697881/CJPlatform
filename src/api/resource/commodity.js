@@ -9,6 +9,7 @@ export function commodityList(data) {
   return request({
     headers: {
       'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
     },
     url: url,
     method: 'post',
