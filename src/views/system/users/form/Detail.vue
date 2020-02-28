@@ -28,7 +28,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item :label="'用户账号'" prop="username">
-            <el-input v-model="form.username"></el-input>
+            <el-input v-model="form.username" :readonly="read"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -88,6 +88,7 @@
                     plaIdS: [],
                     status: '0',
                 },
+              read: null,
                 rules: {
                     username: [
                         {required: true, message: '请输入名稱', trigger: 'blur'},
@@ -114,6 +115,7 @@
             this.form.uid = this.uid
             this.fetchFormat();
             if (this.form.uid) {
+                this.read = true
                 this.fetchData(this.form.uid);
             }
         },

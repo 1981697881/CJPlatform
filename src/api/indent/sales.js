@@ -16,6 +16,19 @@ export function salesList(data) {
     }
   })
 }
+// 查询订单列表
+export function salesListT(data, query) {
+  const url = '/Admin/Order/list/' + data.pageNum + '/' + data.pageSize
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+    data: query
+  })
+}
 // 根据id查询单据详情
 export function saleInfo(data) {
   const url = '/order/getOrderGoodsById/' + data
@@ -64,6 +77,20 @@ export function delivery(data) {
     },
     url: url,
     method: 'put',
+  })
+}
+// 导出订单明细
+export function exportData(data) {
+  const url = '/Admin/export/orderData'
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'post',
+    data: data
   })
 }
 

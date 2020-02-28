@@ -53,6 +53,8 @@ export default {
       loading: false,
       list: {},
       type: null,
+      goodName: null,
+      prId: null,
       columns: [
         { text: "gid", name: "gid",default:false },
         { text: "商品名称", name: "goodName" },
@@ -79,12 +81,12 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
       //监听当前页
       handleCurrent(val) {
           this.list.current = val;
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
     dblclick(obj) {
       const data = {
@@ -93,18 +95,26 @@ export default {
       }
       this.$emit('showDialog',data)
     },
-    fetchData(val) {
+    uploadPr(val) {
+      this.prId = val.plaId
+      this.goodName = val.goodName
+      this.fetchData();
+    },
+    fetchData() {
       this.loading = true;
-      console.log(val)
       const data = {
       /*  fid: fid,
         type: type,*/
-          plaId:  val.plaId,
-          goodName:  val == undefined ? '' : val.goodName,
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };
-        stockList(data).then(res => {
+      let obj = {}
+      this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
+      this.goodName != null || this.goodName != undefined ? obj.goodName = this.goodName : null
+
+
+      console.log(obj)
+        stockList(data, obj).then(res => {
         this.loading = false;
         this.list = res.data;
       });

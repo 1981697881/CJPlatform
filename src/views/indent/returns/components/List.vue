@@ -40,7 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { returnsList ,receiving} from "@/api/indent/returns";
+import { returnsListT ,receiving} from "@/api/indent/returns";
 import List from "@/components/List";
 
 export default {
@@ -58,11 +58,24 @@ export default {
       columns: [
           { text: "reOdId", name: "reOdId" ,default:false},
           { text: "orderId", name: "orderId" ,default:false},
-          { text: "退货单号", name: "returnOrderNum" },
-          { text: "客户名称", name: "username" },
-          { text: "申请时间", name: "createTime" },
-          { text: "退货原因", name: "reason" },
-          { text: "状态", name: "isAudit" },
+        { text: "日期", name: "createTime" },
+        { text: "原订单单号", name: "sourceOrderNum" },
+          { text: "退货单号", name: "orderNum" },
+        {text: "购货单位", name: "customer"},
+        { text: "物料代码", name: "goodCode" },
+        { text: "物料名称", name: "goodName" },
+        { text: "规格型号", name: "standard" },
+        { text: "单位", name: "unitOfMea" },
+        { text: "订单数量", name: "sourceNum" },
+        { text: "退货数量", name: "num" },
+        { text: "单价", name: "sellPrice" },
+        { text: "金额", name: "totalPrice" },
+         // { text: "客户名称", name: "username" },
+        { text: "发货仓库", name: "plaName" },
+        { text: "退货原因", name: "reason" },
+        { text: "商品图片", name: "img" },
+        { text: "审核状态", name: "isAudit" },
+          { text: "状态", name: "status" },
       ]
     };
   },
@@ -77,25 +90,32 @@ export default {
     }
   }, */
   methods: {
-    //监听每页显示几条
+    // 监听每页显示几条
     handleSize(val) {
       this.list.pageSize = val
-      this.fetchData(this.node.data.fid,this.node.data.type);
+      this.fetchData()
     },
-    //监听当前页
+    // 监听当前页
     handleCurrent(val) {
-      this.list.pageNum = val;
-      this.fetchData(this.node.data.fid,this.node.data.type);
+      this.list.pageNum = val
+      this.fetchData()
     },
-      //监听单击某一行
+      // 监听单击某一行
       rowClick(obj) {
           this.$store.dispatch("list/setClickData", obj.row);
       },
     dblclick(obj) {
-      this.$emit('showDialog',obj.row)
+      if (obj.row.isAudit == '已审核') {
+        return this.$message({
+          message: "该单已审核",
+          type: "warning"
+        })
+      } else {
+        this.$emit('showDialog',obj.row)
+      }
     },
-      //收货确认
-      Receiving(val){
+      // 收货确认
+      Receiving(val) {
           receiving(val).then(res => {
               this.$emit('uploadList')
           });
@@ -105,14 +125,35 @@ export default {
       const data = {
       /*  fid: fid,
         type: type,*/
-        query: val || '',
         pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 5
+        pageSize: this.list.pageSize || 50
       };
-        returnsList(data).then(res => {
+      returnsListT(data, val).then(res => {
         this.loading = false;
-            if(res.flag&&res.data!=null){
-                this.list = res.data;
+            if(res.flag && res.data != null){
+              let record = res.data.records
+              let obj = []
+              for(const i in record) {
+                for(const a in record[i].returnOrderDetailVOS) {
+                  record[i].returnOrderDetailVOS[a].image = record[i].img
+                  record[i].returnOrderDetailVOS[a].reId = record[i].reOdId
+                  record[i].returnOrderDetailVOS[a].reason = record[i].reason
+                  record[i].returnOrderDetailVOS[a].isAudit = record[i].isAudit
+                  record[i].returnOrderDetailVOS[a].status = record[i].status
+                  record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
+                  record[i].returnOrderDetailVOS[a].customer = record[i].customer
+                  record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
+                  record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
+                  obj.push(record[i].returnOrderDetailVOS[a])
+                }
+              }
+              this.list= {
+                current: res.data.current,
+                pages: res.data.pages,
+                size: res.data.size,
+                total: res.data.total,
+                records: obj
+              }
             }
       });
     }

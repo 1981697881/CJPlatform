@@ -61,12 +61,12 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
       //监听当前页
       handleCurrent(val) {
           this.list.current = val;
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
     // 弹窗拖拽
     handleDrag() {

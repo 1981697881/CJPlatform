@@ -10,12 +10,13 @@
 
     <el-dialog
       :visible.sync="visible"
+      :fullscreen="isfullscreen"
       title="基本信息"
       v-if="visible"
       :width="'70%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
 
     </el-dialog>
   </div>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       visible: null,
+      isfullscreen: null,
       fid: null,
         img:null,
         reason:null,
@@ -57,7 +59,7 @@ export default {
           }
       },
     handlerDialog(obj){
-      if(obj)this.reOdId = obj.reOdId;this.returnOrderNum=obj.returnOrderNum;this.createTime=obj.createTime;this.orderId=obj.orderId;this.img=obj.img;this.username=obj.username;this.reason=obj.reason;
+      if(obj)this.reOdId = obj.reId;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.username=obj.username;this.reason=obj.reason;
       this.visible = true
     },
     handlerNode(node) {
@@ -68,6 +70,14 @@ export default {
     query(val) {
         console.log(val)
       this.$refs.list.fetchData(val)
+    },
+    //操作窗口
+    operation(val) {
+      if(val == 1) {
+        this.isfullscreen = true
+      }else {
+        this.isfullscreen = false
+      }
     },
       //更新列表
       upload(){

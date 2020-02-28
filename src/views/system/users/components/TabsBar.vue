@@ -14,7 +14,7 @@
           <el-button :size="'mini'" type="primary" @click="handleAdd">新增</el-button>
           <el-button :size="'mini'" type="primary" @click="handleAlter">修改</el-button>
           <el-button :size="'mini'" type="primary" @click="upload">刷新</el-button>
-          <el-button :size="'mini'" type="primary" >用户信息同步</el-button>
+         <!-- <el-button :size="'mini'" type="primary" >用户信息同步</el-button>-->
          <!-- <el-button :size="'mini'" type="primary">禁用</el-button>
           <el-button :size="'mini'" type="primary">启用</el-button>-->
           <el-button :size="'mini'" type="primary" @click="reset">密码重置</el-button>

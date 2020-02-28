@@ -13,9 +13,9 @@
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
         </el-col>
-        <el-col :span="2">
+        <!--<el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">价格同步</el-button>
-        </el-col>
+        </el-col>-->
       </el-row>
     </el-form>
   </div>

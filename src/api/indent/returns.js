@@ -16,6 +16,19 @@ export function returnsList(data) {
     }
   })
 }
+// 查询订单列表
+export function returnsListT(data, query) {
+  const url = '/Admin/returnOrder/list/' + data.pageNum + '/' + data.pageSize
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+    data: query
+  })
+}
 
 // 修改 根据id查询
 export function getReturnOrder(data) {
@@ -70,5 +83,19 @@ export function receiving(data) {
     },
     url: url,
     method: 'put',
+  })
+}
+// 导出单据明细
+export function exportData(data) {
+  const url = '/Admin/export/returnOrderData'
+  return request({
+    headers: {
+      'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'post',
+    data: data
   })
 }

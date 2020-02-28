@@ -59,10 +59,9 @@ export default {
           { text: "客户名称", name: "username" },
         { text: "商品名称", name: "goodName" },
         { text: "商品编号", name: "goodCode" },
-        { text: "规格", name: "contact" },
-        { text: "数量", name: "num" },
           { text: "价格", name: "price" },
-        { text: "单位", name: "" },
+        { text: "规格", name: "standard" },
+        { text: "单位", name: "unitOfMea" },
       ]
     };
   },
@@ -80,12 +79,12 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
       //监听当前页
       handleCurrent(val) {
           this.list.current = val;
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
     dblclick(obj) {
       const data = {

@@ -10,12 +10,13 @@
 
     <el-dialog
       :visible.sync="visible"
+      :fullscreen="isfullscreen"
       title="基本信息"
       v-if="visible"
       :width="'50%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" @uploadList="upload" :oid="oid" :orderId="orderId" :createTime="createTime" :username="username"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="upload" :oid="oid" :orderId="orderId" :createTime="createTime" :username="username"></customer-info>
 
     </el-dialog>
   </div>
@@ -35,6 +36,7 @@ export default {
     return {
       visible: null,
       oid: null,
+      isfullscreen: null,
         username:null,
         orderId: null,
         createTime: null,
@@ -56,7 +58,8 @@ export default {
           this.visible = val
       },
     handlerDialog(obj){
-      if(obj)this.oid = obj.oid;this.orderId=obj.orderId;this.createTime=obj.createTime;this.username=obj.username;
+        console.log(obj)
+      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.username=obj.username;
       this.visible = true
     },
     handlerNode(node) {
@@ -66,6 +69,14 @@ export default {
       upload() {
           this.$refs.list.fetchData()
       },
+    //操作窗口
+    operation(val) {
+      if(val == 1) {
+        this.isfullscreen = true
+      }else {
+        this.isfullscreen = false
+      }
+    },
     //更新列表
     query(val) {
       this.$refs.list.fetchData(val)

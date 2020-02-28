@@ -13,9 +13,9 @@
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
         </el-col>
-        <el-col :span="2">
+        <!--<el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">商品同步</el-button>
-        </el-col>
+        </el-col>-->
       </el-row>
     </el-form>
   </div>
@@ -37,7 +37,7 @@ export default {
     ...mapGetters(["node"])
   },
   methods:{
-    handleTab(node){
+    handleTab(node) {
         /*this.$emit('showDialog')*/
     },
     //关键字查询

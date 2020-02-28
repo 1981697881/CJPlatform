@@ -47,7 +47,8 @@ export default {
 
     },
       loadList(val){
-          this.$refs.list.fetchData(val)
+      console.log(val)
+          this.$refs.list.uploadPr(val)
       },
     handlerDialog(obj){
       if(obj)this.fid = obj.fid
@@ -66,7 +67,6 @@ export default {
     //更新列表
     upload(val) {
       this.$refs.list.fetchData(val)
-      this.search.keyword = ''
     },
   }
 };

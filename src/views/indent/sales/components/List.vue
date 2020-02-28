@@ -29,6 +29,7 @@
       :loading="loading"
       :list="list"
       index
+       :selfAdaption="false"
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
@@ -40,7 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { salesList ,delivery} from "@/api/indent/sales";
+import { salesListT ,delivery} from "@/api/indent/sales";
 import List from "@/components/List";
 
 export default {
@@ -56,12 +57,23 @@ export default {
       list: {},
       columns: [
         { text: "oid", name: "oid",default:false },
-        { text: "订单单号", name: "orderId" },
-        { text: "客户名称", name: "username" },
-        { text: "金额", name: "price" },
-        { text: "下单时间", name: "createTime" },
-          { text: "审核状态", name: "auditStatus" },
-          { text: "订单状态", name: "status" },
+        { text: "日期", name: "createTime" },
+        { text: "订单单号", name: "orderNum" },
+        {text: "购货单位", name: "customer"},
+        //{ text: "客户名称", name: "username" },
+        { text: "物料代码", name: "goodCode" },
+        { text: "物料名称", name: "goodName" },
+        { text: "规格型号", name: "standard" },
+        { text: "单位", name: "unitOfMea" },
+        { text: "订单数量", name: "num" },
+        { text: "实发数量", name: "actualNum" },
+        { text: "单价", name: "sellPrice" },
+        { text: "金额", name: "totalPrice" },
+        { text: "审核状态", name: "auditStatus" },
+        { text: "订单状态", name: "status" },
+        { text: "发货仓库", name: "plaName" },
+        { text: "商品图片", name: "img" },
+        { text: "备注", name: "" }
       ]
     };
   },
@@ -69,17 +81,24 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.fetchData();
       },
       //监听当前页
       handleCurrent(val) {
-          this.list.current = val;
-          this.fetchData(this.node.data.fid,this.node.data.type);
+          this.list.current = val
+          this.fetchData()
       },
     dblclick(obj) {
-      this.$emit('showDialog',obj.row)
+      if (obj.row.auditStatus == '已审核') {
+        return this.$message({
+          message: "该单已审核",
+          type: "warning"
+        })
+      }else{
+        this.$emit('showDialog', obj.row)
+      }
     },
-      Delivery(val){
+      Delivery(val) {
           delivery(val).then(res => {
               this.$emit('uploadList')
           });
@@ -93,14 +112,34 @@ export default {
       const data = {
       /*  fid: fid,
         type: type,*/
-        query: val || '',
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };
-        salesList(data).then(res => {
+      salesListT(data, val).then(res => {
         this.loading = false;
-            if(res.flag&&res.data!=null){
+            if(res.flag && res.data != null) {
                 this.list = res.data;
+              let record = res.data.records
+              let obj = []
+              for(const i in record) {
+                for(const a in record[i].orderDetails) {
+                  record[i].orderDetails[a].oid = record[i].oid
+                  record[i].orderDetails[a].addTime = record[i].createTime
+                  record[i].orderDetails[a].username = record[i].username
+                  record[i].orderDetails[a].status = record[i].status
+                  record[i].orderDetails[a].plaName = record[i].plaName
+                  record[i].orderDetails[a].customer = record[i].customer
+                  record[i].orderDetails[a].auditStatus = record[i].auditStatus
+                  obj.push(record[i].orderDetails[a])
+                }
+              }
+              this.list= {
+                current: res.data.current,
+                pages: res.data.pages,
+                size: res.data.size,
+                total: res.data.total,
+                records: obj
+              }
             }
       });
     }

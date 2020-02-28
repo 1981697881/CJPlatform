@@ -25,9 +25,9 @@
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
         </el-col>
-        <el-col :span="2">
+       <!-- <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">库存同步</el-button>
-        </el-col>
+        </el-col>-->
       </el-row>
     </el-form>
   </div>
@@ -60,7 +60,7 @@ export default {
       },
     query() {
       if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-        this.$emit('showTable', {goodName: this.search.keyword ,plaId: this.plaIdS})
+        this.$emit('showTable', { goodName: this.search.keyword ,plaId: this.plaIdS})
       }
     },
     handleTab(node){
@@ -78,6 +78,7 @@ export default {
       },
     upload() {
       this.$emit('uploadList' ,{plaId: this.plaIdS})
+      this.search.keyword = ''
     }
   }
 };
