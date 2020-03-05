@@ -97,6 +97,7 @@ export default {
         return
       }
       let url = window.URL.createObjectURL(new Blob([res.data]))
+      console.log(url)
       let link = document.createElement('a')
       link.style.display = 'none'
       link.href = url
@@ -132,10 +133,8 @@ export default {
       handleAudit() {
         if (this.clickData.oid) {
           if (this.clickData.auditStatus == '已审核') {
-            return this.$message({
-              message: "该单已审核",
-              type: "warning"
-            })
+            this.clickData.isAdd = false
+            this.$emit('showDialog',this.clickData)
           }else{
             this.$emit('showDialog',this.clickData)
           }

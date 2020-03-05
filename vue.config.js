@@ -44,7 +44,7 @@ module.exports = {
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://localhost:8090/asset`, // 修改后台接口地址
         //target: `http://192.168.3.149:8080/`,
-        target: `http://test.gzfzdev.com:8080/`,
+        target: `http://120.78.168.141:8091/web`,
         //target: `http://47.106.37.87:8091/asset`,
         changeOrigin: true, // 必须加上跨域
         pathRewrite: {

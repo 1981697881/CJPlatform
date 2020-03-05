@@ -81,7 +81,7 @@ export function delivery(data) {
 }
 // 导出订单明细
 export function exportData(data) {
-  const url = '/Admin/export/orderData'
+  const url = '/excel/Admin/export/orderData'
   return request({
     headers: {
       'authorization': getToken('rx'),

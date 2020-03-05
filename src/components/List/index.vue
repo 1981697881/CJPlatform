@@ -20,6 +20,7 @@
       <el-table-column
         v-for="(t,i) in columns"
         :key="i"
+        sortable
         :prop="t.name"
         v-if="t.default!=undefined?t.default:true"
         :label="t.text"

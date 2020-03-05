@@ -16,7 +16,7 @@
       :width="'70%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" @operation="operation" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" :isAdd="isAdd" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
 
     </el-dialog>
   </div>
@@ -37,6 +37,7 @@ export default {
       visible: null,
       isfullscreen: null,
       fid: null,
+      isAdd:null,
         img:null,
         reason:null,
         username:null,
@@ -59,7 +60,7 @@ export default {
           }
       },
     handlerDialog(obj){
-      if(obj)this.reOdId = obj.reId;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.username=obj.username;this.reason=obj.reason;
+      if(obj)this.reOdId = obj.reId;this.isAdd = obj.isAdd;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.username=obj.username;this.reason=obj.reason;
       this.visible = true
     },
     handlerNode(node) {

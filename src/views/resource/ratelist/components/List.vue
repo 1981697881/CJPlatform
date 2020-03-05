@@ -40,7 +40,9 @@
 import { mapGetters } from "vuex";
 import { rateList } from "@/api/resource/rate";
 import List from "@/components/List";
-
+import {
+  getPer
+} from '@/utils/auth'
 export default {
   components: {
     List
@@ -52,6 +54,8 @@ export default {
     return {
       loading: false,
       list: {},
+      prId: null,
+      q: null,
       type: null,
       columns: [
         { text: "uid", name: "uid",default:false },
@@ -59,7 +63,7 @@ export default {
           { text: "客户名称", name: "username" },
         { text: "商品名称", name: "goodName" },
         { text: "商品编号", name: "goodCode" },
-          { text: "价格", name: "price" },
+          { text: "价格", name: "price", default: false },
         { text: "规格", name: "standard" },
         { text: "单位", name: "unitOfMea" },
       ]
@@ -75,6 +79,16 @@ export default {
       this.fetchData();
     }
   }, */
+  created() {
+    //判断价格权限
+    if(unescape(getPer('per').replace(/\\u/gi, '%u')) === '价格') {
+      for(let i in this.columns) {
+        if(this.columns[i].name == 'price') {
+          this.columns[i].default = true
+        }
+      }
+    }
+  },
   methods: {
       //监听每页显示几条
       handleSize(val) {
@@ -93,9 +107,13 @@ export default {
       }
       this.$emit('showDialog',data)
     },
+    uploadPr(val) {
+      this.prId = val.plaId
+      this.q = val.query
+      this.fetchData();
+    },
     fetchData(val) {
       this.loading = true;
-
       const data = {
       /*  fid: fid,
         type: type,*/
@@ -103,7 +121,10 @@ export default {
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
       };
-        rateList(data).then(res => {
+      let obj = {}
+      this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
+      this.q != null || this.q != undefined ? obj.q = this.q : null
+        rateList(data, obj).then(res => {
         this.loading = false;
         this.list = res.data;
       });

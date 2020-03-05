@@ -40,7 +40,9 @@
 import { mapGetters } from "vuex";
 import { stockList } from "@/api/resource/stock";
 import List from "@/components/List";
-
+import {
+  getPer
+} from '@/utils/auth'
 export default {
   components: {
     List
@@ -62,7 +64,7 @@ export default {
         { text: "规格型号", name: "standard" },
         { text: "仓库", name: "wareHouseName" },
         { text: "数量", name: "num" },
-          { text: "价格", name: "price" },
+          { text: "价格", name: "price", default: false },
           { text: "更新时间", name: "updateTime" },
       ]
     };
@@ -77,6 +79,16 @@ export default {
       this.fetchData();
     }
   }, */
+  created() {
+    //判断价格权限
+    if(unescape(getPer('per').replace(/\\u/gi, '%u')) === '价格') {
+      for(let i in this.columns) {
+        if(this.columns[i].name == 'price') {
+          this.columns[i].default = true
+        }
+      }
+    }
+  },
   methods: {
       //监听每页显示几条
       handleSize(val) {

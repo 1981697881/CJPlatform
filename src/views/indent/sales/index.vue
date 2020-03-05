@@ -16,7 +16,7 @@
       :width="'50%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="upload" :oid="oid" :orderId="orderId" :createTime="createTime" :username="username"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="upload" :isAdd="isAdd" :oid="oid" :orderId="orderId" :createTime="createTime" :username="username"></customer-info>
 
     </el-dialog>
   </div>
@@ -36,6 +36,7 @@ export default {
     return {
       visible: null,
       oid: null,
+      isAdd: null,
       isfullscreen: null,
         username:null,
         orderId: null,
@@ -59,7 +60,7 @@ export default {
       },
     handlerDialog(obj){
         console.log(obj)
-      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.username=obj.username;
+      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.username=obj.username;this.isAdd = obj.isAdd;
       this.visible = true
     },
     handlerNode(node) {

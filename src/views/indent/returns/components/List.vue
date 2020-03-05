@@ -42,7 +42,9 @@
 import { mapGetters } from "vuex";
 import { returnsListT ,receiving} from "@/api/indent/returns";
 import List from "@/components/List";
-
+import {
+  getPer
+} from '@/utils/auth'
 export default {
   components: {
     List
@@ -68,8 +70,8 @@ export default {
         { text: "单位", name: "unitOfMea" },
         { text: "订单数量", name: "sourceNum" },
         { text: "退货数量", name: "num" },
-        { text: "单价", name: "sellPrice" },
-        { text: "金额", name: "totalPrice" },
+        { text: "单价", name: "sellPrice", default: false },
+        { text: "金额", name: "totalPrice", default: false },
          // { text: "客户名称", name: "username" },
         { text: "发货仓库", name: "plaName" },
         { text: "退货原因", name: "reason" },
@@ -89,6 +91,16 @@ export default {
       this.fetchData();
     }
   }, */
+  created() {
+    //判断价格权限
+    if(unescape(getPer('per').replace(/\\u/gi, '%u')) === '价格') {
+      for(let i in this.columns) {
+        if(this.columns[i].name == 'sellPrice' || this.columns[i].name == 'totalPrice') {
+          this.columns[i].default = true
+        }
+      }
+    }
+  },
   methods: {
     // 监听每页显示几条
     handleSize(val) {
@@ -106,10 +118,8 @@ export default {
       },
     dblclick(obj) {
       if (obj.row.isAudit == '已审核') {
-        return this.$message({
-          message: "该单已审核",
-          type: "warning"
-        })
+        obj.row.isAdd = false
+        this.$emit('showDialog',obj.row)
       } else {
         this.$emit('showDialog',obj.row)
       }

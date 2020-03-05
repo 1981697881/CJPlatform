@@ -56,7 +56,7 @@ export default {
     },
   methods:{
       selectChange(val) {
-          this.$emit('showTable', {plaId: val})
+          this.$emit('showTable', {plaId: val, goodName: this.search.keyword})
       },
     query() {
       if((typeof this.search.keyword != null) && (this.search.keyword !='')){
@@ -66,6 +66,7 @@ export default {
     handleTab(node){
         /*this.$emit('showDialog')*/
     },
+
       fetchFormat() {
           getPlas().then(res => {
               if(res.flag){
@@ -77,7 +78,7 @@ export default {
           });
       },
     upload() {
-      this.$emit('uploadList' ,{plaId: this.plaIdS})
+      this.$emit('showTable' ,{plaId: this.plaIdS})
       this.search.keyword = ''
     }
   }

@@ -21,7 +21,16 @@ export function getInfo(fid) {
     params: { fid }
   })
 }
-
+// 获取用户信息
+export function getPermissions() {
+  return request({
+    url: '/cjsh-permission/getPermissions',
+    headers: {
+      'authorization': getToken('rx'),
+    },
+    method: 'get',
+  })
+}
 export function logout(data) {
   return request({
     url: '/back/system/user/login_out.do',

@@ -3,17 +3,16 @@ import {
   getToken
 } from '@/utils/auth' // get token from cookie
 // 查询订单列表
-export function rateList(data) {
+export function rateList(data, query) {
   //查询分页数据
   const url = '/Admin/price/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
       'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
     },
     url: url,
-    method: 'get',
-    params: {
-      q: data.query || ''
-    }
+    method: 'post',
+    data: query
   })
 }

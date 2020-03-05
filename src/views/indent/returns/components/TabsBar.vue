@@ -128,17 +128,14 @@ export default {
     },
     exportOrder() {
       exportData(this.qFilter()).then(res => {
-        console.log(res)
         this.download(res)
       })
     },
       handleAudit(){
           if (this.clickData.reId) {
             if (this.clickData.isAudit == '已审核') {
-              return this.$message({
-                message: "该单已审核",
-                type: "warning"
-              })
+              this.clickData.isAdd = false
+              this.$emit('showDialog',this.clickData)
             }else{
               this.$emit('showDialog',this.clickData)
             }

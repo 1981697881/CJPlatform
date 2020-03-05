@@ -46,6 +46,7 @@
           <el-table-column
             fixed="right"
             label="操作"
+            v-show="isAdd"
             width="100">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
@@ -79,8 +80,8 @@
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
-      <el-button type="warning" @click.native="rejected">驳回</el-button>
-      <el-button type="primary" @click.native="audit">审核</el-button>
+      <el-button type="warning" v-show="isAdd" @click.native="rejected">驳回</el-button>
+      <el-button type="primary" v-show="isAdd" @click.native="audit">审核</el-button>
     </div>
   </div>
 </template>
@@ -88,7 +89,9 @@
 <script>
   import {saleInfo, auditOrder, Dismissed} from "@/api/indent/sales";
   import List from "@/components/List";
-
+  import {
+    getPer
+  } from '@/utils/auth'
   export default {
     components: {
       List
@@ -97,6 +100,10 @@
       oid: {
         type: Number,
         default: null
+      },
+      isAdd: {
+        type: Boolean,
+        default: true
       },
       orderId: {
         type: String,
@@ -135,12 +142,19 @@
           {text: "商品编码", name: "goodCode"},
           {text: "下单数量", name: "num"},
           {text: "实发数量", name: "actualNum"},
-          {text: "价格", name: "phone"},
+          {text: "价格", name: "sellPrice", default: false },
         ],
       };
     },
     created() {
-
+//判断价格权限
+      if(unescape(getPer('per').replace(/\\u/gi, '%u')) === '价格') {
+        for(let i in this.columns) {
+          if(this.columns[i].name == 'sellPrice' ) {
+            this.columns[i].default = true
+          }
+        }
+      }
     },
     mounted() {
       this.form.oid = this.oid

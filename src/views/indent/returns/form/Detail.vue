@@ -81,15 +81,17 @@
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
-      <el-button type="warning" @click="rejected">驳回</el-button>
-      <el-button type="primary" @click="audit">审核</el-button>
+      <el-button type="warning" v-show="isAdd" @click="rejected">驳回</el-button>
+      <el-button type="primary" v-show="isAdd" @click="audit">审核</el-button>
     </div>
   </div>
 </template>
 
 <script>
   import {getReturnOrder, auditOrder, Dismissed, getOrderGoodsById} from "@/api/indent/returns";
-
+  import {
+    getPer
+  } from '@/utils/auth'
   export default {
     props: {
       orderId: {
@@ -111,6 +113,10 @@
       img: {
         type: String,
         default: null
+      },
+      isAdd: {
+        type: Boolean,
+        default: true
       },
       username: {
         type: String,
@@ -147,9 +153,19 @@
           {text: "商品名称", name: "goodName"},
           {text: "商品编码", name: "goodCode"},
           {text: "退货数量", name: "num"},
-          {text: "价格", name: "price"},
+          {text: "价格", name: "sellPrice", default: false },
         ],
       };
+    },
+    created() {
+      //判断价格权限
+      if(unescape(getPer('per').replace(/\\u/gi, '%u')) === '价格') {
+        for(let i in this.columns) {
+          if(this.columns[i].name == 'sellPrice') {
+            this.columns[i].default = true
+          }
+        }
+      }
     },
     mounted() {
       console.log(this.img)
@@ -159,7 +175,7 @@
           this.fileList = []
           for (let i in imgArray) {
             this.fileList.push({
-              url: 'http://test.gzfzdev.com:8080/web' + imgArray[i]
+              url: 'http://120.78.168.141:8091/web' + imgArray[i]
             })
           }
           console.log(this.fileList)

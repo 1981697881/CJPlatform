@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @uploadList="upload" @showDialog="handlerDialog" @queryBtn="query"/>
+        <tabs-bar @addUnit="handlerTabs" @uploadList="upload" @showTable="loadList" @showDialog="handlerDialog" @queryBtn="query"/>
       </div>
       <list  ref="list" @uploadList="upload" @showDialog="handlerDialog"/>
     </div>
@@ -39,11 +39,14 @@ export default {
     };
   },
     mounted() {
-        this.$refs.list.fetchData()
+       // this.$refs.list.fetchData()
     },
   methods: {
     saveData(){
 
+    },
+    loadList(val){
+      this.$refs.list.uploadPr(val)
     },
     handlerDialog(obj){
       if(obj)this.fid = obj.fid
