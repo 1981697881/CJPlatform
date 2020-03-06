@@ -6,6 +6,7 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
+import store from "../../../store";
 
 export default {
   mixins: [resize],
@@ -25,13 +26,18 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      dateEnd: null,
+      dateStart: null,
+      headData: [],
+      bodyData: [],
+      type: 1
     }
   },
   mounted() {
-    this.$nextTick(() => {
+   /* this.$nextTick(() => {
       this.initChart()
-    })
+    })*/
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -41,37 +47,78 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
-      this.chart = echarts.init(this.$el, 'macarons')
-
+    reset(infoData) {
+      let info = []
+      if (this.type === 1) {
+        infoData.forEach(function(item, index) {
+          info.push({
+            name: item.name,
+            value: item.totalPrice
+          })
+        })
+        this.$emit('uploadList',false)
+        this.type = 2
+      } else {
+        infoData.forEach(function(item, index) {
+          info.push({
+            name: item.name,
+            value: item.totalNum
+          })
+        })
+        this.$emit('uploadList',true)
+        this.type = 1
+      }
       this.chart.setOption({
-        /*  title: {
-              text: '某站点用户访问来源',
-              subtext: '纯属虚构',
-              left: 'center'
-          },*/
-          tooltip: {
-              trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
-          },
-          legend: {
-              orient: 'vertical',
-              bottom : '10',
-              data: ['肉类', '主食类', '丸子类', '切肉部', '中厨类']
-          },
+        series: {
+          data: info
+        }
+      })
+    },
+    initChart(infoData) {
+      let me = this
+      let array = []
+      let info = []
+        infoData.forEach(function(item, index) {
+          array.push(item.name)
+          info.push({
+            name: item.name,
+            value: item.totalNum
+          })
+        })
+      this.chart = echarts.init(this.$el, 'macarons')
+      this.chart.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        toolbox: {
+          feature: {
+            myTool: {
+              show: true,
+              title: '切换销量/销售额',
+              icon: 'image://' + require('@/assets/logo/edzh.png'),
+              onclick: function() {
+                me.reset(infoData)
+              }
+            },
+            dataView: {show: true, readOnly: false},
+            restore: {show: true},
+            saveAsImage: {show: true},
+          }
+        },
+        legend: {
+          orient: 'vertical',
+          type: 'scroll',
+          left: '10',
+          data: array
+        },
           series: [
               {
-                  name: '访问来源',
+                  name: '分类',
                   type: 'pie',
                   radius: '55%',
-                  center: ['50%', '35%'],
-                  data: [
-                      {value: 335, name: '肉类'},
-                      {value: 310, name: '主食类'},
-                      {value: 234, name: '丸子类'},
-                      {value: 135, name: '切肉部'},
-                      {value: 1548, name: '中厨类'}
-                  ],
+                  center: ['50%', '50%'],
+                  data: info,
                   emphasis: {
                       itemStyle: {
                           shadowBlur: 10,

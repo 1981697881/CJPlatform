@@ -27,13 +27,14 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      type: 1
     }
   },
   mounted() {
-    this.$nextTick(() => {
+   /* this.$nextTick(() => {
       this.initChart()
-    })
+    })*/
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -43,7 +44,25 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
+    reset() {
+      if (this.type === 1) {
+        this.type = 2
+        this.$emit('uploadList',false)
+      } else {
+        this.type = 1
+        this.$emit('uploadList',true)
+      }
+    },
+    initChart(infoData) {
+      let array1 = []
+      let me = this
+      let array2 = []
+      let info = []
+      infoData.forEach(function(item, index) {
+        array1.push(item.totalNum)
+        array2.push(item.totalPrice)
+        info.push(item.goodName)
+      })
       this.chart = echarts.init(this.$el, 'macarons')
       this.chart.setOption({
          /* title: {
@@ -56,6 +75,21 @@ export default {
                   type: 'shadow'
               }
           },
+        toolbox: {
+          feature: {
+            myTool: {
+              show: true,
+              title: '切换销量/销售额',
+              icon: 'image://' + require('@/assets/logo/edzh.png'),
+              onclick: function() {
+                me.reset()
+              }
+            },
+            dataView: {show: true, readOnly: false},
+            restore: {show: true},
+            saveAsImage: {show: true},
+          }
+        },
           legend: {
               data: ['销量', '金额']
           },
@@ -71,18 +105,18 @@ export default {
           },
           yAxis: {
               type: 'category',
-              data: ['吊龙', '打包盒', '纸巾', '鸡肉', '鱼肉', '牛肉']
+              data: info
           },
           series: [
               {
                   name: '销量',
                   type: 'bar',
-                  data: [18203, 23489, 29034, 10497, 13174, 3023]
+                  data: array1
               },
               {
                   name: '金额',
                   type: 'bar',
-                  data: [19325, 23438, 31000, 12159, 13414, 8180]
+                  data: array2
               }
           ]
       })
