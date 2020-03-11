@@ -7,7 +7,6 @@
         :key="i"
         align="center"
         :prop="t.name"
-
         :label="t.text"
         v-if="t.default!=undefined?t.default:true"
         :width="t.width?t.width:''"

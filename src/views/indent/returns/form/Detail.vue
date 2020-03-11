@@ -26,12 +26,12 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item :label="'客户名称'">
-            <el-input v-model="form.name" :disabled="true"></el-input>
+            <el-input v-model="form.customer" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item :label="'客户编号'">
-            <el-input v-model="form.code" :disabled="true"></el-input>
+            <el-input v-model="form.customerCode" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -118,7 +118,11 @@
         type: Boolean,
         default: true
       },
-      username: {
+      customer: {
+        type: String,
+        default: null
+      },
+      customerCode: {
         type: String,
         default: null
       },
@@ -134,8 +138,8 @@
           orderId: null,
           returnOrderNum: null,
           createTime: null,
-          name: null, // 客户名称
-          code: null, // 客户编号
+          customerCode: null, // 客户名称
+          customer: null, // 客户编号
           reason: null,
         },
         biggest: true,
@@ -187,7 +191,8 @@
       this.form.orderId = this.orderId
       this.form.returnOrderNum = this.returnOrderNum
       this.form.createTime = this.createTime
-      this.form.name = this.username
+      this.form.customer = this.customer
+      this.form.customerCode = this.customerCode
       this.form.reason = this.reason
       if (this.form.reOdId) {
         this.fetchData(this.form.reOdId);

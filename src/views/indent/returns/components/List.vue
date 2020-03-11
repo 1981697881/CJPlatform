@@ -152,6 +152,7 @@ export default {
                   record[i].returnOrderDetailVOS[a].status = record[i].status
                   record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
                   record[i].returnOrderDetailVOS[a].customer = record[i].customer
+                  record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode
                   record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
                   record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
                   obj.push(record[i].returnOrderDetailVOS[a])

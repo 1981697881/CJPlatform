@@ -58,10 +58,11 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "oid", name: "oid",default:false },
+        { text: "oid", name: "oid", default:false },
         { text: "日期", name: "createTime" },
         { text: "订单单号", name: "orderNum" },
         {text: "购货单位", name: "customer"},
+       // { text: "客户编码", name: "customerCode", default:false },
         //{ text: "客户名称", name: "username" },
         { text: "物料代码", name: "goodCode" },
         { text: "物料名称", name: "goodName" },
@@ -139,6 +140,7 @@ export default {
                   record[i].orderDetails[a].status = record[i].status
                   record[i].orderDetails[a].plaName = record[i].plaName
                   record[i].orderDetails[a].customer = record[i].customer
+                  record[i].orderDetails[a].customerCode = record[i].customerCode
                   record[i].orderDetails[a].auditStatus = record[i].auditStatus
                   obj.push(record[i].orderDetails[a])
                 }

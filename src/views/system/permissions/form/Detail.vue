@@ -14,13 +14,13 @@
             <el-input v-model="form.roleName"></el-input>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="12">
-          <el-form-item :label="'用户权限'" prop="roleLevel">
+        <el-col :span="12">
+          <el-form-item :label="'审核权限'" prop="roleLevel">
             <el-select v-model="form.roleLevel" class="width-full" placeholder="请选择用户权限">
               <el-option :label="t[1]" :value="t[0]" v-for="(t,i) in levelFormat" :key="i"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>-->
+        </el-col>
         <el-col :span="12">
           <el-form-item :label="'字段权限'" >
             <el-select v-model="form.pidS" multiple  placeholder="请选择">
@@ -56,7 +56,7 @@ export default {
       form: {
           rid: null,
           roleName: null, // 名称
-          roleLevel:1,
+          roleLevel:null,
       },
         pidS:[],
         pArray:[],
@@ -69,7 +69,7 @@ export default {
             ],
 
         },
-      levelFormat: [[1,'一级'],[2,'二级']]
+      levelFormat: [[1,'是'],[0,'否']]
     };
   },
   created() {

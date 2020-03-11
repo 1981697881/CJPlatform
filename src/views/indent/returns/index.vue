@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar  @showDialog="handlerDialog" @receiving="receiving" @queryBtn="query" @uploadList="upload"/>
+        <tabs-bar ref="tabs"  @showDialog="handlerDialog" @receiving="receiving" @queryBtn="query" @uploadList="upload"/>
       </div>
       <list  ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -16,7 +16,7 @@
       :width="'70%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" @operation="operation" :isAdd="isAdd" :img="img" :reOdId="reOdId" @uploadList="upload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :username="username" :reason="reason"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" :isAdd="isAdd" :img="img" :reOdId="reOdId" @uploadList="onUpload" :orderId="orderId"  :returnOrderNum="returnOrderNum" :createTime="createTime" :customer="customer" :customerCode="customerCode" :reason="reason"></customer-info>
 
     </el-dialog>
   </div>
@@ -37,53 +37,55 @@ export default {
       visible: null,
       isfullscreen: null,
       fid: null,
-      isAdd:null,
-        img:null,
-        reason:null,
-        username:null,
+      isAdd: null,
+      img: null,
+      reason: null,
+      customer: null,
+      returnOrderNum: null,
+      customerCode: null,
       treeId: null, // null
       floorId: null
-    };
+    }
   },
-    mounted() {
-        this.$refs.list.fetchData()
-    },
+  mounted() {
+    //this.$refs.list.fetchData()
+  },
   methods: {
-      hideWindow(val){
-          this.visible = val
-      },
-      receiving(obj){
-          if(obj){
-              console.log(obj.reOdId)
-              this.$refs.list.Receiving(obj.reOdId)
-              this.$refs.list.fetchData()
-          }
-      },
-    handlerDialog(obj){
-      if(obj)this.reOdId = obj.reId;this.isAdd = obj.isAdd;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.username=obj.username;this.reason=obj.reason;
+    hideWindow(val) {
+      this.visible = val
+    },
+    receiving(obj) {
+      if (obj) {
+        this.$refs.list.Receiving(obj.reId)
+        this.$refs.list.fetchData()
+      }
+    },
+    handlerDialog(obj) {
+      if(obj)this.reOdId = obj.reId;this.isAdd = obj.isAdd;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.customer = obj.customer;this.customerCode = obj.customerCode;this.reason=obj.reason;
       this.visible = true
     },
     handlerNode(node) {
-      console.log(node.data)
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
-    //更新列表
+    // 更新列表
     query(val) {
-        console.log(val)
       this.$refs.list.fetchData(val)
     },
-    //操作窗口
+    // 操作窗口
     operation(val) {
-      if(val == 1) {
+      if (val == 1) {
         this.isfullscreen = true
-      }else {
+      } else {
         this.isfullscreen = false
       }
     },
-      //更新列表
-      upload(){
-          this.$refs.list.fetchData()
-      }
+    // 更新列表
+    upload(val) {
+      this.$refs.list.fetchData(val)
+    },
+    onUpload() {
+      this.$refs.list.fetchData(this.$refs.tabs.getPlaId())
+    },
   }
 };
 </script>

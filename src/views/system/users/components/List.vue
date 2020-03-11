@@ -34,7 +34,6 @@
       @dblclick="dblclick"
       @row-click="rowClick"
     />
-
   </div>
 </template>
 
@@ -42,7 +41,6 @@
   import {mapGetters} from "vuex";
   import {usersList} from "@/api/system/users";
   import List from "@/components/List";
-
   export default {
     components: {
       List
@@ -60,32 +58,21 @@
           {text: "用户名称", name: "name"},
           {text: "登录账号", name: "username"},
           {text: "联系电话", name: "tel"},
-          {text: "所属公司", name: "come"},
-          {text: "权限", name: "phone"},
+          {text: "地址", name: "comp"},
           {text: "状态", name: "status"},
         ]
       };
     },
-    /* watch: {
-      node(val) {
-        console.log(val)
-        this.fid = val.data.fid;
-        this.type =  val.data.type
-        console.log(this.fid)
-        console.log(this.type)
-        this.fetchData();
-      }
-    }, */
     methods: {
       //监听每页显示几条
       handleSize(val) {
         this.list.size = val
-        this.fetchData();
+        this.fetchData()
       },
       //监听当前页
       handleCurrent(val) {
         this.list.current = val;
-        this.fetchData();
+        this.fetchData()
       },
       dblclick(obj) {
         this.$emit('showDialog', obj.row)
@@ -96,10 +83,7 @@
       },
       fetchData(val) {
         this.loading = true;
-
         const data = {
-          /*  fid: fid,
-            type: type,*/
           query: val || '',
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50

@@ -48,7 +48,7 @@ export default {
       columns: [
         { text: "rid", name: "rid" ,default:false},
         { text: "角色名称", name: "roleName" },
-        { text: "类型", name: "roleLevel" },
+        //{ text: "类型", name: "roleLevel" },
         { text: "创建时间", name: "contact" },
         { text: "备注", name: "phone" },
         { text: "状态", name: "qq" },
@@ -61,18 +61,13 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-          this.fetchData();
+          this.fetchData()
       },
       //监听当前页
       handleCurrent(val) {
           this.list.current = val;
-          this.fetchData();
+          this.fetchData()
       },
-    // 弹窗拖拽
-    handleDrag() {
-      this.$refs.select.blur();
-    },
-    closedDialog() {},
     dblclick(obj) {
         this.$emit('showDialog',obj)
     },
@@ -85,19 +80,16 @@ export default {
           this.$emit('showTree',obj)
           this.$store.dispatch("list/setClickData", obj);
       },
-    fetchData(fid, type) {
+    fetchData() {
       this.loading = true;
-
       const data = {
-      /*  fid: fid,
-        type: type,*/
           pageNum: this.list.current || 1,
           pageSize: this.list.size || 50
-      };
+      }
         permissionsList(data).then(res => {
         this.loading = false;
         this.list = res.data;
-      });
+      })
     }
   }
 };

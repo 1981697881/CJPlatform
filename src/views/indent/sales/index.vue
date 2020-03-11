@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @showDialog="handlerDialog" @theDelivery="delivery" @queryBtn="query" @uploadList="upload"/>
+        <tabs-bar ref="tabs" @showDialog="handlerDialog" @theDelivery="delivery" @queryBtn="query" @uploadList="upload"/>
       </div>
       <list ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -16,7 +16,7 @@
       :width="'50%'"
       destroy-on-close
     >
-      <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="upload" :isAdd="isAdd" :oid="oid" :orderId="orderId" :createTime="createTime" :username="username"></customer-info>
+      <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="onUpload" :isAdd="isAdd" :oid="oid" :orderId="orderId" :createTime="createTime" :customer="customer" :customerCode="customerCode"></customer-info>
 
     </el-dialog>
   </div>
@@ -34,19 +34,20 @@ export default {
   },
   data() {
     return {
+      customer: null,
+      customerCode: null,
       visible: null,
       oid: null,
       isAdd: null,
       isfullscreen: null,
-        username:null,
-        orderId: null,
-        createTime: null,
+      orderId: null,
+      createTime: null,
       treeId: null, // null
       floorId: null
     };
   },
     mounted() {
-        this.$refs.list.fetchData()
+        //this.$refs.list.fetchData()
     },
   methods: {
       delivery(obj){
@@ -60,15 +61,15 @@ export default {
       },
     handlerDialog(obj){
         console.log(obj)
-      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.username=obj.username;this.isAdd = obj.isAdd;
+      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.isAdd = obj.isAdd;this.customer = obj.customer;this.customerCode = obj.customerCode;
       this.visible = true
     },
     handlerNode(node) {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
       //更新列表
-      upload() {
-          this.$refs.list.fetchData()
+      upload(val) {
+          this.$refs.list.fetchData(val)
       },
     //操作窗口
     operation(val) {
@@ -81,7 +82,10 @@ export default {
     //更新列表
     query(val) {
       this.$refs.list.fetchData(val)
-    }
+    },
+    onUpload() {
+      this.$refs.list.fetchData(this.$refs.tabs.getPlaId())
+    },
   }
 };
 </script>
