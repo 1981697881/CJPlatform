@@ -156,7 +156,7 @@ export default {
     },
     handleAudit(){
       if (this.clickData.reId) {
-        if (this.clickData.isAudit == '已审核') {
+        if (this.clickData.isAudit == '已审核' || this.clickData.isAudit == '已驳回') {
           this.clickData.isAdd = false
           this.$emit('showDialog',this.clickData)
         } else {

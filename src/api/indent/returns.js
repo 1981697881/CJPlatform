@@ -65,13 +65,15 @@ export function auditOrder(data) {
 }
 //驳回
 export function Dismissed(data) {
-  const url = '/Admin/returnOrder/Dismissed/' + data
+  const url = '/Admin/returnOrder/Dismissed/'
   return request({
     headers: {
       'authorization': getToken('rx'),
+      'Content-Type': 'application/json'
     },
     url: url,
     method: 'put',
+    data: data
   })
 }
 //收货确认

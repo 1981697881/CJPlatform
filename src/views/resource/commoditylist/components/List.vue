@@ -43,7 +43,7 @@
         <el-upload
           action="web/file/Goods/imgUpload"
           list-type="picture-card"
-          accept="png,jpg,jpeg"
+          accept="image/jpeg,image/jpg,image/png,image/gif"
           :headers="headers"
           :data="imgData"
           name="imgS"
@@ -173,7 +173,7 @@ export default {
                   this.fileList=[]
                   for(let i in imgArray){
                       this.fileList.push({
-                          url:'http://120.78.168.141:8091/web'+imgArray[i]
+                          url:'http://test.gzfzdev.com:8080/web'+imgArray[i]
                       })
                   }
               }else{
@@ -182,11 +182,11 @@ export default {
           }
          /* if(row.img){
               if(this.fileList.length>0){
-                  this.fileList[0].url = 'http://120.78.168.141:8091'+row.img;
+                  this.fileList[0].url = 'http://test.gzfzdev.com:8080'+row.img;
               }else{
                   this.fileList=[]
                   this.fileList.push({
-                      url:'http://120.78.168.141:8091'+row.img
+                      url:'http://test.gzfzdev.com:8080'+row.img
                   })
               }
           }else{
@@ -202,7 +202,7 @@ export default {
           this.$emit('uploadList')
       },
       uploadSuccess(res,file,fileList){
-          file.url='http://120.78.168.141:8091/web/good/img/'+res.data;
+          file.url='http://test.gzfzdev.com:8080/web/good/img/'+res.data;
           this.$message({
               message: res.msg,
               type: "success"
@@ -210,7 +210,7 @@ export default {
           this.$emit('uploadList')
       },
       handleRemove(file, fileList) {
-          var val = file.url.split('http://120.78.168.141:8091/web/good/img/')[1]
+          var val = file.url.split('http://test.gzfzdev.com:8080/web/good/img/')[1]
           console.log(val)
           this.loading = true;
           delImg({

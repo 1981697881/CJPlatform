@@ -179,7 +179,7 @@
           this.fileList = []
           for (let i in imgArray) {
             this.fileList.push({
-              url: 'http://120.78.168.141:8091/web' + imgArray[i]
+              url: 'http://test.gzfzdev.com:8080/web' + imgArray[i]
             })
           }
           console.log(this.fileList)
@@ -229,11 +229,26 @@
           })
         }
       },
+      open() {
+        this.$prompt('请输入原因', '提示', {
+          confirmButtonText: '确定',
+          maxlength:"10",
+          cancelButtonText: '取消',
+          inputPattern: /\S/,
+          inputErrorMessage: '原因不能为空'
+        }).then(({ value }) => {
+          Dismissed({
+            id: this.form.reOdId,
+            reason: value
+          }).then(res => {
+            this.$emit('hideDialog', false)
+            this.$emit('uploadList')
+          })
+        }).catch(() => {
+        });
+      },
       rejected() {
-        Dismissed(this.form.reOdId).then(res => {
-          this.$emit('hideDialog', false)
-          this.$emit('uploadList')
-        })
+        this.open()
       },
       fetchData(val) {
         getOrderGoodsById(val).then(res => {

@@ -153,7 +153,7 @@ export default {
     },
     handleAudit() {
       if (this.clickData.oid) {
-        if (this.clickData.auditStatus == '已审核') {
+        if (this.clickData.auditStatus == '已审核' || this.clickData.auditStatus == '已驳回') {
           this.clickData.isAdd = false
           this.$emit('showDialog',this.clickData)
         }else{

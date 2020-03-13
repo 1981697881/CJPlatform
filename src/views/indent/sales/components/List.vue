@@ -102,7 +102,7 @@ export default {
           this.fetchData()
       },
     dblclick(obj) {
-      if (obj.row.auditStatus == '已审核') {
+      if (obj.row.auditStatus == '已审核' || obj.row.auditStatus == '已驳回') {
         obj.row.isAdd = false
         this.$emit('showDialog', obj.row)
       }else{

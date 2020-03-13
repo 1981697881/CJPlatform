@@ -218,12 +218,26 @@
           })
         }
       },
+      open() {
+        this.$prompt('请输入原因', '提示', {
+          confirmButtonText: '确定',
+          maxlength:"10",
+          cancelButtonText: '取消',
+          inputPattern: /\S/,
+          inputErrorMessage: '原因不能为空'
+        }).then(({ value }) => {
+            Dismissed({
+              id: this.form.oid,
+              reason: value
+            }).then(res => {
+              this.$emit('hideDialog', false)
+              this.$emit('uploadList')
+            })
+        }).catch(() => {
+        });
+      },
       rejected() {
-        Dismissed(this.form.oid).then(res => {
-          this.$emit('hideDialog', false)
-          this.$emit('uploadList')
-
-        })
+        this.open()
       },
       fetchData(val) {
         saleInfo(val).then(res => {
