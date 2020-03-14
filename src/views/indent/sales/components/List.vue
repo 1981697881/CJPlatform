@@ -59,24 +59,24 @@ export default {
       list: {},
       columns: [
         { text: "oid", name: "oid", default:false },
-        { text: "日期", name: "createTime" },
-        { text: "订单单号", name: "orderNum" },
-        {text: "购货单位", name: "customer"},
-       // { text: "客户编码", name: "customerCode", default:false },
-        //{ text: "客户名称", name: "username" },
-        { text: "物料代码", name: "goodCode" },
-        { text: "物料名称", name: "goodName" },
-        { text: "规格型号", name: "standard" },
-        { text: "单位", name: "unitOfMea" },
-        { text: "订单数量", name: "num" },
-        { text: "实发数量", name: "actualNum" },
-        { text: "单价", name: "sellPrice", default: false },
-        { text: "金额", name: "totalPrice", default: false  },
-        { text: "审核状态", name: "auditStatus" },
-        { text: "订单状态", name: "status" },
-        { text: "发货仓库", name: "plaName" },
-        { text: "商品图片", name: "img" },
-        { text: "备注", name: "" }
+        { text: "日期", name: "createTime", width: '150' },
+        { text: "订单单号", name: "orderNum", width: '150' },
+        {text: "购货单位", name: "customer", width: '120'},
+        { text: "物料代码", name: "goodCode", width: '100' },
+        { text: "物料名称", name: "goodName", width: '120' },
+        { text: "规格型号", name: "standard", width: '70' },
+        { text: "单位", name: "unitOfMea", width: '70' },
+        { text: "订单数量", name: "num", width: '70' },
+        { text: "实发数量", name: "actualNum", width: '70' },
+        { text: "单价", name: "sellPrice", default: false, width: '70' },
+        { text: "金额", name: "totalPrice", default: false, width: '70'  },
+        { text: "审核状态", name: "auditStatus", width: '100' },
+        { text: "订单状态", name: "status", width: '100' },
+        { text: "发货仓库", name: "plaName", width: '100' },
+        //{ text: "商品图片", name: "img", width: '100' },
+        { text: "备注", name: "remark", width: '120' },
+        { text: "审核反馈", name: "reasonOfDis", width: '100' },
+
       ]
     };
   },
@@ -142,6 +142,8 @@ export default {
                   record[i].orderDetails[a].customer = record[i].customer
                   record[i].orderDetails[a].customerCode = record[i].customerCode
                   record[i].orderDetails[a].auditStatus = record[i].auditStatus
+                  record[i].orderDetails[a].reasonOfDis = record[i].reasonOfDis
+                  record[i].orderDetails[a].remark = record[i].remark
                   obj.push(record[i].orderDetails[a])
                 }
               }

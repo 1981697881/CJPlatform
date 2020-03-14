@@ -33,6 +33,13 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
+        <el-col :span="24">
+          <el-form-item :label="'备注'">
+            <el-input v-model="form.remark" :disabled="true"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
         <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
           <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
           <el-table-column
@@ -120,6 +127,9 @@
       customerCode: {
         type: String,
         default: null
+      },remark: {
+        type: String,
+        default: null
       },
     },
     data() {
@@ -131,6 +141,7 @@
         form: {
           oid: null,
           orderId: null,
+          remark: null,
           createTime: null,
           customer: null, // 客户名称
           customerCode: null, // 客户编号
@@ -164,11 +175,11 @@
       this.form.oid = this.oid
       this.form.orderId = this.orderId
       this.form.customer = this.customer
-      console.log(this.customerCode)
+      this.form.remark = this.remark
       this.form.customerCode = this.customerCode
       this.form.createTime = this.createTime
       if (this.form.oid) {
-        this.fetchData(this.form.oid);
+        this.fetchData(this.form.oid)
       }
     },
     methods: {
@@ -205,12 +216,10 @@
             jbj.actualNum = list[i].actualNum
             array.push(jbj)
           }
-
           auditOrder(array).then(res => {
             this.$emit('hideDialog', false)
             this.$emit('uploadList')
-          });
-
+          })
         } else {
           return this.$message({
             message: "无退货商品",

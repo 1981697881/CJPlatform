@@ -58,26 +58,26 @@ export default {
       list: {},
       type: null,
       columns: [
-          { text: "reOdId", name: "reOdId" ,default:false},
-          { text: "orderId", name: "orderId" ,default:false},
-        { text: "日期", name: "createTime" },
-        { text: "原订单单号", name: "sourceOrderNum" },
-          { text: "退货单号", name: "orderNum" },
-        {text: "购货单位", name: "customer"},
-        { text: "物料代码", name: "goodCode" },
-        { text: "物料名称", name: "goodName" },
-        { text: "规格型号", name: "standard" },
-        { text: "单位", name: "unitOfMea" },
-        { text: "订单数量", name: "sourceNum" },
-        { text: "退货数量", name: "num" },
-        { text: "单价", name: "sellPrice", default: false },
-        { text: "金额", name: "totalPrice", default: false },
-         // { text: "客户名称", name: "username" },
-        { text: "发货仓库", name: "plaName" },
-        { text: "退货原因", name: "reason" },
-        { text: "商品图片", name: "img" },
-        { text: "审核状态", name: "isAudit" },
-          { text: "状态", name: "status" },
+        { text: "reOdId", name: "reOdId" , default:false},
+        { text: "orderId", name: "orderId" , default:false},
+        { text: "日期", name: "createTime", width: '150' },
+        { text: "原订单单号", name: "sourceOrderNum", width: '150' },
+        { text: "退货单号", name: "orderNum", width: '150' },
+        {text: "购货单位", name: "customer", width: '120'},
+        { text: "物料代码", name: "goodCode", width: '100' },
+        { text: "物料名称", name: "goodName", width: '120' },
+        { text: "规格型号", name: "standard", width: '70' },
+        { text: "单位", name: "unitOfMea", width: '70' },
+        { text: "订单数量", name: "sourceNum", width: '70' },
+        { text: "退货数量", name: "num", width: '70' },
+        { text: "单价", name: "sellPrice", default: false, width: '70' },
+        { text: "金额", name: "totalPrice", default: false, width: '70' },
+        { text: "发货仓库", name: "plaName", width: '80' },
+        { text: "退货原因", name: "reason", width: '120' },
+        //{ text: "商品图片", name: "img", width: '100' },
+        { text: "审核状态", name: "isAudit", width: '80' },
+          { text: "状态", name: "status", width: '80' },
+          { text: "审核反馈", name: "reasonOfDis", width: '100' },
       ]
     };
   },
@@ -155,6 +155,7 @@ export default {
                   record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode
                   record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
                   record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
+                  record[i].returnOrderDetailVOS[a].reasonOfDis = record[i].reasonOfDis
                   obj.push(record[i].returnOrderDetailVOS[a])
                 }
               }

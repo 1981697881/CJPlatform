@@ -179,7 +179,7 @@
           this.fileList = []
           for (let i in imgArray) {
             this.fileList.push({
-              url: 'http://test.gzfzdev.com:8080/web' + imgArray[i]
+              url: 'http://120.78.168.141:8091/web' + imgArray[i]
             })
           }
           console.log(this.fileList)
