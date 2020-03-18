@@ -1,12 +1,12 @@
-import { login, logout, getInfo,changePassword, getPermissions} from '@/api/user'
+import { login, getInfo,changePassword, getPermissions} from '@/api/user'
 import { getToken, setToken, removeToken, setUserName, setPassword, setPer} from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const state = {
-  token: getToken('rx'),
+  token: getToken('plrx'),
   name: '',
   avatar: '',
-  per: '',
+  plper: '',
   username: '',
   password: '',
 }
@@ -18,8 +18,8 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
-  SET_PER: (state, per) => {
-    state.per = per
+  SET_PER: (state, plper) => {
+    state.plper = plper
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -93,10 +93,10 @@ const actions = {
         } else {
           if(data.length <= 0) {
             setPer('')
-            commit('SET_PER', '')
+            commit('SET_TOKEN', '')
             resolve(data)
           } else {
-            const { per } = data
+            const { plper } = data
             // 转unicode
             let res = []
             let str = data[0]['permissionName']
@@ -105,7 +105,7 @@ const actions = {
             }
             let cot = "\\u" + res.join("\\u")
             setPer(cot)
-            commit('SET_PER', per)
+            //commit('SET_TOKEN', plper)
             resolve(data)
           }
         }
@@ -118,15 +118,18 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout({ fid: state.token }).then(() => {
-        commit('SET_TOKEN', '')
-        commit('SET_PER', '')
-        removeToken()
-        resetRouter()
-        resolve()
-      }).catch(error => {
+      //logout({ fid: state.token }).then(() => {
+      commit('SET_TOKEN', '')
+      commit('SET_PER', '')
+      removeToken('plper')
+      removeToken('plrx')
+      removeToken('plps')
+      removeToken('plun')
+      resetRouter()
+      resolve()
+      /*}).catch(error => {
         reject(error)
-      })
+      })*/
 
       /* commit('SET_TOKEN', '')
       removeToken()

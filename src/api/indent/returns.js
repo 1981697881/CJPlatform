@@ -7,7 +7,7 @@ export function returnsList(data) {
   const url = '/Admin/returnOrder/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -21,7 +21,7 @@ export function returnsListT(data, query) {
   const url = '/Admin/returnOrder/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -35,7 +35,7 @@ export function getReturnOrder(data) {
   const url = '/returnOrder/getById/' + data
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -46,7 +46,7 @@ export function getOrderGoodsById(data) {
   const url = '/returnOrder/getOrderGoodsById/' + data
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -57,7 +57,7 @@ export function auditOrder(data) {
   const url = '/Admin/returnOrder/auditOrder/' + data
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'put',
@@ -68,7 +68,7 @@ export function Dismissed(data) {
   const url = '/Admin/returnOrder/Dismissed/'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -81,7 +81,7 @@ export function receiving(data) {
   const url = '/Admin/returnOrder/receipt/' + data
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'put',
@@ -92,7 +92,7 @@ export function exportData(data) {
   const url = '/excel/Admin/export/returnOrderData'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     responseType: 'blob',

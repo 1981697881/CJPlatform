@@ -1,11 +1,9 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
       <div class="title-container">
         <h3 class="title">管理平台</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -54,12 +52,14 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        //校验
-        //callback(new Error('Please enter the correct user name'))
-        callback()
+      if (value == null || value == undefined) {
+        callback(new Error('请输入账号'))
       } else {
-        callback()
+        if (!validUsername(value)) {
+          callback()
+        } else {
+          callback()
+        }
       }
     }
     const validatePassword = (rule, value, callback) => {
@@ -117,11 +117,11 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(res => {
-              if(res.flag){
-                  this.$router.push({ path: this.redirect || '/' })
-              }
+            if(res.flag){
+              this.$router.push({ path: this.redirect || '/' })
+            }
             this.loading = false
-              return false
+            return false
           }).catch(() => {
             this.loading = false
           })

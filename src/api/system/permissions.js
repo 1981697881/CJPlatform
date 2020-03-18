@@ -8,7 +8,7 @@ export function permissionsList(data) {
   const url = '/Admin/role/list'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -19,7 +19,7 @@ export function saveRoles(data) {
   const url = '/Admin/role/add'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -32,7 +32,7 @@ export function getRoles(data) {
   const url = '/Admin/role/' + data
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get'
@@ -43,7 +43,7 @@ export function updateRoles(data) {
   const url = '/Admin/role/update'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -56,7 +56,7 @@ export function getSysMenuTree() {
   const url = '/Admin/getSysMenuTree'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -67,7 +67,7 @@ export function getRoleMenu(data) {
   const url = '/Admin/getRoleMenu'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: url,
     method: 'get',
@@ -79,7 +79,7 @@ export function addRoleMenu(data) {
   const url = '/Admin/addRoleMenu'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -92,7 +92,7 @@ export function getPermission(data) {
   const url = '/Admin/permission/list'
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get'

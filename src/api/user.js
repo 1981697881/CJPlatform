@@ -26,7 +26,7 @@ export function getPermissions() {
   return request({
     url: '/cjsh-permission/getPermissions',
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     method: 'get',
   })
@@ -42,7 +42,7 @@ export function changePassword(data) {
   return request({
     headers: {
       'Content-Type': 'application/json',
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
     url: '/user/changePassword',
     method: 'put',

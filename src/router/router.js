@@ -10,6 +10,7 @@ const map = {
   'commodity': () => import('@/views/resource/commoditylist/index'),
   'rate': () => import('@/views/resource/ratelist/index'),
   'stock': () => import('@/views/resource/stocklist/index'),
+  'warehouse': () => import('@/views/resource/warehouse/index'),
 
   'indent': () => import('@/views/indent/index'),
   'returns': () => import('@/views/indent/returns/index'),

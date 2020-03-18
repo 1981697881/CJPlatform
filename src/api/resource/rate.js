@@ -8,7 +8,7 @@ export function rateList(data, query) {
   const url = '/Admin/price/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,

@@ -36,7 +36,6 @@ service.interceptors.request.use(
     }else{
       //config.data = JSON.stringify(config.data)
     }
-
     return config
   },
   error => {
@@ -106,6 +105,9 @@ service.interceptors.response.use(
           })
         }
       }
+      store.dispatch('user/resetToken').then(() => {
+
+      })
       store.dispatch('user/addToken',response.headers.authorization).then(() => {
 
       })

@@ -8,7 +8,7 @@ export function usersList(data) {
   const url = '/Admin/user/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get',
@@ -23,7 +23,7 @@ export function getRoles(data) {
   const url = '/Admin/role/list'
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get'
@@ -34,7 +34,7 @@ export function saveUsers(data) {
   const url = '/Admin/user/add'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -47,7 +47,7 @@ export function getUsers(data) {
   const url = '/Admin/user/getById/' + data
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get'
@@ -58,7 +58,7 @@ export function updateUsers(data) {
   const url = '/Admin/user/update'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -71,7 +71,7 @@ export function resetPWD(data) {
   const url = '/Admin/user/reset'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -84,7 +84,7 @@ export function getPlas(data) {
   const url = '/Admin/pla/list'
   return request({
     headers: {
-      'authorization': getToken('rx')
+      'authorization': getToken('plrx')
     },
     url: url,
     method: 'get'

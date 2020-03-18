@@ -8,7 +8,7 @@ export function stockList(data,query) {
   const url = '/cjsh-stock-info/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,

@@ -11,7 +11,7 @@ export function getRouter(userId) {
     url: '/sysMenu/getUserMenu',
     method: 'get',
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
     },
   })
 }

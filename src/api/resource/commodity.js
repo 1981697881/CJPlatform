@@ -8,7 +8,7 @@ export function commodityList(data, query) {
   const url = '/cjsh-goods/list/' + data.pageNum + '/' + data.pageSize
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -22,7 +22,7 @@ export function alterCommodity(form) {
   return request({
     url: '/Admin/Goods/update',
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     method: 'put',
@@ -35,7 +35,7 @@ export function delImg(form) {
   return request({
     url: '/file/Goods/deleteImg',
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     method: 'post',

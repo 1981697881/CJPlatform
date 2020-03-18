@@ -79,107 +79,106 @@ export default {
   computed: {
     ...mapGetters(["node"])
   },
-    props: {
-        //是否自定义高度 默认100%
-        height:{
-            type:String,
-            default:"100%"
-        },
+  props: {
+    // 是否自定义高度 默认100%
+    height: {
+      type: String,
+      default: "100%"
     },
+  },
   data() {
     return {
-        headers:{
-            'authorization': getToken('rx'),
-        },
-        imgData:{
-            gid:null
-        },
+      headers: {
+        'authorization': getToken('plrx'),
+      },
+      imgData: {
+        gid: null
+      },
       query: null,
       prId: null,
-        hideUpload: false,
-        dialogImageUrl: '',
-        dialogVisible: false,
-        visible:null,
-        fileList: [],
+      hideUpload: false,
+      dialogImageUrl: '',
+      dialogVisible: false,
+      visible:null,
+      fileList: [],
       loading: false,
-        limitCount:3,
+      limitCount: 3,
       list: {},
       type: null,
       columns: [
-        { text: "gid", name: "gid" ,default:false},
-          { text: "商品编码", name: "goodCode" },
+        { text: "gid", name: "gid", default: false},
+        { text: "商品编码", name: "goodCode" },
         { text: "商品名称", name: "goodName" },
         { text: "规格型号", name: "standard" },
         { text: "单位", name: "unitOfMea" },
-      ]
-    };
+      ],
+      multipleSelection: []
+    }
   },
   methods: {
-      //监听每页显示几条
-      handleSize(val) {
-          this.list.size = val
-          this.fetchData();
-      },
-      //监听当前页
-      handleCurrent(val) {
-          this.list.current = val;
-          this.fetchData();
-      },
-      handleChange(file, fileList){
-          this.hideUpload = fileList.length >= this.limitCount;
-      },
-      uploadFile(file){
-          this.formDate.append('imgS', file.file);
-      },
-      //批量上传图片
-      submitUpload() {
-          this.formDate = new FormData();
-          this.$refs.upload.submit();
-          this.formDate.append('gid', this.imgData.gid);
-          let config = {
-              headers: {
-                  'authorization': getToken('rx'),
-                  'Content-Type': 'multipart/form-data'
-              }
+    // 监听每页显示几条
+    handleSize(val) {
+      this.list.size = val
+      this.fetchData();
+    },
+    // 监听当前页
+    handleCurrent(val) {
+      this.list.current = val;
+      this.fetchData();
+    },
+    handleChange(file, fileList){
+      this.hideUpload = fileList.length >= this.limitCount;
+    },
+    uploadFile(file){
+      this.formDate.append('imgS', file.file);
+    },
+    // 批量上传图片
+    submitUpload() {
+      this.formDate = new FormData();
+      this.$refs.upload.submit();
+      this.formDate.append('gid', this.imgData.gid);
+      let config = {
+        headers: {
+          'authorization': getToken('plrx'),
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      axios.post("/web/file/Goods/imgUpload", this.formDate,config).then(res => {
+        if(res.data.flag){
+          this.visible=false;
+          this.$message({
+            message: res.msg,
+            type: "success"
+          });
+          this.$emit('uploadList')
+        }
+      }).catch(res => {
+        console.log(res)
+      })
+    },
+    handleEdit(index,row){
+      this.hideUpload = false;
+      this.visible = true;
+      this.imgData.gid=row.gid;
+      this.fileList=[];
+      if(row.img != ''&& row.img!=null){
+        let imgArray=row.img.split(',');
+        if(imgArray.length>0){
+          if(imgArray.length>=3){
+            this.hideUpload = true;
+          }else{
+            this.hideUpload = false;
           }
-          console.log(this.formDate)
-          axios.post("/web/file/Goods/imgUpload", this.formDate,config).then(res => {
-              if(res.data.flag){
-                this.visible=false;
-                  this.$message({
-                      message: res.msg,
-                      type: "success"
-                  });
-                  this.$emit('uploadList')
-              }
-          }).catch( res => {
-              console.log(res)
-          })
-
-      },
-      handleEdit(index,row){
-          this.hideUpload = false;
-          this.visible = true;
-          this.imgData.gid=row.gid;
-          this.fileList=[];
-          if(row.img != ''&& row.img!=null){
-              let imgArray=row.img.split(',');
-              if(imgArray.length>0){
-                  if(imgArray.length>=3){
-                      this.hideUpload = true;
-                  }else{
-                      this.hideUpload = false;
-                  }
-                  this.fileList=[]
-                  for(let i in imgArray){
-                      this.fileList.push({
-                          url:'http://120.78.168.141:8091/web'+imgArray[i]
-                      })
-                  }
-              }else{
-                  this.fileList = [];
-              }
+          this.fileList=[]
+          for(let i in imgArray){
+            this.fileList.push({
+              url:'http://120.78.168.141:8091/web'+imgArray[i]
+            })
           }
+        }else{
+          this.fileList = [];
+        }
+      }
          /* if(row.img){
               if(this.fileList.length>0){
                   this.fileList[0].url = 'http://120.78.168.141:8091'+row.img;
@@ -192,49 +191,49 @@ export default {
           }else{
               this.fileList = [];
           }*/
-          console.log(this.fileList)
-      },
-      uploadError(res,file){
-          this.$message({
-              message: res.msg,
-              type: "warning"
-          });
+      console.log(this.fileList)
+    },
+    uploadError(res,file){
+      this.$message({
+        message: res.msg,
+        type: "warning"
+      });
+      this.$emit('uploadList')
+    },
+    uploadSuccess(res,file,fileList){
+      file.url='http://120.78.168.141:8091/web/good/img/'+res.data;
+      this.$message({
+        message: res.msg,
+        type: "success"
+      });
+      this.$emit('uploadList')
+    },
+    handleRemove(file, fileList) {
+      var val = file.url.split('http://120.78.168.141:8091/web/good/img/')[1]
+      console.log(val)
+      this.loading = true;
+      delImg({
+        gid:this.imgData.gid,
+        img:val
+      }).then(res => {
+        this.$message({
+          message: res.msg,
+          type: "success"
+        });
+        if(res.flag){
+          this.hideUpload = fileList.length >= this.limitCount;
           this.$emit('uploadList')
-      },
-      uploadSuccess(res,file,fileList){
-          file.url='http://120.78.168.141:8091/web/good/img/'+res.data;
-          this.$message({
-              message: res.msg,
-              type: "success"
-          });
-          this.$emit('uploadList')
-      },
-      handleRemove(file, fileList) {
-          var val = file.url.split('http://120.78.168.141:8091/web/good/img/')[1]
-          console.log(val)
-          this.loading = true;
-          delImg({
-              gid:this.imgData.gid,
-              img:val
-          }).then(res => {
-              this.$message({
-                  message: res.msg,
-                  type: "success"
-              });
-              if(res.flag){
-                  this.hideUpload = fileList.length >= this.limitCount;
-                  this.$emit('uploadList')
-                  this.loading = false;
-                  //this.visible=false;
-              }
-          });
-      },
-      handlePictureCardPreview(file) {
-          this.dialogImageUrl = file.url;
-          this.dialogVisible = true;
-      },
+          this.loading = false;
+          //this.visible=false;
+        }
+      });
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
     uploadPr(val) {
-        console.log(val)
+      console.log(val)
       this.prId = val.plaId
       this.query = val.query
       this.fetchData();
@@ -251,7 +250,7 @@ export default {
       let obj = {}
       this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
       this.query != null || this.query != undefined ? obj.query = this.query : null
-        commodityList(data, obj).then(res => {
+      commodityList(data, obj).then(res => {
         this.loading = false;
         this.list = res.data;
       });

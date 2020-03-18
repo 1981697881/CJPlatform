@@ -15,7 +15,7 @@ export function productCategory(data) {
   const url = '/Report/productCategory'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
@@ -28,7 +28,7 @@ export function product(data) {
   const url = '/Report/product'
   return request({
     headers: {
-      'authorization': getToken('rx'),
+      'authorization': getToken('plrx'),
       'Content-Type': 'application/json'
     },
     url: url,
