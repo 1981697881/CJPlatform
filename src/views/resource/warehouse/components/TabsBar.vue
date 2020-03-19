@@ -60,7 +60,7 @@ export default {
       },
     query() {
       if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-        this.$emit('showTable', { goodName: this.search.keyword ,plaId: this.plaIdS})
+        this.$emit('showTable', { goodName: this.search.keyword, plaId: this.plaIdS})
       }
     },
     handleTab(node){

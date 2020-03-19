@@ -80,9 +80,9 @@ export default {
         this.isfullscreen = false
       }
     },
-    //更新列表
+    // 更新列表
     query(val) {
-      this.$refs.list.fetchData(val)
+      this.$refs.list.uploadPr(val)
     },
     onUpload() {
       this.$refs.list.fetchData(this.$refs.tabs.getPlaId())

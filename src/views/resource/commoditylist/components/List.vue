@@ -229,31 +229,29 @@ export default {
       });
     },
     handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     },
     uploadPr(val) {
-      console.log(val)
       this.prId = val.plaId
       this.query = val.query
-      this.fetchData();
-    },
-    fetchData(val) {
-      this.loading = true;
-      const data = {
-      /*  fid: fid,
-        type: type,*/
-        query: val || '',
-        pageNum: this.list.current || 1,
+      this.fetchData({
+        pageNum: 1,
         pageSize: this.list.size || 50
-      };
+      })
+    },
+    fetchData(data = {
+      pageNum: this.list.current || 1,
+      pageSize: this.list.size || 50
+    }) {
+      this.loading = true
       let obj = {}
       this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
       this.query != null || this.query != undefined ? obj.query = this.query : null
       commodityList(data, obj).then(res => {
-        this.loading = false;
-        this.list = res.data;
-      });
+        this.loading = false
+        this.list = res.data
+      })
     }
   }
 };

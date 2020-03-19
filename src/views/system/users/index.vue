@@ -7,7 +7,6 @@
       </div>
       <list  ref="list"  @showDialog="handlerDialog"/>
     </div>
-
     <el-dialog
       :visible.sync="visible"
       title="基本信息"
@@ -59,8 +58,7 @@ export default {
     },
     //查询
     query(val) {
-      console.log(val)
-      this.$refs.list.fetchData(val)
+      this.$refs.list.uploadPr(val)
     }
   }
 };

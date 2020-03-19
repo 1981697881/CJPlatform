@@ -118,14 +118,19 @@ export default {
       rowClick(obj) {
           this.$store.dispatch("list/setClickData", obj.row);
       },
-    fetchData(val) {
-      this.loading = true;
-      const data = {
+    uploadPr(val) {
+      this.fetchData(val, {
+        pageNum: 1,
+        pageSize: this.list.size || 50
+      })
+    },
+    fetchData(val, data = {
       /*  fid: fid,
         type: type,*/
-          pageNum: this.list.current || 1,
-          pageSize: this.list.size || 50
-      };
+      pageNum: this.list.current || 1,
+      pageSize: this.list.size || 50
+    }) {
+      this.loading = true;
       salesListT(data, val).then(res => {
         this.loading = false;
             if(res.flag && res.data != null) {

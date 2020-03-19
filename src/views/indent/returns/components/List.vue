@@ -130,14 +130,17 @@ export default {
               this.$emit('uploadList')
           });
       },
-    fetchData(val) {
-      this.loading = true;
-      const data = {
-      /*  fid: fid,
-        type: type,*/
-        pageNum: this.list.pageNum || 1,
-        pageSize: this.list.pageSize || 50
-      };
+    uploadPr(val) {
+      this.fetchData(val,{
+        pageNum: 1,
+        pageSize: this.list.size || 50
+      })
+    },
+    fetchData(val, data = {
+      pageNum: this.list.pageNum || 1,
+      pageSize: this.list.pageSize || 50
+    }) {
+      this.loading = true
       returnsListT(data, val).then(res => {
         this.loading = false;
             if(res.flag && res.data != null){

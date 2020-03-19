@@ -61,7 +61,7 @@ export default {
     //关键字查询
     query() {
       if ((typeof this.search.keyword != null) && (this.search.keyword !='')) {
-        this.$emit('showTable', { query: this.search.keyword, plaId: this.plaIdS})
+        this.$emit('showTable', { query: this.search.keyword, plaId: this.plaIdS })
       }
     },
     selectChange(val) {

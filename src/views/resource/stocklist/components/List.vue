@@ -110,22 +110,19 @@ export default {
     uploadPr(val) {
       this.prId = val.plaId
       this.goodName = val.goodName
-      this.fetchData();
+      this.fetchData({
+        pageNum: 1,
+        pageSize: this.list.size || 50
+      })
     },
-    fetchData() {
+    fetchData(data = {
+      pageNum: this.list.current || 1,
+      pageSize: this.list.size || 50
+    }) {
       this.loading = true;
-      const data = {
-      /*  fid: fid,
-        type: type,*/
-          pageNum: this.list.current || 1,
-          pageSize: this.list.size || 50
-      };
       let obj = {}
       this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
       this.goodName != null || this.goodName != undefined ? obj.goodName = this.goodName : null
-
-
-      console.log(obj)
         stockList(data, obj).then(res => {
         this.loading = false;
         this.list = res.data;

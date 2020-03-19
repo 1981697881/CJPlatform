@@ -81,13 +81,18 @@
       rowClick(obj) {
         this.$store.dispatch("list/setClickData", obj.row);
       },
-      fetchData(val) {
-        this.loading = true;
-        const data = {
+      uploadPr(val) {
+        this.fetchData({
           query: val || '',
-          pageNum: this.list.current || 1,
+          pageNum: 1,
           pageSize: this.list.size || 50
-        };
+        })
+      },
+      fetchData(data = {
+        pageNum: this.list.current || 1,
+        pageSize: this.list.size || 50
+      }) {
+        this.loading = true;
         usersList(data).then(res => {
           this.loading = false;
           this.list = res.data;

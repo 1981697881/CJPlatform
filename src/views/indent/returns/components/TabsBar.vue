@@ -102,7 +102,7 @@ export default {
       return {plaId: this.plaIdS}
     },
     selectChange(val) {
-      this.$emit('queryBtn', {plaId: val, query: this.search.keyword })
+      this.$emit('queryBtn', {plaId: val, query: this.search.keyword, })
     },
     Receiving() {
       console.log(this.clickData)
