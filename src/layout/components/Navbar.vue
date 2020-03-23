@@ -66,7 +66,7 @@ export default {
         return {
             visible: null,
             fid: null,
-            name:getToken('plun')
+            name: getToken('plun')
         };
     },
   methods: {

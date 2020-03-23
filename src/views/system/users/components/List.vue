@@ -82,6 +82,7 @@
         this.$store.dispatch("list/setClickData", obj.row);
       },
       uploadPr(val) {
+        this.showIsDel = val.showIsDel
         this.fetchData({
           query: val || '',
           pageNum: 1,
@@ -92,8 +93,10 @@
         pageNum: this.list.current || 1,
         pageSize: this.list.size || 50
       }) {
+        let obj = {}
+        this.showIsDel != null || this.showIsDel != undefined ? obj.showIsDel = this.showIsDel : null
         this.loading = true;
-        usersList(data).then(res => {
+        usersList(data, obj).then(res => {
           this.loading = false;
           this.list = res.data;
         });

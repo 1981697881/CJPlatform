@@ -53,8 +53,8 @@ export default {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
     //更新列表
-    upload() {
-      this.$refs.list.fetchData()
+    upload(val) {
+      this.$refs.list.uploadPr(val)
     },
     //查询
     query(val) {

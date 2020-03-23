@@ -59,6 +59,79 @@ export const StaticRouterMap = [{
       }
     }]
   },
+  {
+    "id": "1",
+    "icon": "home",
+    "path": "/home",
+    "menuName": "不是首页",
+    "checked": true,
+    "nodes": [],
+    "parentId": "0",
+    'menuType': '0',
+    'type': "1",
+  },
+  {
+    "id": "2",
+    "icon": "contract",
+    "path": "/contract",
+    "menuName": "合同管理",
+    "checked": true,
+    'menuType': '0',
+    'type': "1",
+    "children": [{
+      "id": "1112",
+      "icon": "home2",
+      "path": "/home2",
+      "menuName": "首页2",
+      "checked": true,
+      "nodes": [],
+      "parentId": "0",
+      'menuType': '0',
+      'type': "2"
+    }, {
+      "id": "1113",
+      "icon": "home3",
+      "path": "/home3",
+      "menuName": "首页3",
+      "checked": true,
+      "parentId": "0",
+      'menuType': '0',
+      'type': "2",
+      "children": [{
+        "id": "1151",
+        "icon": "home22",
+        "path": "/home22",
+        "menuName": "首页22",
+        "checked": true,
+        "nodes": [],
+        "parentId": "0",
+        'menuType': '0',
+        'type': "2"
+      },
+        {
+          "id": "11514",
+          "icon": "home22",
+          "path": "/home22",
+          "menuName": "首页22",
+          "checked": true,
+          "nodes": [],
+          "parentId": "0",
+          'menuType': '0',
+          'type': "2"
+        }]
+    }, {
+      "id": "1222",
+      "icon": "hom33e",
+      "path": "/hom3e2",
+      "menuName": "不是首3页",
+      "checked": true,
+      "nodes": [],
+      "parentId": "0",
+      'menuType': '0',
+      'type': "1",
+    }],
+    "parentId": "0"
+  }
  /* {
     path: '/resource',
     component: Layout,

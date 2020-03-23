@@ -7,10 +7,13 @@
         :key="i"
         align="center"
         :prop="t.name"
+        sortable
         :label="t.text"
         v-if="t.default!=undefined?t.default:true"
         :width="t.width?t.width:''"
       ></el-table-column>
+       <el-table-column label="状态" align="center"  prop="isDel" sortable   :formatter="formatSex" width="100px" >
+       </el-table-column>
        <el-table-column label="操作" align="center">
          <template slot-scope="scope">
            <el-button
@@ -116,6 +119,9 @@ export default {
     }
   },
   methods: {
+    formatSex (row, column) {
+      return row.isDel == 1 ? '禁用' : row.isDel == 0 ? '正常' : '未知'
+    },
     // 监听每页显示几条
     handleSize(val) {
       this.list.size = val
@@ -235,6 +241,7 @@ export default {
     uploadPr(val) {
       this.prId = val.plaId
       this.query = val.query
+      this.showIsDel = val.showIsDel
       this.fetchData({
         pageNum: 1,
         pageSize: this.list.size || 50
@@ -247,6 +254,7 @@ export default {
       this.loading = true
       let obj = {}
       this.prId != null || this.prId != undefined ? obj.plaId = this.prId : null
+      this.showIsDel != null || this.showIsDel != undefined ? obj.showIsDel = this.showIsDel : null
       this.query != null || this.query != undefined ? obj.query = this.query : null
       commodityList(data, obj).then(res => {
         this.loading = false

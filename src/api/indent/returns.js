@@ -76,7 +76,7 @@ export function Dismissed(data) {
     data: data
   })
 }
-//收货确认
+// 收货确认
 export function receiving(data) {
   const url = '/Admin/returnOrder/receipt/' + data
   return request({

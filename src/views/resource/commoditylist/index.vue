@@ -35,7 +35,7 @@ export default {
     saveData(){
 
     },
-    loadList(val){
+    loadList(val) {
       this.$refs.list.uploadPr(val)
     },
     handlerDialog(obj){

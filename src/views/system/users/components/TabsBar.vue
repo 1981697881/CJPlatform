@@ -7,6 +7,11 @@
             <el-input v-model="search.keyword"/>
           </el-form-item>
         </el-col>
+        <el-col :span="4">
+          <el-form-item :label="''">
+            <el-checkbox v-model="checked" @change="clickChange">显示禁用</el-checkbox>
+          </el-form-item>
+        </el-col>
         <el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-search" @click="query">查询</el-button>
         </el-col>
@@ -32,6 +37,7 @@
     export default {
         data() {
             return {
+              checked: false,
                 search: {
                   keyword: null
                 }
@@ -40,7 +46,38 @@
         computed: {
             ...mapGetters(["node", "clickData"])
         },
-        methods: {
+      created() {
+        document.addEventListener('keydown', this.handleKeyDown)
+        document.addEventListener('keyup', this.handleKeyUp)
+      },destroyed() {
+        document.removeEventListener('keydown', this.handleKeyDown)
+        document.removeEventListener('keyup', this.handleKeyUp)
+      },
+      methods: {
+        handleKeyDown(e) {
+          var key = window.event.keyCode ? window.event.keyCode : window.event.which
+          if( key === 13 ) {
+            if(this.flag) {
+              if((typeof this.search.keyword != null) && (this.search.keyword !='')){
+                this.$emit('queryBtn',{ query: this.search.keyword, showIsDel: this.checked})
+                this.flag = false
+              }
+
+            }
+            e.preventDefault() //取消浏览器原有的ctrl+s操作
+          }
+        },
+        handleKeyUp(e) {
+          // enter
+          var key = window.event.keyCode ? window.event.keyCode : window.event.which
+          if( key === 13 ){
+            this.flag = true
+            e.preventDefault()
+          }
+        },
+          clickChange(val) {
+            this.$emit('queryBtn', { query: this.search.keyword, showIsDel: val})
+          },
             handleAdd(node) {
                 this.$emit('showDialog', {uid: null})
             },
@@ -61,11 +98,11 @@
           //关键字查询
           query(){
             if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-              this.$emit('queryBtn',this.search.keyword)
+              this.$emit('queryBtn',{ query: this.search.keyword, showIsDel: this.checked})
             }
           },
           upload() {
-            this.$emit('uploadList')
+            this.$emit('uploadList', {showIsDel: this.checked})
             this.search.keyword = ''
           },
             handleAlter() {
