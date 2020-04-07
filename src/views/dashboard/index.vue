@@ -94,7 +94,6 @@
               :key="i"
               align="center"
               :prop="t.name"
-
               :label="t.text"
               v-if="t.default!=undefined?t.default:true"
               :width="t.width?t.width:''"
@@ -189,34 +188,33 @@
             ...mapGetters(["name"]),
         },
         data() {
-            return {
-
-                value1: '',
-                value2: '',
-                lineChartData: lineChartData.newVisitis,
-                loading: false,
-                list: [],
-              radio: 3,
-                list2: [],
-                type: null,
-                columns1: [
-                    { text: "gid", name: "gid" ,default:false},
-                    { text: "产品长代码", name: "goodCode" },
-                    { text: "产品名称", name: "goodName" },
-                    { text: "单位", name: "uom" },
-                    { text: "销售量", name: "totalNum", default:true},
-                    { text: "金额", name: "totalPrice", default:false},
-                    { text: "占比", name: "percent1", default:false},
-                    { text: "占比", name: "percent2", default:true},
-                ],
-                columns2: [
-                    { text: "gid", name: "gid" ,default:false},
-                    { text: "分类", name: "name" },
-                    { text: "销售量", name: "totalNum", default:true},
-                    { text: "金额", name: "totalPrice", default:false},
-                    { text: "占比", name: "percent1", default:false},
-                    { text: "占比", name: "percent2", default:true},
-                ],
+          return {
+            value1: '',
+            value2: '',
+            lineChartData: lineChartData.newVisitis,
+            loading: false,
+            list: [],
+            radio: 3,
+            list2: [],
+            type: null,
+            columns1: [
+              { text: "gid", name: "gid" ,default:false},
+              { text: "产品长代码", name: "goodCode" },
+              { text: "产品名称", name: "goodName" },
+              { text: "单位", name: "uom" },
+              { text: "销售量", name: "totalNum", default:true},
+              { text: "金额", name: "totalPrice", default:false},
+              { text: "占比", name: "percent1", default:false},
+              { text: "占比", name: "percent2", default:true},
+            ],
+            columns2: [
+              { text: "gid", name: "gid" ,default:false},
+              { text: "分类", name: "name" },
+              { text: "销售量", name: "totalNum", default:true},
+              { text: "金额", name: "totalPrice", default:false},
+              { text: "占比", name: "percent1", default:false},
+              { text: "占比", name: "percent2", default:true},
+            ],
               pickerOptions: {
                 shortcuts: [{
                   text: '最近一周',
@@ -347,30 +345,29 @@
         },
         // 合计
         getSummaries(param) {
-          const { columns, data } = param;
-          const sums = [];
+          const { columns, data } = param
+          const sums = []
           columns.forEach((column, index) => {
             if (index === 0) {
-              sums[index] = '总价';
-              return;
+              sums[index] = '总价'
+              return
             }
-            const values = data.map(item => Number(item[column.property]));
+            const values = data.map(item => Number(item[column.property]))
             if (!values.every(value => isNaN(value))) {
               sums[index] = values.reduce((prev, curr) => {
-                const value = Number(curr);
+                const value = Number(curr)
                 if (!isNaN(value)) {
-                  return prev + curr;
+                  return prev + curr
                 } else {
-                  return prev;
+                  return prev
                 }
-              }, 0);
-              sums[index] += ' 元';
+              }, 0)
+              sums[index] += ' 元'
             } else {
-              sums[index] = 'N/A';
+              sums[index] = 'N/A'
             }
-          });
-
-          return sums;
+          })
+          return sums
         },
         handleSetLineChartData(type) {
           this.lineChartData = lineChartData[type]

@@ -37,10 +37,11 @@
           </el-form-item>
         </el-col>
         <el-button-group style="float:right">
-          <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-download" @click="exportOrder">导出</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleAudit">审核</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus"  @click="Receiving">收货确认</el-button>
+          <el-button :size="'mini'" type="primary"  @click="upload">刷新</el-button>
+          <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
+          <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
+          <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"   @click="Receiving">收货确认</el-button>
         </el-button-group>
       </el-row>
     </el-form>
@@ -51,7 +52,7 @@
 // ---------------------------  新增客户没做完
 
 import { mapGetters } from "vuex";
-import { exportData } from "@/api/indent/returns";
+import { exportData, returnsReset} from "@/api/indent/returns";
 import {getPlas} from "@/api/system/users";
 export default {
   data() {
@@ -59,7 +60,8 @@ export default {
       search: {
         keyword: null
       },
-      plaIdS:null,
+      flag: true,
+      plaIdS: null,
       plaArray: [],
       pickerOptions: {
         shortcuts: [{
@@ -123,6 +125,33 @@ export default {
         e.preventDefault()
       }
     },
+    reset() {
+      if (this.clickData.reId) {
+        this.$confirm('是否重新下推' + this.clickData.orderNum + '整张单据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true
+          returnsReset(this.clickData.reId).then(res => {
+            if(res.flag) {
+              this.loading = false
+              this.upload()
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消下推'
+          });
+        });
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
+      }
+    },
     getPlaId() {
       return {plaId: this.plaIdS}
     },
@@ -132,7 +161,7 @@ export default {
     Receiving() {
       console.log(this.clickData)
       if (this.clickData.reId) {
-        this.$emit('receiving',{
+        this.$emit('receiving', {
           reId: this.clickData.reId,
         })
       } else {

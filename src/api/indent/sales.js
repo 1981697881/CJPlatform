@@ -40,6 +40,18 @@ export function saleInfo(data) {
     method: 'get',
   })
 }
+// 重新下推
+export function saleReset(data) {
+  const url = '/order/reSync/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+  })
+}
 // 审核
 export function auditOrder(data) {
   const url = '/Admin/order/auditOrder'

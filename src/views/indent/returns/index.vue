@@ -5,7 +5,7 @@
       <div>
         <tabs-bar ref="tabs"  @showDialog="handlerDialog" @receiving="receiving" @queryBtn="query" @uploadList="upload"/>
       </div>
-      <list  ref="list"  @showDialog="handlerDialog"/>
+      <list  ref="list"  @showDialog="handlerDialog" @uploadList="upload"/>
     </div>
 
     <el-dialog
@@ -80,7 +80,7 @@ export default {
       }
     },
     // 更新列表
-    upload(val) {
+    upload(val = this.$refs.tabs.getPlaId()) {
       this.$refs.list.fetchData(val)
     },
     onUpload() {

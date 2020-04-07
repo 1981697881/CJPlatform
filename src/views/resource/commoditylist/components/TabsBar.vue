@@ -51,6 +51,7 @@ export default {
       },
       checked: false,
       plaIdS: null,
+      flag: true,
       plaArray: [],
     };
   },

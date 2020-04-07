@@ -105,17 +105,23 @@ export default {
           },
           yAxis: {
               type: 'category',
-              data: info
+              data: info,
           },
           series: [
               {
                   name: '销量',
+                label: {
+                  show: true
+                },
                   type: 'bar',
                   data: array1
               },
               {
                   name: '金额',
                   type: 'bar',
+                label: {
+                  show: true
+                },
                   data: array2
               }
           ]

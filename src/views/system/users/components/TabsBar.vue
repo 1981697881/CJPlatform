@@ -38,6 +38,7 @@
         data() {
             return {
               checked: false,
+              flag: true,
                 search: {
                   keyword: null
                 }
@@ -49,7 +50,8 @@
       created() {
         document.addEventListener('keydown', this.handleKeyDown)
         document.addEventListener('keyup', this.handleKeyUp)
-      },destroyed() {
+      },
+      destroyed() {
         document.removeEventListener('keydown', this.handleKeyDown)
         document.removeEventListener('keyup', this.handleKeyUp)
       },
@@ -104,6 +106,9 @@
           upload() {
             this.$emit('uploadList', {showIsDel: this.checked})
             this.search.keyword = ''
+          },
+          returnPar() {
+            return {showIsDel: this.checked, query: this.search.keyword}
           },
             handleAlter() {
                 if (this.clickData.uid) {

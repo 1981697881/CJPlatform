@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item :label="'平台'" prop="plaIdS">
-            <el-select v-model="form.plaIdS" multiple  placeholder="请选择">
+            <el-select v-model="form.plaIdS" multiple placeholder="请选择">
               <el-option
                 v-for="(t,i) in plaArray"
                 :key="i"

@@ -37,10 +37,11 @@
           </el-form-item>
         </el-col>
         <el-button-group style="float:right">
-          <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-download" @click="exportOrder">导出</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleAudit">审核</el-button>
-          <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="Delivery">发货确认</el-button>
+          <el-button :size="'mini'" type="primary"  @click="upload">刷新</el-button>
+          <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
+          <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
+          <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"  @click="Delivery">发货确认</el-button>
         </el-button-group>
       </el-row>
     </el-form>
@@ -48,7 +49,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { exportData } from "@/api/indent/sales";
+import { exportData, saleReset } from "@/api/indent/sales";
 import {getPlas} from "@/api/system/users";
 export default {
   components: {},
@@ -60,6 +61,7 @@ export default {
       search: {
         keyword: null
       },
+      flag: true,
       plaIdS:null,
       plaArray: [],
       pickerOptions: {
@@ -129,6 +131,33 @@ export default {
         this.$emit('theDelivery',{
           oid:this.clickData.oid,
         })
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
+      }
+    },
+    reset() {
+      if (this.clickData.oid) {
+        this.$confirm('是否重新下推' + this.clickData.orderNum + '整张单据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true
+          saleReset(this.clickData.oid).then(res => {
+            if(res.flag) {
+              this.loading = false
+              this.upload()
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消下推'
+          });
+        });
       } else {
         this.$message({
           message: "无选中行",

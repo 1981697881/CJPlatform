@@ -12,11 +12,11 @@ import querystring from 'querystring'
 // create an axios instance
 
 const service = axios.create({
-  baseURL: (process.env.NODE_ENV === 'production'?'http://120.78.168.141:8091':'')+process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: (process.env.NODE_ENV === 'production'?'http://test.gzfzdev.com:8080':'')+process.env.VUE_APP_BASE_API, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 20000 // request timeout
 })
-console.log( ((process.env.NODE_ENV === 'production'?'http://120.78.168.141:8091':'')+process.env.VUE_APP_BASE_API))
+console.log( ((process.env.NODE_ENV === 'production'?'http://test.gzfzdev.com:8080':'')+process.env.VUE_APP_BASE_API))
 window.apiUrl = service.defaults.baseURL
 // request interceptor
 service.interceptors.request.use(
@@ -60,7 +60,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
-    // console.log(response)
+    console.log(response)
     if (response.status !== 200) {
 
       Message({
@@ -69,11 +69,23 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      /* if(res.status === 10){//需要重新登录
+      if(res.status === 20010){//需要重新登录
         store.dispatch('user/resetToken').then(() => {
-          location.reload()
+          //location.reload()
+          MessageBox('登录出错, 是否重试?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            location.reload()
+          }).catch(() => {
+            Message({
+              type: 'info',
+              message: '已取消'
+            });
+          });
         })
-      } */
+      }
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {

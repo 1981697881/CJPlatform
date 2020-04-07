@@ -49,6 +49,7 @@
                 }
             }
             return {
+              flag: true,
                 form: {
                     oldPassword: null,
                     newPassword: null,

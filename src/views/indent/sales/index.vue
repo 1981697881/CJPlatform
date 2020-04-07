@@ -5,7 +5,7 @@
       <div>
         <tabs-bar ref="tabs" @showDialog="handlerDialog" @theDelivery="delivery" @queryBtn="query" @uploadList="upload"/>
       </div>
-      <list ref="list"  @showDialog="handlerDialog"/>
+      <list ref="list"  @showDialog="handlerDialog" @uploadList="upload"/>
     </div>
 
     <el-dialog
@@ -51,28 +51,27 @@ export default {
         //this.$refs.list.fetchData()
     },
   methods: {
-      delivery(obj){
-          if(obj){
-              this.$refs.list.Delivery(obj.oid)
-              this.$refs.list.fetchData()
-          }
-      },
-      hideWindow(val){
-          this.visible = val
-      },
-    handlerDialog(obj){
-        console.log(obj)
-      if(obj)this.oid = obj.oid;this.orderId=obj.orderNum;this.createTime=obj.addTime;this.isAdd = obj.isAdd;this.customer = obj.customer;this.customerCode = obj.customerCode;;this.remark = obj.remark;
+    delivery(obj){
+      if(obj){
+        this.$refs.list.Delivery(obj.oid)
+        this.$refs.list.fetchData()
+      }
+    },
+    hideWindow(val) {
+      this.visible = val
+    },
+    handlerDialog(obj) {
+      if(obj)this.oid = obj.oid;this.orderId = obj.orderNum;this.createTime=obj.addTime;this.isAdd = obj.isAdd;this.customer = obj.customer;this.customerCode = obj.customerCode;;this.remark = obj.remark;
       this.visible = true
     },
     handlerNode(node) {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
-      //更新列表
-      upload(val) {
-          this.$refs.list.fetchData(val)
-      },
-    //操作窗口
+    // 更新列表
+    upload(val = this.$refs.tabs.getPlaId()) {
+      this.$refs.list.fetchData(val)
+    },
+    // 操作窗口
     operation(val) {
       if(val == 1) {
         this.isfullscreen = true

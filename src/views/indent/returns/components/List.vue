@@ -105,12 +105,12 @@ export default {
     // 监听每页显示几条
     handleSize(val) {
       this.list.pageSize = val
-      this.fetchData()
+      this.$emit('uploadList')
     },
     // 监听当前页
     handleCurrent(val) {
       this.list.pageNum = val
-      this.fetchData()
+      this.$emit('uploadList')
     },
       // 监听单击某一行
       rowClick(obj) {

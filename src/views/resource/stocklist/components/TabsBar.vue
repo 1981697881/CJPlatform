@@ -44,6 +44,7 @@ export default {
       search: {
         keyword: null
       },
+      flag: true,
         plaIdS:null,
         plaArray: [],
     };

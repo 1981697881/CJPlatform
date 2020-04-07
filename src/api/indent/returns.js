@@ -16,6 +16,18 @@ export function returnsList(data) {
     }
   })
 }
+// 重新下推
+export function returnsReset(data) {
+  const url = '/returnOrder/reSync/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+  })
+}
 // 查询订单列表
 export function returnsListT(data, query) {
   const url = '/Admin/returnOrder/list/' + data.pageNum + '/' + data.pageSize

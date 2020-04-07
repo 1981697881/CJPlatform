@@ -83,8 +83,8 @@
       },
       uploadPr(val) {
         this.showIsDel = val.showIsDel
+        this.query = val.query
         this.fetchData({
-          query: val || '',
           pageNum: 1,
           pageSize: this.list.size || 50
         })
@@ -95,6 +95,7 @@
       }) {
         let obj = {}
         this.showIsDel != null || this.showIsDel != undefined ? obj.showIsDel = this.showIsDel : null
+        this.query != null || this.query != undefined ? obj.query = this.query : null
         this.loading = true;
         usersList(data, obj).then(res => {
           this.loading = false;

@@ -78,8 +78,6 @@
                 getRoleMenu(val.rid).then(res => {
                     this.resetChecked();
                     this.Checkeds = res.data;
-
-
                 });
             },
             resetChecked() {

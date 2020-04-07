@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar  @showDialog="handlerDialog" @uploadList="upload" @queryBtn="query"/>
+        <tabs-bar ref="tabs" @showDialog="handlerDialog" @uploadList="upload" @queryBtn="query"/>
       </div>
       <list  ref="list"  @showDialog="handlerDialog"/>
     </div>
@@ -15,7 +15,6 @@
       destroy-on-close
     >
       <customer-info @hideDialog="hideWindow" @uploadList="upload" :uid="uid"></customer-info>
-
     </el-dialog>
   </div>
 </template>
@@ -52,11 +51,11 @@ export default {
     handlerNode(node) {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
     },
-    //更新列表
-    upload(val) {
+    // 更新列表
+    upload(val = this.$refs.tabs.returnPar()) {
       this.$refs.list.uploadPr(val)
     },
-    //查询
+    // 查询
     query(val) {
       this.$refs.list.uploadPr(val)
     }
