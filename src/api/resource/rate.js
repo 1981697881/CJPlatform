@@ -16,3 +16,15 @@ export function rateList(data, query) {
     data: query
   })
 }
+// 导出
+export function exportRateData(data) {
+  const url = '/excel/export/priceData/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'get',
+  })
+}

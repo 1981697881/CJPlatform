@@ -16,3 +16,15 @@ export function stockList(data,query) {
     data: query
   })
 }
+// 导出
+export function exportStockData(data) {
+  const url = '/excel/export/stockData/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'get',
+  })
+}

@@ -64,8 +64,8 @@ export default {
         { text: "规格型号", name: "standard" },
         { text: "仓库", name: "wareHouseName" },
         { text: "数量", name: "num" },
-          { text: "价格", name: "price", default: false },
-          { text: "更新时间", name: "updateTime" },
+       /*   { text: "价格", name: "price", default: false },
+          { text: "更新时间", name: "updateTime" },*/
       ]
     };
   },

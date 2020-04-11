@@ -89,3 +89,15 @@ export function getPlas(data) {
     method: 'get'
   })
 }
+// 导出
+export function exportUsersData(data) {
+  const url = '/excel/export/userData'
+  return request({
+    headers: {
+      'authorization': getToken('plrx')
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'get',
+  })
+}

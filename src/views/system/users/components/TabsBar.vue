@@ -19,6 +19,7 @@
           <el-button :size="'mini'" type="primary" @click="handleAdd">新增</el-button>
           <el-button :size="'mini'" type="primary" @click="handleAlter">修改</el-button>
           <el-button :size="'mini'" type="primary" @click="upload">刷新</el-button>
+          <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
          <!-- <el-button :size="'mini'" type="primary" >用户信息同步</el-button>-->
          <!-- <el-button :size="'mini'" type="primary">禁用</el-button>
           <el-button :size="'mini'" type="primary">启用</el-button>-->
@@ -31,7 +32,7 @@
 
 <script>
     // ---------------------------  新增客户没做完
-    import {resetPWD} from "@/api/system/users";
+    import {resetPWD, exportUsersData} from "@/api/system/users";
     import {mapGetters} from "vuex";
 
     export default {
@@ -106,6 +107,24 @@
           upload() {
             this.$emit('uploadList', {showIsDel: this.checked})
             this.search.keyword = ''
+          },
+          // 下载文件
+          download(res) {
+            if (!res.data) {
+              return
+            }
+            let url = window.URL.createObjectURL(new Blob([res.data]))
+            let link = document.createElement('a')
+            link.style.display = 'none'
+            link.href = url
+            link.setAttribute('download', res.headers['content-disposition'].split('filename=')[1])
+            document.body.appendChild(link)
+            link.click()
+          },
+          exportOrder() {
+            exportUsersData().then(res => {
+              this.download(res)
+            })
           },
           returnPar() {
             return {showIsDel: this.checked, query: this.search.keyword}

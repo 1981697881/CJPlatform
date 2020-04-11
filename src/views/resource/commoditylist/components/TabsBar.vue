@@ -27,9 +27,10 @@
             <el-checkbox v-model="checked" @change="clickChange">显示禁用</el-checkbox>
           </el-form-item>
         </el-col>
-        <el-col :span="2">
+        <el-button-group style="float:right">
           <el-button :size="'mini'" type="primary" icon="el-icon-refresh" @click="upload">刷新</el-button>
-        </el-col>
+          <el-button :size="'mini'" type="primary" icon="el-icon-download" @click="exportOrder">导出</el-button>
+        </el-button-group>
         <!--<el-col :span="2">
           <el-button :size="'mini'" type="primary" icon="el-icon-plus" @click="handleTab(node)">商品同步</el-button>
         </el-col>-->
@@ -43,6 +44,7 @@
 
 import { mapGetters } from "vuex";
 import {getPlas} from "@/api/system/users";
+import {exportCommodityData} from "@/api/resource/commodity";
 export default {
   data() {
     return {
@@ -114,6 +116,24 @@ export default {
           this.plaIdS = res.data[0].plaId;
         }
       });
+    },
+    // 下载文件
+    download(res) {
+      if (!res.data) {
+        return
+      }
+      let url = window.URL.createObjectURL(new Blob([res.data]))
+      let link = document.createElement('a')
+      link.style.display = 'none'
+      link.href = url
+      link.setAttribute('download', res.headers['content-disposition'].split('filename=')[1])
+      document.body.appendChild(link)
+      link.click()
+    },
+    exportOrder() {
+      exportCommodityData(this.plaIdS).then(res => {
+        this.download(res)
+      })
     },
     upload() {
       this.$emit('showTable' ,{plaId: this.plaIdS, showIsDel: this.checked })

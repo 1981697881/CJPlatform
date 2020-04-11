@@ -42,3 +42,15 @@ export function delImg(form) {
     data
   })
 }
+// 导出
+export function exportCommodityData(data) {
+  const url = '/excel/export/goodsData/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    responseType: 'blob',
+    url: url,
+    method: 'get',
+  })
+}
