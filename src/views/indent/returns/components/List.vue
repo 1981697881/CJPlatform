@@ -75,6 +75,7 @@ export default {
         { text: "发货仓库", name: "plaName", width: '80' },
         { text: "退货原因", name: "reason", width: '120' },
         //{ text: "商品图片", name: "img", width: '100' },
+        { text: "审核人", name: "auditor", width: '80' },
         { text: "审核状态", name: "isAudit", width: '80' },
           { text: "状态", name: "status", width: '80' },
           { text: "审核反馈", name: "reasonOfDis", width: '100' },
@@ -153,6 +154,7 @@ export default {
                   record[i].returnOrderDetailVOS[a].reason = record[i].reason
                   record[i].returnOrderDetailVOS[a].isAudit = record[i].isAudit
                   record[i].returnOrderDetailVOS[a].status = record[i].status
+                  record[i].returnOrderDetailVOS[a].auditor = record[i].auditor
                   record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
                   record[i].returnOrderDetailVOS[a].customer = record[i].customer
                   record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode

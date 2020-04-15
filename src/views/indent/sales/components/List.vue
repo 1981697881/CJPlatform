@@ -70,7 +70,8 @@ export default {
         { text: "实发数量", name: "actualNum", width: '70' },
         { text: "单价", name: "sellPrice", default: false, width: '70' },
         { text: "金额", name: "totalPrice", default: false, width: '70'  },
-        { text: "审核状态", name: "auditStatus", width: '100' },
+        { text: "审核人", name: "auditor", width: '80' },
+        { text: "审核状态", name: "auditStatus", width: '80' },
         { text: "订单状态", name: "status", width: '100' },
         { text: "发货仓库", name: "plaName", width: '100' },
         //{ text: "商品图片", name: "img", width: '100' },
@@ -143,6 +144,7 @@ export default {
                   record[i].orderDetails[a].addTime = record[i].createTime
                   record[i].orderDetails[a].username = record[i].username
                   record[i].orderDetails[a].status = record[i].status
+                  record[i].orderDetails[a].auditor = record[i].auditor
                   record[i].orderDetails[a].plaName = record[i].plaName
                   record[i].orderDetails[a].customer = record[i].customer
                   record[i].orderDetails[a].customerCode = record[i].customerCode

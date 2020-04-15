@@ -53,9 +53,8 @@ export default {
       upload() {
           this.$refs.list.fetchData()
       },
-    //查询
+    // 查询
     query(val) {
-      console.log(val)
       this.$refs.list.fetchData(val)
     }
   }
