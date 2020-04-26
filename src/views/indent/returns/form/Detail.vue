@@ -65,8 +65,18 @@
             :prop="t.name"
             :label="t.text"
             v-if="t.default!=undefined?t.default:true"
-            :width="t.width?t.width:''"
+            :width="t.width?t.width:'120px'"
           ></el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            v-show="isAdd"
+            width="140">
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
+              <el-button type="text" size="small" @click.native="alterPrice(scope.row)">修改单价</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <!--<list
           class="list-main"
@@ -78,6 +88,48 @@
         />-->
       </el-row>
     </el-form>
+    <el-dialog
+      :visible.sync="visible"
+      title="退货数量"
+      v-if="visible"
+      :width="'30%'"
+      destroy-on-close
+      append-to-body
+    >
+      <el-form>
+        <el-row :gutter="20" type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item :label="'退货数量'">
+              <el-input-number v-model="num1" :min="1" label="请输入数量"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" style="text-align:center">
+        <el-button type="primary" @click.native="saveNum">确定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      :visible.sync="visible2"
+      title="价格"
+      v-if="visible2"
+      :width="'30%'"
+      destroy-on-close
+      append-to-body
+    >
+      <el-form>
+        <el-row :gutter="20" type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item :label="'价格'">
+              <el-input-number v-model="price1" :min="1" label="请输入价格"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" style="text-align:center">
+        <el-button type="primary" @click.native="savePrice">确定</el-button>
+      </div>
+    </el-dialog>
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
@@ -88,7 +140,7 @@
 </template>
 
 <script>
-  import {getReturnOrder, auditOrder, Dismissed, getOrderGoodsById} from "@/api/indent/returns";
+  import {updateReturns, auditOrder, Dismissed, getOrderGoodsById} from "@/api/indent/returns";
   import {
     getPer
   } from '@/utils/auth'
@@ -142,6 +194,10 @@
           customer: null, // 客户编号
           reason: null,
         },
+        num1: 1,
+        price1: 1,
+        visible: null,
+        visible2: null,
         biggest: true,
         normal: false,
         limitCount: 5,
@@ -157,7 +213,8 @@
           {text: "商品名称", name: "goodName"},
           {text: "商品编码", name: "goodCode"},
           {text: "退货数量", name: "num"},
-          {text: "价格", name: "sellPrice", default: false },
+          {text: "实退数量", name: "actualNum"},
+          {text: "价格", name: "sellPrice" },
         ],
       };
     },
@@ -215,9 +272,47 @@
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
+      //修改数量
+      alterNum(row) {
+        this.obj = row;
+        this.visible = true;
+      },
+      //修改价格
+      alterPrice(row) {
+        this.obj = row
+        this.visible2 = true
+      },
+      saveNum() {
+        this.visible = false
+        this.obj["actualNum"] = this.num1
+        this.num1 = 1
+      },
+      savePrice() {
+        updateReturns({
+          returnOrderId: this.obj.oid,
+          reOddId: this.obj.ogId,
+          actualNum: this.obj.actualNum,
+          sellPrice: this.price1,
+        }).then(res => {
+          if(res.flag) {
+            this.visible2 = false
+            this.obj["sellPrice"] = this.price1
+            this.price1 = 1
+            this.$emit('uploadList')
+          }
+        })
+      },
       audit() {
-        let list = this.list
+        let list = this.list, array = []
         if (list.length > 0) {
+          for (const i in list) {
+            var jbj = {}
+            //jbj.gid = list[i].gid
+            jbj.siId = list[i].siId
+            jbj.reOdId = this.form.reOdId
+            jbj.actualNum = list[i].actualNum
+            array.push(jbj)
+          }
           auditOrder(this.form.reOdId).then(res => {
             this.$emit('hideDialog', false)
             this.$emit('uploadList')

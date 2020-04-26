@@ -76,7 +76,7 @@
 import { mapGetters } from "vuex";
 import { commodityList ,alterCommodity,delImg} from "@/api/resource/commodity";
 import {
-    getToken
+  getToken
 } from '@/utils/auth'
 export default {
   computed: {

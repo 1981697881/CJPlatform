@@ -29,6 +29,7 @@
       :loading="loading"
       :list="list"
       index
+       show-summary
        :selfAdaption="false"
       @handle-size="handleSize"
       @handle-current="handleCurrent"
@@ -58,7 +59,7 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "oid", name: "oid", default:false },
+        { text: "oid", name: "oid", default: false },
         { text: "日期", name: "createTime", width: '150' },
         { text: "订单单号", name: "orderNum", width: '150' },
         {text: "购货单位", name: "customer", width: '120'},
@@ -68,6 +69,7 @@ export default {
         { text: "单位", name: "unitOfMea", width: '70' },
         { text: "订单数量", name: "num", width: '70' },
         { text: "实发数量", name: "actualNum", width: '70' },
+        { text: "退货数量", name: "retNum", width: '70' },
         { text: "单价", name: "sellPrice", default: false, width: '70' },
         { text: "金额", name: "totalPrice", default: false, width: '70'  },
         { text: "审核人", name: "auditor", width: '80' },
@@ -135,7 +137,7 @@ export default {
       salesListT(data, val).then(res => {
         this.loading = false;
             if(res.flag && res.data != null) {
-                this.list = res.data;
+              this.list = res.data;
               let record = res.data.records
               let obj = []
               for(const i in record) {
@@ -143,7 +145,6 @@ export default {
                   record[i].orderDetails[a].oid = record[i].oid
                   record[i].orderDetails[a].addTime = record[i].createTime
                   record[i].orderDetails[a].username = record[i].username
-                  record[i].orderDetails[a].status = record[i].status
                   record[i].orderDetails[a].auditor = record[i].auditor
                   record[i].orderDetails[a].plaName = record[i].plaName
                   record[i].orderDetails[a].customer = record[i].customer
@@ -154,7 +155,7 @@ export default {
                   obj.push(record[i].orderDetails[a])
                 }
               }
-              this.list= {
+              this.list = {
                 current: res.data.current,
                 pages: res.data.pages,
                 size: res.data.size,

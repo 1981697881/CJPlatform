@@ -54,9 +54,10 @@
             fixed="right"
             label="操作"
             v-show="isAdd"
-            width="100">
+            width="140">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
+              <el-button type="text" size="small" @click.native="alterPrice(scope.row)">修改单价</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -84,6 +85,27 @@
         <el-button type="primary" @click.native="saveNum">确定</el-button>
       </div>
     </el-dialog>
+    <el-dialog
+      :visible.sync="visible2"
+      title="价格"
+      v-if="visible2"
+      :width="'30%'"
+      destroy-on-close
+      append-to-body
+    >
+      <el-form>
+        <el-row :gutter="20" type="flex" justify="center">
+          <el-col :span="12">
+            <el-form-item :label="'价格'">
+              <el-input-number v-model="price1" :min="1" label="请输入价格"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" style="text-align:center">
+        <el-button type="primary" @click.native="savePrice">确定</el-button>
+      </div>
+    </el-dialog>
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
@@ -94,7 +116,7 @@
 </template>
 
 <script>
-  import {saleInfo, auditOrder, Dismissed} from "@/api/indent/sales";
+  import {saleInfo, auditOrder, Dismissed, updateSale} from "@/api/indent/sales";
   import List from "@/components/List";
   import {
     getPer
@@ -136,8 +158,10 @@
       return {
         num1: 1,
         visible: false,
+        visible2: false,
         biggest: true,
         normal: false,
+        price1: 1,
         form: {
           oid: null,
           orderId: null,
@@ -157,7 +181,7 @@
           {text: "商品编码", name: "goodCode"},
           {text: "下单数量", name: "num"},
           {text: "实发数量", name: "actualNum"},
-          {text: "价格", name: "sellPrice", default: false },
+          {text: "价格", name: "sellPrice" },
         ],
       };
     },
@@ -197,13 +221,33 @@
       },
       //修改数量
       alterNum(row) {
-        this.obj = row;
-        this.visible = true;
+        this.obj = row
+        this.visible = true
+      },
+      //修改价格
+      alterPrice(row) {
+        this.obj = row
+        this.visible2 = true
       },
       saveNum() {
         this.visible = false
         this.obj["actualNum"] = this.num1
         this.num1 = 1
+      },
+      savePrice() {
+        updateSale({
+          oid: this.obj.oid,
+          ogId: this.obj.ogId,
+          actualNum: this.obj.actualNum,
+          sellPrice: this.price1,
+        }).then(res => {
+          if(res.flag) {
+            this.visible2 = false
+            this.obj["sellPrice"] = this.price1
+            this.price1 = 1
+            this.$emit('uploadList')
+          }
+        })
       },
       audit() {
         let list = this.list, array = []

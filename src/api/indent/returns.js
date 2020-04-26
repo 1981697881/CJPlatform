@@ -113,3 +113,16 @@ export function exportData(data) {
     data: data
   })
 }
+// 修改保存单据
+export function updateReturns(data) {
+  const url = '/Admin/retOrderUpdate'
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'put',
+    data: data
+  })
+}
