@@ -100,7 +100,7 @@
         <el-row :gutter="20" type="flex" justify="center">
           <el-col :span="12">
             <el-form-item :label="'退货数量'">
-              <el-input-number v-model="num1" :min="1" label="请输入数量"></el-input-number>
+              <el-input-number v-model="num1" :min="0" label="请输入数量"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -229,7 +229,6 @@
       }
     },
     mounted() {
-      console.log(this.img)
       let imgArray = this.img.split(',');
       if (this.img != '') {
         if (imgArray.length > 0) {
@@ -272,12 +271,12 @@
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
-      //修改数量
+      // 修改数量
       alterNum(row) {
         this.obj = row;
         this.visible = true;
       },
-      //修改价格
+      // 修改价格
       alterPrice(row) {
         this.obj = row
         this.visible2 = true
@@ -309,11 +308,13 @@
             var jbj = {}
             //jbj.gid = list[i].gid
             jbj.siId = list[i].siId
-            jbj.reOdId = this.form.reOdId
+            jbj.returnOrderId = this.form.reOdId
+            jbj.sellPrice = list[i].sellPrice
+            jbj.reOddId = list[i].ogId
             jbj.actualNum = list[i].actualNum
             array.push(jbj)
           }
-          auditOrder(this.form.reOdId).then(res => {
+          auditOrder(array).then(res => {
             this.$emit('hideDialog', false)
             this.$emit('uploadList')
           });

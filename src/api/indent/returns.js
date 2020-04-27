@@ -66,13 +66,15 @@ export function getOrderGoodsById(data) {
 }
 // 审核 {id}
 export function auditOrder(data) {
-  const url = '/Admin/returnOrder/auditOrder/' + data
+  const url = '/Admin/returnOrder/auditOrder'
   return request({
     headers: {
       'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
     },
     url: url,
     method: 'put',
+    data: data
   })
 }
 //驳回
