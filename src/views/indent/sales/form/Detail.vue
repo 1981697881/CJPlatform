@@ -251,21 +251,35 @@
       },
       audit() {
         let list = this.list, array = []
+        let me = this, ment
         if (list.length > 0) {
-          for (const i in list) {
-            var jbj = {}
-            //jbj.gid = list[i].gid
-            jbj.siId = list[i].siId
-            jbj.oid = this.form.oid
-            jbj.actualNum = list[i].actualNum
-            array.push(jbj)
-          }
-          auditOrder(array).then(res => {
-            this.$emit('hideDialog', false)
-            this.$emit('uploadList')
+         /* for (const i in list) {*/
+          list.some(function(v) {
+           if(v.sellPrice <= 0) {
+             ment = 0
+             array = []
+             return me.$message({
+               message: "单价不能为0",
+               type: "warning"
+             })
+           } else {
+             ment = 1
+             var jbj = {}
+             //jbj.gid = list[i].gid
+             jbj.siId = v.siId
+             jbj.oid = me.form.oid
+             jbj.actualNum = v.actualNum
+             array.push(jbj)
+           }
           })
+          if(ment == 1){
+            auditOrder(array).then(res => {
+              me.$emit('hideDialog', false)
+              me.$emit('uploadList')
+            })
+          }
         } else {
-          return this.$message({
+          return me.$message({
             message: "无退货商品",
             type: "warning"
           })

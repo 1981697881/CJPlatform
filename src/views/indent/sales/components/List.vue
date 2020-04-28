@@ -29,6 +29,7 @@
       :loading="loading"
       :list="list"
       index
+       timeColor
        show-summary
        :selfAdaption="false"
       @handle-size="handleSize"

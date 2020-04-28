@@ -29,6 +29,7 @@
       :loading="loading"
       :list="list"
       index
+       timeColor
        show-summary
       @handle-size="handleSize"
       @handle-current="handleCurrent"
@@ -79,8 +80,8 @@ export default {
         //{ text: "商品图片", name: "img", width: '100' },
         { text: "审核人", name: "auditor", width: '80' },
         { text: "审核状态", name: "isAudit", width: '80' },
-          { text: "状态", name: "status", width: '80' },
-          { text: "审核反馈", name: "reasonOfDis", width: '100' },
+        { text: "状态", name: "status", width: '80' },
+        { text: "审核反馈", name: "reasonOfDis", width: '100' },
       ]
     };
   },

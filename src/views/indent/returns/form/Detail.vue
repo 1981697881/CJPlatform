@@ -303,21 +303,34 @@
       },
       audit() {
         let list = this.list, array = []
+        let me = this, ment
         if (list.length > 0) {
-          for (const i in list) {
-            var jbj = {}
-            //jbj.gid = list[i].gid
-            jbj.siId = list[i].siId
-            jbj.returnOrderId = this.form.reOdId
-            jbj.sellPrice = list[i].sellPrice
-            jbj.reOddId = list[i].ogId
-            jbj.actualNum = list[i].actualNum
-            array.push(jbj)
+          list.some(function(v) {
+            if (v.sellPrice <= 0) {
+              ment = 0
+              array = []
+              return me.$message({
+                message: "单价不能为0",
+                type: "warning"
+              })
+            } else {
+              ment = 1
+              var jbj = {}
+              //jbj.gid = list[i].gid
+              jbj.siId = v.siId
+              jbj.returnOrderId = me.form.reOdId
+              jbj.sellPrice = v.sellPrice
+              jbj.reOddId = v.ogId
+              jbj.actualNum = v.actualNum
+              array.push(jbj)
+            }
+          })
+          if(ment == 1) {
+            auditOrder(array).then(res => {
+              this.$emit('hideDialog', false)
+              this.$emit('uploadList')
+            });
           }
-          auditOrder(array).then(res => {
-            this.$emit('hideDialog', false)
-            this.$emit('uploadList')
-          });
         } else {
           return this.$message({
             message: "无退货商品",

@@ -3,13 +3,14 @@
     <el-table
       :data="list.records"
       border
-      stripe
+      :stripe="timeColor?false : true"
       size="mini"
       :highlight-current-row="true"
       @row-dblclick="dblclick"
       @row-click="rowClick"
        @selection-change="handleSelectionChange"
       :height="height"
+      :row-class-name="tableRowClassName"
       :show-summary="showSummary"
       :summary-method="getSummaries"
       v-loading="loading"
@@ -77,6 +78,10 @@ export default {
       type: Boolean,
       default: false
     },
+    timeColor: {
+      type: Boolean,
+      default: false
+    },
     loading: {
       type: Boolean,
       default: false
@@ -98,9 +103,16 @@ export default {
     }
   },
   methods: {
-    //监听多选 参数-所有选中的值
+    tableRowClassName({row, rowIndex}) {
+      if (row.totalPrice <= 0) {
+        return 'urgent-row';
+      } else{
+        return '';
+      }
+    },
+    // 监听多选 参数-所有选中的值
     handleSelectionChange(val){
-       this.$store.dispatch('list/setSelections',val)
+      this.$store.dispatch('list/setSelections',val)
     },
     getSummaries(param) {
       const { columns, data } = param;
@@ -114,7 +126,7 @@ export default {
         const values = data.map(item => Number(item[column.property]));
 
         if (!values.every(value => isNaN(value))) {
-          if(column.property == 'num' || column.property == 'sellPrice'|| column.property == 'actualNum'|| column.property == 'retNum'|| column.property == 'totalPrice'|| column.property == 'sourceNum'){
+          if(column.property == 'num' ||  column.property == 'actualNum'|| column.property == 'retNum'|| column.property == 'totalPrice'|| column.property == 'sourceNum'){
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
               if (!isNaN(value)) {
@@ -126,10 +138,9 @@ export default {
             sums[index] += " ";
           }
         } else {
-          sums[index] = "N/A";
+          sums[index] = " ";
         }
       });
-
       return sums;
     },
     // 表格单击操作
@@ -163,4 +174,9 @@ export default {
     /* color: #f19944; */ /* 设置文字颜色，可以选择不设置 */
   }
 
+</style>
+<style>
+  .urgent-row {
+    color: red;
+  }
 </style>
