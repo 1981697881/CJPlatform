@@ -114,34 +114,26 @@ export default {
     handleSelectionChange(val){
       this.$store.dispatch('list/setSelections',val)
     },
-    getSummaries(param) {
-      const { columns, data } = param;
+    getSummaries({columns,data}) {
       const sums = [];
-      columns.forEach((column, index) => {
-
-        if (index === 0) {
-          sums[index] = "合计";
-          return;
-        }
-        const values = data.map(item => Number(item[column.property]));
-
-        if (!values.every(value => isNaN(value))) {
-          if(column.property == 'num' ||  column.property == 'actualNum'|| column.property == 'retNum'|| column.property == 'totalPrice'|| column.property == 'sourceNum'){
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += " ";
+      columns.forEach((column,index) => {
+        if(index == 0){
+          sums[index] = "总价"
+        }else{
+          const values = data.map(item=>Number(item[column.property]))
+          const flag = values.every(item=>isNaN(item))
+          if(flag){
+            return sums[index] = ""
+          }else{
+            if(column.property == 'num' ||  column.property == 'actualNum'|| column.property == 'retNum'|| column.property == 'totalPrice'|| column.property == 'sourceNum') {
+              sums[index] = values.reduce((total, item) => total + item);
+              sums[index] = Math.round(sums[index] * 100) / 100;
+              sums[index] += ""
+            }
           }
-        } else {
-          sums[index] = " ";
         }
-      });
-      return sums;
+      })
+      return sums
     },
     // 表格单击操作
     rowClick(row, column, el) {

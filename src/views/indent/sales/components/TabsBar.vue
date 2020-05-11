@@ -41,6 +41,7 @@
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
           <el-button :size="'mini'" type="primary"  @click="Delivery">发货确认</el-button>
         </el-button-group>
       </el-row>
@@ -48,9 +49,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { exportData, saleReset } from "@/api/indent/sales";
-import {getPlas} from "@/api/system/users";
+import { mapGetters } from "vuex"
+import { exportData, saleReset, salesListT } from "@/api/indent/sales"
+import {getPlas} from "@/api/system/users"
+import { PrintSales } from '@/tools/doPrint'
 export default {
   components: {},
   computed: {
@@ -105,6 +107,33 @@ export default {
     document.removeEventListener('keyup', this.handleKeyUp)
   },
   methods: {
+    print() {
+      if (this.selections.length > 0) {
+        const selection = this.selections
+        let array = []
+        selection.forEach((item, index) => {
+          array.push(item.oid)
+        })
+        salesListT({
+          pageNum: 1,
+          pageSize: 1000
+        }, { oidS: array }).then(res => {
+          this.loading = false
+          if(res.flag && res.data != null) {
+            this.list = res.data
+            let record = res.data.records
+            console.log(record)
+            PrintSales(record)
+            LODOP.PREVIEW()
+          }
+        });
+      } else {
+        this.$message({
+          message: '无选中行',
+          type: 'warning'
+        });
+      }
+    },
     handleKeyDown(e) {
       var key = window.event.keyCode ? window.event.keyCode : window.event.which
       if( key === 13 ) {

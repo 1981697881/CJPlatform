@@ -29,12 +29,14 @@
       :loading="loading"
       :list="list"
       index
+       type
        timeColor
        show-summary
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
        @row-click="rowClick"
+       @selection-change="handleSelectionChange"
     />
 
   </div>
@@ -120,6 +122,10 @@ export default {
       rowClick(obj) {
           this.$store.dispatch("list/setClickData", obj.row);
       },
+    // 监听多选 参数-所有选中的值
+    handleSelectionChange(val){
+      this.$store.dispatch('list/setSelections', val)
+    },
     dblclick(obj) {
       if (obj.row.isAudit == '已审核' || obj.row.isAudit == '已驳回') {
         obj.row.isAdd = false

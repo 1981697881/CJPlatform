@@ -50,7 +50,7 @@
           </el-row>
         </el-form>
         <div class="list-main">
-          <el-table :height="height" :data="list2" show-summary border size="mini" :highlight-current-row="true">
+          <el-table :height="height" :data="list2" show-summary :summary-method="getSummaries" border size="mini" :highlight-current-row="true">
             <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
             <el-table-column
               v-for="(t,i) in columns1"
@@ -87,7 +87,7 @@
           </el-row>
         </el-form>
         <div class="list-main">
-          <el-table :height="height" :data="list" show-summary border size="mini" :highlight-current-row="true">
+          <el-table :height="height" :data="list" show-summary :summary-method="getSummaries" border size="mini" :highlight-current-row="true">
             <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
             <el-table-column
               v-for="(t,i) in columns2"
@@ -343,30 +343,25 @@
               }
           }
         },
-        // 合计
-        getSummaries(param) {
-          const { columns, data } = param
-          const sums = []
-          columns.forEach((column, index) => {
-            if (index === 0) {
-              sums[index] = '总价'
-              return
-            }
-            const values = data.map(item => Number(item[column.property]))
-            if (!values.every(value => isNaN(value))) {
-              sums[index] = values.reduce((prev, curr) => {
-                const value = Number(curr)
-                if (!isNaN(value)) {
-                  return prev + curr
-                } else {
-                  return prev
+        getSummaries({columns,data}) {
+          const sums = [];
+          columns.forEach((column,index) => {
+            if(index == 0){
+              sums[index] = "总价"
+            }else{
+              const values = data.map(item=>Number(item[column.property]))
+              const flag = values.every(item=>isNaN(item))
+              if(flag){
+                return sums[index] = ""
+              }else{
+                if(column.property == 'totalNum') {
+                  sums[index] = values.reduce((total, item) => total + item);
+                  sums[index] = Math.round(sums[index] * 100) / 100;
+                  sums[index] += ""
                 }
-              }, 0)
-              sums[index] += ' 元'
-            } else {
-              sums[index] = 'N/A'
+              }
             }
-          })
+          });
           return sums
         },
         handleSetLineChartData(type) {

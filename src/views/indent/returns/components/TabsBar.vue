@@ -41,6 +41,7 @@
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
           <el-button :size="'mini'" type="primary"   @click="Receiving">收货确认</el-button>
         </el-button-group>
       </el-row>
@@ -51,9 +52,10 @@
 <script>
 // ---------------------------  新增客户没做完
 
-import { mapGetters } from "vuex";
-import { exportData, returnsReset} from "@/api/indent/returns";
-import {getPlas} from "@/api/system/users";
+import { mapGetters } from 'vuex'
+import { exportData, returnsReset} from '@/api/indent/returns'
+import {getPlas} from '@/api/system/users'
+import { PrintReturn } from '@/tools/doPrint'
 export default {
   data() {
     return {
@@ -94,7 +96,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["node","clickData"])
+    ...mapGetters(["node","clickData","selections"])
   },
   mounted() {
     this.fetchFormat();
@@ -147,8 +149,8 @@ export default {
         });
       } else {
         this.$message({
-          message: "无选中行",
-          type: "warning"
+          message: '无选中行',
+          type: 'warning'
         });
       }
     },
@@ -166,8 +168,8 @@ export default {
         })
       } else {
         this.$message({
-          message: "无选中行",
-          type: "warning"
+          message: '无选中行',
+          type: 'warning'
         });
       }
     },
@@ -218,8 +220,19 @@ export default {
         }
       } else {
         this.$message({
-          message: "无选中行",
-          type: "warning"
+          message: '无选中行',
+          type: 'warning'
+        });
+      }
+    },
+    print() {
+      if (this.selections.length >0 ) {
+        PrintReturn(this.selections)
+        LODOP.PREVIEW()
+      } else {
+        this.$message({
+          message: '无选中行',
+          type: 'warning'
         });
       }
     },

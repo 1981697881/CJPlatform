@@ -29,6 +29,7 @@
       :loading="loading"
       :list="list"
       index
+       type
        timeColor
        show-summary
        :selfAdaption="false"
@@ -36,6 +37,7 @@
       @handle-current="handleCurrent"
       @dblclick="dblclick"
        @row-click="rowClick"
+       @selection-change="handleSelectionChange"
     />
 
   </div>
@@ -43,7 +45,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { salesListT ,delivery} from "@/api/indent/sales";
+import { salesListT , delivery} from "@/api/indent/sales";
 import List from "@/components/List";
 import {
   getPer
@@ -105,6 +107,10 @@ export default {
           this.list.current = val
         this.$emit('uploadList')
       },
+    // 监听多选 参数-所有选中的值
+    handleSelectionChange(val){
+      this.$store.dispatch('list/setSelections', val)
+    },
     dblclick(obj) {
       if (obj.row.auditStatus == '已审核' || obj.row.auditStatus == '已驳回') {
         obj.row.isAdd = false
