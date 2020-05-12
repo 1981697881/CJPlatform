@@ -53,7 +53,7 @@
 // ---------------------------  新增客户没做完
 
 import { mapGetters } from 'vuex'
-import { exportData, returnsReset} from '@/api/indent/returns'
+import { exportData, returnsReset, returnsListT} from '@/api/indent/returns'
 import {getPlas} from '@/api/system/users'
 import { PrintReturn } from '@/tools/doPrint'
 export default {
@@ -226,9 +226,27 @@ export default {
       }
     },
     print() {
-      if (this.selections.length >0 ) {
-        PrintReturn(this.selections)
-        LODOP.PREVIEW()
+      if (this.selections.length > 0) {
+        const selection = this.selections
+        let array = [];
+        selection.forEach((item, index) => {
+          //项数 grid去重
+          if (array.indexOf(item.reId) == -1) {
+            array.push(item.reId);
+          }
+        })
+        returnsListT({
+          pageNum: 1,
+          pageSize: 1000
+        }, { oidS: array }).then(res => {
+          this.loading = false
+          if(res.flag && res.data != null) {
+            this.list = res.data
+            let record = res.data.records
+            PrintReturn(record)
+            LODOP.PREVIEW()
+          }
+        });
       } else {
         this.$message({
           message: '无选中行',

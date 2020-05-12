@@ -110,9 +110,12 @@ export default {
     print() {
       if (this.selections.length > 0) {
         const selection = this.selections
-        let array = []
+        let array = [];
         selection.forEach((item, index) => {
-          array.push(item.oid)
+          //项数 grid去重
+          if (array.indexOf(item.oid) == -1) {
+            array.push(item.oid);
+          }
         })
         salesListT({
           pageNum: 1,
@@ -122,7 +125,6 @@ export default {
           if(res.flag && res.data != null) {
             this.list = res.data
             let record = res.data.records
-            console.log(record)
             PrintSales(record)
             LODOP.PREVIEW()
           }
