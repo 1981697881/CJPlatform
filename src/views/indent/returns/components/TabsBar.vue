@@ -6,13 +6,15 @@
           <el-form-item :label="'日期'">
             <el-date-picker
               v-model="value"
-              type="datetimerange"
-              :picker-options="pickerOptions"
+              type="daterange"
+              align="right"
+              class="input-class"
+              unlink-panels
               range-separator="至"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-              align="right">
+              :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
         </el-col>

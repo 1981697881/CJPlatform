@@ -132,14 +132,14 @@ const PrintSales = (data, codetype, url, code) => {
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', data[i]['orderDetails'][(a + 1) * 7 - 7 + k].actualNum);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', data[i]['orderDetails'][(a + 1) * 7 - 7 + k].sellPrice);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', data[i]['orderDetails'][(a + 1) * 7 - 7 + k].totalPrice);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             actualNum = Math.round((actualNum + parseInt(data[i]['orderDetails'][(a + 1) * 7 - 7 + k].actualNum)) * 100) / 100;
-            totalPrice = floatAdd(totalPrice, data[i]['orderDetails'][(a + 1) * 7 - 7 + k].totalPrice);
+          /*  totalPrice = floatAdd(totalPrice, data[i]['orderDetails'][(a + 1) * 7 - 7 + k].totalPrice);*/
           } else {
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
@@ -302,14 +302,14 @@ const PrintSales = (data, codetype, url, code) => {
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', data[i]['orderDetails'][k].actualNum);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', data[i]['orderDetails'][k].sellPrice);
+          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', data[i]['orderDetails'][k].totalPrice);
+          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           actualNum = Math.round((actualNum + parseInt(data[i]['orderDetails'][k].actualNum)) * 100) / 100;
-          totalPrice = floatAdd(totalPrice, data[i]['orderDetails'][k].totalPrice);
+          /*totalPrice = floatAdd(totalPrice, data[i]['orderDetails'][k].totalPrice);*/
         } else {
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
@@ -513,14 +513,14 @@ const PrintReturn = (data, codetype, url, code) => {
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].actualNum);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].sellPrice);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].totalPrice);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             actualNum = Math.round((actualNum + parseInt(data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].actualNum)) * 100) / 100;
-            totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].totalPrice);
+          /*  totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].totalPrice);*/
           } else {
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
@@ -683,14 +683,14 @@ const PrintReturn = (data, codetype, url, code) => {
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', data[i]['returnOrderDetailVOS'][k].actualNum);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', data[i]['returnOrderDetailVOS'][k].sellPrice);
+          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', data[i]['returnOrderDetailVOS'][k].totalPrice);
+          LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           actualNum = Math.round((actualNum + parseInt(data[i]['returnOrderDetailVOS'][k].actualNum)) * 100) / 100;
-          totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][k].totalPrice);
+         /* totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][k].totalPrice);*/
         } else {
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);

@@ -118,10 +118,10 @@ export default {
       this.list.pageNum = val
       this.$emit('uploadList')
     },
-      // 监听单击某一行
-      rowClick(obj) {
-          this.$store.dispatch("list/setClickData", obj.row);
-      },
+    // 监听单击某一行
+    rowClick(obj) {
+      this.$store.dispatch("list/setClickData", obj.row);
+    },
     // 监听多选 参数-所有选中的值
     handleSelectionChange(val){
       this.$store.dispatch('list/setSelections', val)
@@ -134,12 +134,12 @@ export default {
         this.$emit('showDialog',obj.row)
       }
     },
-      // 收货确认
-      Receiving(val) {
-          receiving(val).then(res => {
-              this.$emit('uploadList')
-          });
-      },
+    // 收货确认
+    Receiving(val) {
+      receiving(val).then(res => {
+        this.$emit('uploadList')
+      });
+    },
     uploadPr(val) {
       this.fetchData(val,{
         pageNum: 1,
@@ -153,34 +153,34 @@ export default {
       this.loading = true
       returnsListT(data, val).then(res => {
         this.loading = false;
-            if(res.flag && res.data != null){
-              let record = res.data.records
-              let obj = []
-              for(const i in record) {
-                for(const a in record[i].returnOrderDetailVOS) {
-                  record[i].returnOrderDetailVOS[a].image = record[i].img
-                  record[i].returnOrderDetailVOS[a].reId = record[i].reOdId
-                  record[i].returnOrderDetailVOS[a].reason = record[i].reason
-                  record[i].returnOrderDetailVOS[a].isAudit = record[i].isAudit
-                  record[i].returnOrderDetailVOS[a].status = record[i].status
-                  record[i].returnOrderDetailVOS[a].auditor = record[i].auditor
-                  record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
-                  record[i].returnOrderDetailVOS[a].customer = record[i].customer
-                  record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode
-                  record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
-                  record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
-                  record[i].returnOrderDetailVOS[a].reasonOfDis = record[i].reasonOfDis
-                  obj.push(record[i].returnOrderDetailVOS[a])
-                }
-              }
-              this.list= {
-                current: res.data.current,
-                pages: res.data.pages,
-                size: res.data.size,
-                total: res.data.total,
-                records: obj
-              }
+        if(res.flag && res.data != null){
+          let record = res.data.records
+          let obj = []
+          for(const i in record) {
+            for(const a in record[i].returnOrderDetailVOS) {
+              record[i].returnOrderDetailVOS[a].image = record[i].img
+              record[i].returnOrderDetailVOS[a].reId = record[i].reOdId
+              record[i].returnOrderDetailVOS[a].reason = record[i].reason
+              record[i].returnOrderDetailVOS[a].isAudit = record[i].isAudit
+              record[i].returnOrderDetailVOS[a].status = record[i].status
+              record[i].returnOrderDetailVOS[a].auditor = record[i].auditor
+              record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
+              record[i].returnOrderDetailVOS[a].customer = record[i].customer
+              record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode
+              record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
+              record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
+              record[i].returnOrderDetailVOS[a].reasonOfDis = record[i].reasonOfDis
+              obj.push(record[i].returnOrderDetailVOS[a])
             }
+          }
+          this.list = {
+            current: res.data.current,
+            pages: res.data.pages,
+            size: res.data.size,
+            total: res.data.total,
+            records: obj
+          }
+        }
       });
     }
   }
