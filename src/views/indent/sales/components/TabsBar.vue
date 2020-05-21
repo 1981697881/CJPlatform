@@ -43,6 +43,7 @@
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"  @click="cancelAudit">取消审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
           <el-button :size="'mini'" type="primary"  @click="Delivery">发货确认</el-button>
         </el-button-group>
@@ -52,7 +53,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex"
-import { exportData, saleReset, salesListT } from "@/api/indent/sales"
+import { exportData, saleReset, salesListT, cancelAuditSale} from "@/api/indent/sales"
 import {getPlas} from "@/api/system/users"
 import { PrintSales } from '@/tools/doPrint'
 export default {
@@ -164,6 +165,33 @@ export default {
         this.$emit('theDelivery',{
           oid:this.clickData.oid,
         })
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
+      }
+    },
+    cancelAudit(){
+      if (this.clickData.oid) {
+        this.$confirm('是否重新取消审核' + this.clickData.orderNum + '整张单据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true
+          cancelAuditSale(this.clickData.oid).then(res => {
+            if(res.flag) {
+              this.loading = false
+              this.upload()
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消下推'
+          });
+        });
       } else {
         this.$message({
           message: "无选中行",

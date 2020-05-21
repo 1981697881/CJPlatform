@@ -120,3 +120,14 @@ export function updateSale(data) {
     data: data
   })
 }
+// 取消审核
+export function cancelAuditSale(data) {
+  const url = '/Admin/order/cancelAuditOrder/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    url: url,
+    method: 'put'
+  })
+}

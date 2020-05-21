@@ -43,6 +43,7 @@
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
+          <el-button :size="'mini'" type="primary"  @click="cancelAudit">取消审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
           <el-button :size="'mini'" type="primary"   @click="Receiving">收货确认</el-button>
         </el-button-group>
@@ -55,7 +56,7 @@
 // ---------------------------  新增客户没做完
 
 import { mapGetters } from 'vuex'
-import { exportData, returnsReset, returnsListT} from '@/api/indent/returns'
+import { exportData, returnsReset, returnsListT, cancelAuditReturns} from '@/api/indent/returns'
 import {getPlas} from '@/api/system/users'
 import { PrintReturn } from '@/tools/doPrint'
 export default {
@@ -127,6 +128,33 @@ export default {
       if( key === 13 ){
         this.flag = true
         e.preventDefault()
+      }
+    },
+    cancelAudit() {
+      if (this.clickData.reId) {
+        this.$confirm('是否重新取消审核' + this.clickData.orderNum + '整张单据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true
+          cancelAuditReturns(this.clickData.reId).then(res => {
+            if(res.flag) {
+              this.loading = false
+              this.upload()
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消下推'
+          });
+        });
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
       }
     },
     reset() {

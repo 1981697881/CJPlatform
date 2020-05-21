@@ -100,7 +100,7 @@
         <el-row :gutter="20" type="flex" justify="center">
           <el-col :span="12">
             <el-form-item :label="'退货数量'">
-              <el-input-number v-model="num1" :min="0" label="请输入数量"></el-input-number>
+              <el-input-number v-model="num1" :min="0.1" :precision="2" :step="0.1" label="请输入数量"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>

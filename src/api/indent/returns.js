@@ -128,3 +128,14 @@ export function updateReturns(data) {
     data: data
   })
 }
+// 取消审核
+export function cancelAuditReturns(data) {
+  const url = '/Admin/returnOrder/cancelAuditOrder/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    url: url,
+    method: 'put'
+  })
+}
