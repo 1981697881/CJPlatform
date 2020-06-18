@@ -73,6 +73,7 @@
             v-show="isAdd"
             width="140">
             <template slot-scope="scope">
+              <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index,list)">删除</el-button>
               <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
               <el-button type="text" size="small" @click.native="alterPrice(scope.row)">修改单价</el-button>
             </template>
@@ -100,7 +101,7 @@
         <el-row :gutter="20" type="flex" justify="center">
           <el-col :span="12">
             <el-form-item :label="'退货数量'">
-              <el-input-number v-model="num1" :min="0.1" :precision="2" :step="0.1" label="请输入数量"></el-input-number>
+              <el-input-number v-model="num1" :min="0.1" :precision="2" :step="1" label="请输入数量"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -255,6 +256,10 @@
       }
     },
     methods: {
+      //删除带确认区 单行删除
+      deleteRow(index, rows) {
+        rows.splice(index, 1);
+      },
       //调整窗口
       mWin(val) {
         if (val == 1) {

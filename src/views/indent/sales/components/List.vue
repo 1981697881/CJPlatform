@@ -159,6 +159,7 @@ export default {
                   record[i].orderDetails[a].auditStatus = record[i].auditStatus
                   record[i].orderDetails[a].reasonOfDis = record[i].reasonOfDis
                   record[i].orderDetails[a].remark = record[i].remark
+                  record[i].orderDetails[a].auditTime = record[i].auditTime
                   obj.push(record[i].orderDetails[a])
                 }
               }

@@ -55,7 +55,7 @@
 import { mapGetters } from "vuex"
 import { exportData, saleReset, salesListT, cancelAuditSale} from "@/api/indent/sales"
 import {getPlas} from "@/api/system/users"
-import { PrintSales } from '@/tools/doPrint'
+import { PrintSales2 } from '@/tools/doPrint'
 export default {
   components: {},
   computed: {
@@ -120,18 +120,25 @@ export default {
             array.push(item.oid);
           }
         })
-        salesListT({
-          pageNum: 1,
-          pageSize: 1000
-        }, { oidS: array }).then(res => {
-          this.loading = false
-          if(res.flag && res.data != null) {
-            this.list = res.data
-            let record = res.data.records
-            PrintSales(record)
-            LODOP.PREVIEW()
-          }
-        });
+        if (array.length > 3) {
+          this.$message({
+            message: '最多只能选择三张单据打印',
+            type: 'warning'
+          });
+        } else {
+          salesListT({
+            pageNum: 1,
+            pageSize: 1000
+          }, { oidS: array }).then(res => {
+            this.loading = false
+            if(res.flag && res.data != null) {
+              this.list = res.data
+              let record = res.data.records
+              PrintSales2(record)
+              LODOP.PREVIEW()
+            }
+          });
+        }
       } else {
         this.$message({
           message: '无选中行',

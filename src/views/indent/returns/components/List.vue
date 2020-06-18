@@ -170,6 +170,7 @@ export default {
               record[i].returnOrderDetailVOS[a].addTime = record[i].createTime
               record[i].returnOrderDetailVOS[a].sourceOrderNum = record[i].sourceOrderNum
               record[i].returnOrderDetailVOS[a].reasonOfDis = record[i].reasonOfDis
+              record[i].returnOrderDetailVOS[a].auditTime = record[i].auditTime
               obj.push(record[i].returnOrderDetailVOS[a])
             }
           }
