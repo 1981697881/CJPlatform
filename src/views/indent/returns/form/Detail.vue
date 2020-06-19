@@ -71,7 +71,7 @@
             fixed="right"
             label="操作"
             v-show="isAdd"
-            width="140">
+            width="180">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index,list)">删除</el-button>
               <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
@@ -134,6 +134,7 @@
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
+      <el-button type="primary" v-show="isAdd" @click="saveData">保存</el-button>
       <el-button type="warning" v-show="isAdd" @click="rejected">驳回</el-button>
       <el-button type="primary" v-show="isAdd" @click="audit">审核</el-button>
     </div>
@@ -141,7 +142,7 @@
 </template>
 
 <script>
-  import {updateReturns, auditOrder, Dismissed, getOrderGoodsById} from "@/api/indent/returns";
+  import {updateReturns, auditOrder, Dismissed, getOrderGoodsById, alterReturn} from "@/api/indent/returns";
   import {
     getPer
   } from '@/utils/auth'
@@ -342,6 +343,37 @@
             type: "warning"
           })
         }
+      },
+      saveData() {
+            let list = this.list,
+              obj = {},
+              array = [];
+            if (list.length > 0) {
+              for (const i in list) {
+                var jbj = {}
+                jbj.gid = list[i].gid
+                jbj.siId = list[i].siId
+                jbj.number = list[i].num
+                array.push(jbj)
+              }
+                  obj.order = {
+                    orderId: this.form.oid,
+                    reason: this.form.reason,
+                    reOdId: this.form.reOdId,
+                  }
+                  obj.returnOrders = array
+                  alterReturn(obj).then(res => {
+                    if (res.flag) {
+                      this.$emit('hideDialog', false)
+                      this.$emit('uploadList')
+                    }
+                  })
+            } else {
+              return this.$message({
+                message: "无退货商品",
+                type: "warning"
+              })
+            }
       },
       open() {
         this.$prompt('请输入原因', '提示', {

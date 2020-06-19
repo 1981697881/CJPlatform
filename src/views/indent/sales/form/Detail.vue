@@ -54,7 +54,7 @@
             fixed="right"
             label="操作"
             v-show="isAdd"
-            width="140">
+            width="180">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index,list)">删除</el-button>
               <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
@@ -110,6 +110,7 @@
     <div slot="footer" style="text-align:center;padding-top: 15px">
       <el-button type="success" v-show="biggest" @click="mWin(1)">最大化窗口</el-button>
       <el-button type="success" v-show="normal" @click="mWin(2)">正常窗口</el-button>
+      <el-button type="primary" v-show="isAdd" @click="saveData">保存</el-button>
       <el-button type="warning" v-show="isAdd" @click.native="rejected">驳回</el-button>
       <el-button type="primary" v-show="isAdd" @click.native="audit">审核</el-button>
     </div>
@@ -117,7 +118,7 @@
 </template>
 
 <script>
-  import {saleInfo, auditOrder, Dismissed, updateSale} from "@/api/indent/sales";
+  import {saleInfo, auditOrder, Dismissed, updateSale, updateSales} from "@/api/indent/sales";
   import List from "@/components/List";
   import {
     getPer
@@ -208,6 +209,7 @@
       }
     },
     methods: {
+
       //删除带确认区 单行删除
       deleteRow(index, rows) {
         rows.splice(index, 1);
@@ -253,6 +255,32 @@
             this.$emit('uploadList')
           }
         })
+      },
+      saveData() {
+            let obj = {}, list = this.list
+            obj.plaId = this.plaId
+            let array = []
+            if (list.length > 0) {
+              for (const i in list) {
+                var jbj = {}
+                jbj.gid = list[i].gid
+                jbj.siId = list[i].siId
+                jbj.num = list[i].num
+                array.push(jbj)
+              }
+                obj.oid = this.oid
+                obj.remark = this.form.remark
+                obj.orderGoods = array
+                updateSales(obj).then(res => {
+                  this.$emit('hideDialog', false)
+                  this.$emit('uploadList')
+                });
+            } else {
+              return this.$message({
+                message: "无数据",
+                type: "warning"
+              });
+            }
       },
       audit() {
         let list = this.list, array = []
@@ -316,6 +344,7 @@
           this.list = res.data;
         });
       },
+
     }
   };
 </script>

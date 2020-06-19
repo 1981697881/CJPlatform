@@ -139,3 +139,16 @@ export function cancelAuditReturns(data) {
     method: 'put'
   })
 }
+// 修改 保存退货
+export function alterReturn(data) {
+  const url = '/returnOrder/update'
+  return request({
+    headers: {
+      'authorization': getToken('clrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'put',
+    data: data
+  })
+}

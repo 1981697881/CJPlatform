@@ -130,4 +130,16 @@ export function cancelAuditSale(data) {
     url: url,
     method: 'put'
   })
+}// 修改保存单据
+export function updateSales(data) {
+  const url = '/order/update'
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'put',
+    data: data
+  })
 }
