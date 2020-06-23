@@ -231,9 +231,9 @@ export default {
     },
 
     upload() {
-      this.$emit('uploadList', {plaId: this.plaIdS})
       this.search.keyword = ''
       this.value = ''
+      this.$emit('uploadList', {plaId: this.plaIdS})
     },
     exportOrder() {
       exportData(this.qFilter()).then(res => {

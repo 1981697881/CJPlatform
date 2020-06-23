@@ -118,15 +118,20 @@ export default {
         this.download(res)
       })
     },
-    //关键字查询
+    // 查询条件过滤
+    qFilter() {
+      let obj = {}
+      this.search.keyword != null || this.search.keyword != undefined ? obj.query = this.search.keyword : null
+      this.plaIdS != null || this.plaIdS != undefined ? obj.plaId = this.plaIdS : null
+      return obj
+    },
+    // 关键字查询
     query(){
-      if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-        this.$emit('showTable', { query: this.search.keyword ,plaId: this.plaIdS})
-      }
+      this.$emit('queryBtn', this.qFilter())
     },
     upload() {
-      this.$emit('showTable' ,{plaId: this.plaIdS})
       this.search.keyword = ''
+      this.$emit('showTable', {plaId: this.plaIdS})
     }
   }
 };

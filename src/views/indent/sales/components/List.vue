@@ -104,7 +104,7 @@ export default {
       },
       //监听当前页
       handleCurrent(val) {
-          this.list.current = val
+        this.list.current = val
         this.$emit('uploadList')
       },
     // 监听多选 参数-所有选中的值
@@ -150,6 +150,7 @@ export default {
               for(const i in record) {
                 for(const a in record[i].orderDetails) {
                   record[i].orderDetails[a].oid = record[i].oid
+                  record[i].orderDetails[a].plaId = record[i].plaId
                   record[i].orderDetails[a].addTime = record[i].createTime
                   record[i].orderDetails[a].username = record[i].username
                   record[i].orderDetails[a].auditor = record[i].auditor

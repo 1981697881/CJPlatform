@@ -58,10 +58,15 @@ export default {
       selectChange(val) {
           this.$emit('showTable', {plaId: val, goodName: this.search.keyword})
       },
+    // 查询条件过滤
+    qFilter() {
+      let obj = {}
+      this.search.keyword != null || this.search.keyword != undefined ? obj.goodName = this.search.keyword : null
+      this.plaIdS != null || this.plaIdS != undefined ? obj.plaId = this.plaIdS : null
+      return obj
+    },
     query() {
-      if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-        this.$emit('showTable', { goodName: this.search.keyword, plaId: this.plaIdS})
-      }
+      this.$emit('queryBtn', this.qFilter())
     },
     handleTab(node){
         /*this.$emit('showDialog')*/
@@ -80,8 +85,8 @@ export default {
       });
     },
     upload() {
-      this.$emit('uploadList')
       this.search.keyword = ''
+      this.$emit('uploadList')
     }
   }
 };

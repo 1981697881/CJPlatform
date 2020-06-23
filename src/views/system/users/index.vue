@@ -53,11 +53,11 @@ export default {
     },
     // 更新列表
     upload(val = this.$refs.tabs.returnPar()) {
-      this.$refs.list.uploadPr(val)
+      this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     },
     // 查询
     query(val) {
-      this.$refs.list.uploadPr(val)
+      this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     }
   }
 };

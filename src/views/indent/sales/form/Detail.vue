@@ -148,6 +148,10 @@
         type: String,
         default: null
       },
+      plaId: {
+        type: Number,
+        default: null
+      },
       customerCode: {
         type: String,
         default: null

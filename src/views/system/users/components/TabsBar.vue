@@ -98,15 +98,20 @@
                     });
                 }
             },
+        // 查询条件过滤
+        qFilter() {
+          let obj = {}
+          this.search.keyword != null || this.search.keyword != undefined ? obj.query = this.search.keyword : null
+          this.checked != null || this.checked != undefined ? obj.showIsDel = this.checked : null
+          return obj
+        },
           //关键字查询
           query(){
-            if((typeof this.search.keyword != null) && (this.search.keyword !='')){
-              this.$emit('queryBtn',{ query: this.search.keyword, showIsDel: this.checked})
-            }
+            this.$emit('queryBtn', this.qFilter())
           },
           upload() {
-            this.$emit('uploadList', {showIsDel: this.checked})
             this.search.keyword = ''
+            this.$emit('uploadList', {showIsDel: this.checked})
           },
           // 下载文件
           download(res) {

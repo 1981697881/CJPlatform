@@ -95,22 +95,30 @@ export default {
     handleTab(node) {
         /*this.$emit('showDialog')*/
     },
+    // 查询条件过滤
+    qFilter() {
+      let obj = {}
+      this.search.keyword != null || this.search.keyword != undefined ? obj.query = this.search.keyword : null
+      this.plaIdS != null || this.plaIdS != undefined ? obj.plaId = this.plaIdS : null
+      this.checked != null || this.checked != undefined ? obj.showIsDel = this.checked : null
+      return obj
+    },
     //关键字查询
+    // 关键字查询
     query() {
-      if ((typeof this.search.keyword != null) && (this.search.keyword !='')) {
-        this.$emit('showTable', { query: this.search.keyword, plaId: this.plaIdS, showIsDel: this.checked })
-      }
+      this.$emit('queryBtn', this.qFilter())
     },
     clickChange(val) {
-      this.$emit('showTable', {plaId: this.plaIdS, query: this.search.keyword, showIsDel: val})
+      this.checked = val
+      this.$emit('queryBtn', this.qFilter())
     },
     selectChange(val) {
-      this.$emit('showTable', {plaId: val, query: this.search.keyword, showIsDel: this.checked })
+      this.plaIdS = val
+      this.$emit('queryBtn', this.qFilter())
     },
     fetchFormat() {
       getPlas().then(res => {
         if(res.flag) {
-          console.log(res)
           this.$emit('showTable', {plaId: res.data[0].plaId, showIsDel: this.checked })
           this.plaArray = res.data;
           this.plaIdS = res.data[0].plaId;
@@ -136,8 +144,8 @@ export default {
       })
     },
     upload() {
-      this.$emit('showTable' ,{plaId: this.plaIdS, showIsDel: this.checked })
       this.search.keyword = ''
+      this.$emit('showTable' ,{plaId: this.plaIdS, showIsDel: this.checked })
     }
   }
 };

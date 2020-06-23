@@ -3,7 +3,7 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar @addUnit="handlerTabs" @uploadList="upload" @showTable="loadList" @showDialog="handlerDialog" @queryBtn="query"/>
+        <tabs-bar ref="tabs" @addUnit="handlerTabs" @uploadList="upload" @showTable="loadList" @showDialog="handlerDialog" @queryBtn="query"/>
       </div>
       <list  ref="list" @uploadList="upload" @showDialog="handlerDialog"/>
     </div>
@@ -36,7 +36,7 @@ export default {
 
     },
     loadList(val) {
-      this.$refs.list.uploadPr(val)
+      this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     },
     handlerDialog(obj){
       if(obj)this.fid = obj.fid
@@ -51,11 +51,11 @@ export default {
     },
       //更新列表
       upload() {
-          this.$refs.list.fetchData()
+        this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
       },
     // 查询
     query(val) {
-      this.$refs.list.fetchData(val)
+      this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     }
   }
 };

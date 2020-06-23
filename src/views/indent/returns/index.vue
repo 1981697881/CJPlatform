@@ -57,7 +57,7 @@ export default {
     receiving(obj) {
       if (obj) {
         this.$refs.list.Receiving(obj.reId)
-        this.$refs.list.fetchData()
+        this.$refs.list.fetchData(this.$refs.tabs.qFilter())
       }
     },
     handlerDialog(obj) {
@@ -69,7 +69,7 @@ export default {
     },
     // 更新列表
     query(val) {
-      this.$refs.list.uploadPr(val)
+      this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     },
     // 操作窗口
     operation(val) {
@@ -81,10 +81,10 @@ export default {
     },
     // 更新列表
     upload(val = this.$refs.tabs.getPlaId()) {
-      this.$refs.list.fetchData(val)
+      this.$refs.list.fetchData(this.$refs.tabs.qFilter())
     },
     onUpload() {
-      this.$refs.list.fetchData(this.$refs.tabs.getPlaId())
+      this.$refs.list.fetchData(this.$refs.tabs.qFilter())
     },
   }
 };
