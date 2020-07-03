@@ -291,9 +291,9 @@ export default {
     fetchFormat() {
       getPlas().then(res => {
         if(res.flag) {
-          this.$emit('uploadList', {plaId: res.data[0].plaId})
           this.plaArray = res.data;
           this.plaIdS = res.data[0].plaId;
+          this.$emit('uploadList', {plaId: res.data[0].plaId})
         }
       });
     }

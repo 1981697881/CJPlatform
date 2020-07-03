@@ -57,28 +57,51 @@
         </el-dialog>
       </el-row>
       <el-row :gutter="20">
-        <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
-          <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
-          <el-table-column
-            v-for="(t,i) in columns"
-            :key="i"
-            :prop="t.name"
-            :label="t.text"
-            v-if="t.default!=undefined?t.default:true"
-            :width="t.width?t.width:'120px'"
-          ></el-table-column>
-          <el-table-column
-            fixed="right"
-            label="操作"
-            v-show="isAdd"
-            width="180">
-            <template slot-scope="scope">
-              <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index,list)">删除</el-button>
-              <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
-              <el-button type="text" size="small" @click.native="alterPrice(scope.row)">修改单价</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <el-col :span="12">
+          <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
+            <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
+            <el-table-column
+              v-for="(t,i) in columns"
+              :key="i"
+              :prop="t.name"
+              :label="t.text"
+              v-if="t.default!=undefined?t.default:true"
+              :width="t.width?t.width:'120px'"
+            ></el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              width="120">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click.native="handleAdd(scope.row)">添加</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+        <el-col :span="12">
+          <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
+            <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
+            <el-table-column
+              v-for="(t,i) in columns"
+              :key="i"
+              :prop="t.name"
+              :label="t.text"
+              v-if="t.default!=undefined?t.default:true"
+              :width="t.width?t.width:'120px'"
+            ></el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              v-show="isAdd"
+              width="180">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index,list)">删除</el-button>
+                <el-button type="text" size="small" @click.native="alterNum(scope.row)">修改数量</el-button>
+                <el-button type="text" size="small" @click.native="alterPrice(scope.row)">修改单价</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
         <!--<list
           class="list-main"
           :columns="columns"

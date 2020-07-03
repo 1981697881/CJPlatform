@@ -91,9 +91,9 @@ export default {
       getPlas().then(res => {
         if(res.flag){
           console.log(res)
-          this.$emit('showTable', {plaId: res.data[0].plaId})
           this.plaArray = res.data;
           this.plaIdS = res.data[0].plaId;
+          this.$emit('showTable', {plaId: res.data[0].plaId})
         }
       });
     },

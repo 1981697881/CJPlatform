@@ -13,7 +13,7 @@
       :fullscreen="isfullscreen"
       title="基本信息"
       v-if="visible"
-      :width="'50%'"
+      :width="'70%'"
       destroy-on-close
     >
       <customer-info @hideDialog="hideWindow" @operation="operation" @uploadList="onUpload" :isAdd="isAdd" :plaId="plaId" :oid="oid" :orderId="orderId" :createTime="createTime" :customer="customer" :customerCode="customerCode" :remark="remark"></customer-info>

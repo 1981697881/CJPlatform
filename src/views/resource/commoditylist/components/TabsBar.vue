@@ -119,9 +119,9 @@ export default {
     fetchFormat() {
       getPlas().then(res => {
         if(res.flag) {
-          this.$emit('showTable', {plaId: res.data[0].plaId, showIsDel: this.checked })
           this.plaArray = res.data;
           this.plaIdS = res.data[0].plaId;
+          this.$emit('showTable', {plaId: res.data[0].plaId, showIsDel: this.checked })
         }
       });
     },

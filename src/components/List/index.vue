@@ -45,7 +45,7 @@
         @size-change="handleSize"
         @current-change="handleCurrent"
         :current-page="list.current"
-        :page-sizes="[50, 100, 250, 500]"
+        :page-sizes="[50, 100, 250, 500, 1000, 2000]"
         :page-size="list.size"
         :page-count="list.pages?list.pages:0"
         layout="total, sizes, prev, pager, next, jumper"
