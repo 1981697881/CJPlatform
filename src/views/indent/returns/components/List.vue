@@ -164,6 +164,7 @@ export default {
               record[i].returnOrderDetailVOS[a].isAudit = record[i].isAudit
               record[i].returnOrderDetailVOS[a].status = record[i].status
               record[i].returnOrderDetailVOS[a].auditor = record[i].auditor
+              record[i].returnOrderDetailVOS[a].orderId = record[i].orderId
               record[i].returnOrderDetailVOS[a].plaName = record[i].plaName
               record[i].returnOrderDetailVOS[a].customer = record[i].customer
               record[i].returnOrderDetailVOS[a].customerCode = record[i].customerCode

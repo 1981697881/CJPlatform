@@ -61,6 +61,7 @@ export default {
       }
     },
     handlerDialog(obj) {
+      console.log(obj)
       if(obj)this.reOdId = obj.reId;this.isAdd = obj.isAdd;this.returnOrderNum=obj.orderNum;this.createTime=obj.addTime;this.orderId=obj.orderId;this.img=obj.image;this.customer = obj.customer;this.customerCode = obj.customerCode;this.reason=obj.reason;
       this.visible = true
     },

@@ -58,10 +58,10 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-table :data="list" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
+          <el-table :data="list2" border :height="'250px'" stripe size="mini" :highlight-current-row="true">
             <el-table-column prop="date" label="序号" type="index" sortable></el-table-column>
             <el-table-column
-              v-for="(t,i) in columns"
+              v-for="(t,i) in columns2"
               :key="i"
               :prop="t.name"
               :label="t.text"
@@ -71,7 +71,7 @@
             <el-table-column
               fixed="right"
               label="操作"
-              width="120">
+              width="100">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click.native="handleAdd(scope.row)">添加</el-button>
               </template>
@@ -124,7 +124,7 @@
         <el-row :gutter="20" type="flex" justify="center">
           <el-col :span="12">
             <el-form-item :label="'退货数量'">
-              <el-input-number v-model="num1" :min="0.1" :precision="2" :step="1" label="请输入数量"></el-input-number>
+              <el-input-number v-model="num1" :min="0" :precision="2" :step="1" :max='max' label="请输入数量"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -166,6 +166,7 @@
 
 <script>
   import {updateReturns, auditOrder, Dismissed, getOrderGoodsById, alterReturn} from "@/api/indent/returns";
+  import {saleInfo} from "@/api/indent/sales";
   import {
     getPer
   } from '@/utils/auth'
@@ -220,6 +221,7 @@
           reason: null,
         },
         num1: 1,
+        max: 0,
         price1: 1,
         visible: null,
         visible2: null,
@@ -232,7 +234,18 @@
         hideUpload: true,
         loading: false,
         list: [],
+        list2: [],
         type: null,
+        columns2: [
+          {text: "商品名称", name: "goodName"},
+          {text: "编码", name: "goodCode"},
+          {text: "型号", name: "standard"},
+          {text: "计量单位", name: "unitOfMea"},
+          {text: "单价", name: "sellPrice", default:false},
+          {text: "仓库", name: "wareHouseName"},
+          //{text: "数量", name: "num"},
+          {text: "数量", name: "actualNum"},
+        ],
         columns: [
           {text: "gid", name: "gid", default: false},
           {text: "商品名称", name: "goodName"},
@@ -275,11 +288,74 @@
       this.form.customer = this.customer
       this.form.customerCode = this.customerCode
       this.form.reason = this.reason
+      this.tableData(this.orderId)
       if (this.form.reOdId) {
         this.fetchData(this.form.reOdId);
       }
     },
     methods: {
+      //添加数量->待确认区
+      saveNum() {
+        if (this.num1 > 0) {
+          this.$set(this.obj, 'num', this.num1)
+          this.$set(this.obj, 'siId', this.obj.siId)
+          this.$set(this.obj, 'gid', this.obj.gid)
+          var tList = this.list,
+            number = 0,
+            obj = this.obj;
+          //判断添加到待确认的数据是否重复
+          for (var i in tList) {
+            //判断id是否== 是数量加 否添加添加一行
+            if (obj['siId'] == tList[i]['siId']) {
+              this.$set(tList, i, {
+                ...tList[i],
+                num: parseFloat(tList[i].num) + parseFloat(obj['num']),
+                actualNum: parseFloat(tList[i].actualNum) + parseFloat(obj['num'])
+              });
+              number++;
+              break;
+            }
+          }
+          console.log(tList)
+          //false
+          if (number == 0) {
+            this.obj["actualNum"] = this.num1
+            //查询窗口插入数据
+            this.tList.push(obj)
+          }
+          //数量添加后 数量输入框还原默认1
+          this.num1 = 1;
+          this.visible = false;
+        } else {
+          return this.$message({
+            message: "不可超出可退数",
+            type: "warning"
+          });
+        }
+
+      },
+      //添加退货
+      handleAdd(val) {
+        this.obj = JSON.parse(JSON.stringify(val))
+        this.visible = true
+        var list = this.list
+        var number = 0
+        for (var i in list) {
+          if (list[i]['siId'] == this.obj['siId']) {
+            this.max = parseInt(this.obj['actualNum']) - parseInt(list[i]['num'])
+            number++;
+            break;
+          }
+        }
+        if (number == 0) {
+          this.max = this.obj['actualNum']
+        }
+      },
+      tableData(orderNum) {
+        saleInfo(orderNum).then(res => {
+          this.list2 = res.data
+        })
+      },
       //删除带确认区 单行删除
       deleteRow(index, rows) {
         rows.splice(index, 1);
@@ -310,11 +386,11 @@
         this.obj = row
         this.visible2 = true
       },
-      saveNum() {
+      /*saveNum() {
         this.visible = false
         this.obj["actualNum"] = this.num1
         this.num1 = 1
-      },
+      },*/
       savePrice() {
         updateReturns({
           returnOrderId: this.obj.oid,
