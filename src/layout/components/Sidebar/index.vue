@@ -12,12 +12,11 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="(route,i) in routes" :key="i" :item="route" :base-path="i" />
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
@@ -31,6 +30,7 @@ export default {
       'sidebar'
     ]),
     routes() {
+      console.log(this.$router.options.routes)
       return this.$router.options.routes
       // return global.antRouter // 这里应该最好使用vuex的全局变量
     },

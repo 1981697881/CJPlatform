@@ -63,8 +63,8 @@ router.beforeEach(async (to, from, next) => {
   } else {
     hasMenu = false
     /* has no token*/
-    console.log(to.path)
-    console.log(whiteList.indexOf(to.path) !== -1)
+   /* console.log(to.path)
+    console.log(whiteList.indexOf(to.path) !== -1)*/
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

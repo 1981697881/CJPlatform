@@ -5,6 +5,7 @@ export default file => {
 const map = {
   Layout: () => import('@/layout'),
   error: () => import('@/views/404'),
+  'dashboard': () => import('@/views/dashboard/index'),
   'resource': () => import('@/views/resource/index'),
 
   'commodity': () => import('@/views/resource/commoditylist/index'),

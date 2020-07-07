@@ -42,7 +42,6 @@ const state = {
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
-    console.log(routes)
     state.routes = StaticRouterMap.concat(routes)
   }
 }
