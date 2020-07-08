@@ -143,3 +143,14 @@ export function updateSales(data) {
     data: data
   })
 }
+// 删除订单
+export function delSaleOrder(data) {
+  const url = '/Admin/deleteOrder/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    url: url,
+    method: 'delete',
+  })
+}

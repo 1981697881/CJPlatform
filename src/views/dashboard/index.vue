@@ -245,8 +245,8 @@
             }
         },
       mounted() {
-        this.fetchData1({})
-        this.fetchData2({})
+        this.fetchData1({backstage: true})
+        this.fetchData2({backstage: true})
       },
       methods: {
         // 查询条件过滤
@@ -254,6 +254,7 @@
           let obj = {}
           val[1] != null || val[1] != undefined ? obj.endDate = val[1] : null
           val[0] != null || val[0] != undefined ? obj.startDate = val[0] : null
+          obj.backstage = true
           return obj
         },
         //时间查询
@@ -276,6 +277,7 @@
         fetchData2(val) {
           let me = this
           // 获取数据 1.计算总数 2.计算百分比 3.赋值
+          console.log(val)
           productCategory(val).then(res => {
             if(res.flag) {
               let data = res.data
@@ -295,6 +297,7 @@
           })
         },
         fetchData1(val) {
+          console.log(val)
           let me = this
           // 获取数据 1.计算总数 2.计算百分比 3.赋值
           product(val).then(res => {

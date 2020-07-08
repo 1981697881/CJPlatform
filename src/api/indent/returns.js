@@ -139,6 +139,18 @@ export function cancelAuditReturns(data) {
     method: 'put'
   })
 }
+// 删除订单
+export function delReturnOrder(data) {
+  const url = '/Admin/deleteReturnOrder/' + data
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+    },
+    url: url,
+    method: 'delete',
+  })
+}
+
 // 修改 保存退货
 export function alterReturn(data) {
   const url = '/returnOrder/update'

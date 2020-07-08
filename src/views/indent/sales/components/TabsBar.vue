@@ -42,6 +42,7 @@
           <el-button :size="'mini'" type="primary"  @click="upload">刷新</el-button>
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
+          <el-button :size="'mini'" type="warning" @click.native="delSaleOrder">删除</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="cancelAudit">取消审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
@@ -53,7 +54,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex"
-import { exportData, saleReset, salesListT, cancelAuditSale} from "@/api/indent/sales"
+import { exportData, saleReset, salesListT, cancelAuditSale, delSaleOrder } from "@/api/indent/sales"
 import {getPlas} from "@/api/system/users"
 import { PrintSales2 } from '@/tools/doPrint'
 export default {
@@ -110,6 +111,33 @@ export default {
     document.removeEventListener('keyup', this.handleKeyUp)
   },
   methods: {
+    delSaleOrder() {
+      if (this.clickData.oid) {
+        this.$confirm('是否删除' + this.clickData.orderNum + '整张单据，删除后将无法恢复?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true;
+          delSaleOrder(this.clickData.oid).then(res => {
+            this.loading = false;
+            if(res.flag) {
+              this.$emit('uploadList', {plaId: this.plaIdS})
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
+      }
+    },
     print() {
       if (this.selections.length > 0) {
         const selection = this.selections

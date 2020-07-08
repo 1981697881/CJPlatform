@@ -52,18 +52,16 @@ new Vue({
    created(){
      const data = {
       username: Cookies.get('plun'),
-      password: Cookies.get('plps')
+      password: Cookies.get('plps'),
+       backstage: true
      }
     if(data.username && data.password){
      var rs=Cookies.get('plrx')
-      console.log(rs)
-      console.log( Cookies.get('plrx') == "undefined")
       if(Cookies.get('plrx') =="undefined"){
         this.$router.push(`/login?redirect=${this.$route.fullPath}`)
         store.dispatch('user/resetToken')
       }else{
         login(data).then(res => {
-          console.log(res.flag)
           if(!res.flag){
             this.$router.push(`/login?redirect=${this.$route.fullPath}`)
             store.dispatch('user/resetToken')

@@ -42,6 +42,7 @@
           <el-button :size="'mini'" type="primary"  @click="upload">刷新</el-button>
           <el-button :size="'mini'" type="primary"  @click="exportOrder">导出</el-button>
           <el-button :size="'mini'" type="primary"  @click="reset">重新下推</el-button>
+          <el-button :size="'mini'" type="warning" @click="delReturnOrder">删除</el-button>
           <el-button :size="'mini'" type="primary"  @click="handleAudit">审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="cancelAudit">取消审核</el-button>
           <el-button :size="'mini'" type="primary"  @click="print">打印</el-button>
@@ -56,7 +57,7 @@
 // ---------------------------  新增客户没做完
 
 import { mapGetters } from 'vuex'
-import { exportData, returnsReset, returnsListT, cancelAuditReturns} from '@/api/indent/returns'
+import { exportData, returnsReset, returnsListT, cancelAuditReturns, delReturnOrder} from '@/api/indent/returns'
 import {getPlas} from '@/api/system/users'
 import { PrintReturn } from '@/tools/doPrint'
 export default {
@@ -112,6 +113,33 @@ export default {
     document.removeEventListener('keyup', this.handleKeyUp)
   },
   methods: {
+    delReturnOrder() {
+      if (this.clickData.reId) {
+        this.$confirm('是否删除' + this.clickData.orderNum + '整张单据，删除后将无法恢复?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true;
+          delReturnOrder(this.clickData.reId).then(res => {
+            this.loading = false;
+            if(res.flag){
+              this.$emit('uploadList', {plaId: this.plaIdS})
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      } else {
+        this.$message({
+          message: "无选中行",
+          type: "warning"
+        });
+      }
+    },
     handleKeyDown(e) {
       var key = window.event.keyCode ? window.event.keyCode : window.event.which
       if( key === 13 ) {
@@ -141,7 +169,7 @@ export default {
           cancelAuditReturns(this.clickData.reId).then(res => {
             if(res.flag) {
               this.loading = false
-              this.upload()
+              this.$emit('uploadList', {plaId: this.plaIdS})
             }
           });
         }).catch(() => {

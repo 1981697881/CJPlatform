@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="(route,i) in routes" :key="i" :item="route" :base-path="i" />
+        <sidebar-item v-for="(route, i) in routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -30,7 +30,6 @@ export default {
       'sidebar'
     ]),
     routes() {
-      console.log(this.$router.options.routes)
       return this.$router.options.routes
       // return global.antRouter // 这里应该最好使用vuex的全局变量
     },
@@ -47,7 +46,7 @@ export default {
       return this.$store.state.settings.sidebarLogo
     },
     variables() {
-        console.log(variables)
+
       return variables
     },
     isCollapse() {
@@ -55,7 +54,6 @@ export default {
     }
   },
     mounted() {
-      console.log(this.routes)
     }
 }
 </script>
