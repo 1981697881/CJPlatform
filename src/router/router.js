@@ -19,5 +19,6 @@ const map = {
 
   'system': () => import('@/views/system/index'),
   'permissions': () => import('@/views/system/permissions/index'),
-  'users': () => import('@/views/system/users/index')
+  'users': () => import('@/views/system/users/index'),
+  'journal': () => import('@/views/system/journal/index')
 }

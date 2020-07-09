@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { journalList} from "@/api/system/index";
+import { journalList} from "@/api/system/permissions";
 import List from "@/components/List";
 
 export default {
@@ -34,40 +34,30 @@ export default {
       list: {},
       columns: [
         { text: "lid", name: "lid",default:false },
-        { text: "操作用户", name: "" },
-        { text: "操作时间", name: "updateTime" },
-        { text: "业务对象", name: "" },
-        { text: "操作名称", name: "" },
-          { text: "操作描述", name: "remark" },
+        { text: "操作用户", name: "username" },
+        { text: "操作时间", name: "createTime" },
+        { text: "操作描述", name: "explanation" },
       ]
     };
   },
   methods: {
-      //监听每页显示几条
-      handleSize(val) {
-          this.list.size = val
-          this.fetchData();
-      },
-      //监听当前页
-      handleCurrent(val) {
-          this.list.current = val;
-          this.fetchData();
-      },
+    //监听每页显示几条
+    handleSize(val) {
+      this.list.size = val
+      this.$emit('uploadList')
+    },
+    //监听当前页
+    handleCurrent(val) {
+      this.list.current = val;
+      this.$emit('uploadList')
+    },
     dblclick(obj) {
       this.$emit('showDialog',obj.row)
     },
-      Delivery(val){
-          delivery(val).then(res => {
-            if(res.flag){
-              this.$store.dispatch("list/setClickData", '');
-              this.fetchData();
-            }
-          });
-      },
-      //监听单击某一行
-      rowClick(obj) {
-          this.$store.dispatch("list/setClickData", obj.row);
-      },
+    //监听单击某一行
+    rowClick(obj) {
+      this.$store.dispatch("list/setClickData", obj.row);
+    },
     uploadPr(val) {
       this.fetchData(val, {
         pageNum: 1,
@@ -81,11 +71,11 @@ export default {
       pageSize: this.list.size || 50
     }) {
      this.loading = true;
-        journalList(data).then(res => {
+      journalList(data, val).then(res => {
         this.loading = false;
         this.list = res.data;
       });
-    } 
+    }
   }
 };
 </script>

@@ -3,12 +3,10 @@
     <!--<Tree class="list-tree" @handler-node="handlerNode" />-->
     <div class="list-containerOther">
       <div>
-        <tabs-bar ref="tabs" @showDialog="handlerDialog" @queryBtn="query" @theDelivery="delivery"/>
+        <tabs-bar ref="tabs" @showDialog="handlerDialog" @queryBtn="query" @uploadList="upload"/>
       </div>
-      <list ref="list"  @showDialog="handlerDialog"/>
+      <list ref="list" @uploadList="uploadPage" @showDialog="handlerDialog"/>
     </div>
-
-
   </div>
 </template>
 
@@ -34,12 +32,6 @@ export default {
         this.$refs.list.fetchData()
     },
   methods: {
-      delivery(obj){
-          if(obj){
-              this.$refs.list.Delivery(obj.oid)
-              this.$refs.list.fetchData()
-          }
-      },
       hideWindow(val){
           this.visible = val
       },
@@ -49,7 +41,12 @@ export default {
     },
     handlerNode(node) {
       this.$refs.list.fetchData(node.data.fid,node.data.type)
-    },// 查询
+    },
+    // 查询
+    uploadPage(val) {
+      this.$refs.list.fetchData(this.$refs.tabs.qFilter())
+    },
+    // 查询
     query() {
       this.$refs.list.uploadPr(this.$refs.tabs.qFilter())
     },

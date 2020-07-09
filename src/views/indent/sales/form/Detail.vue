@@ -389,7 +389,7 @@
         this.dialogVisible = true;
       },
       query() {
-        this.list.current = 1;
+        this.list2.current = 1;
         this.fetchDataStock();
       },
       //监听每页显示几条
@@ -452,6 +452,7 @@
             let obj = {}, list = this.list
             obj.plaId = this.plaId
             let array = []
+            console.log(list)
             if (list.length > 0) {
               for (const i in list) {
                 var jbj = {}
@@ -463,6 +464,7 @@
                 obj.oid = this.oid
                 obj.remark = this.form.remark
                 obj.orderGoods = array
+                console.log(obj)
                 updateSales(obj).then(res => {
                   this.$emit('hideDialog', false)
                   this.$emit('uploadList')
@@ -543,7 +545,7 @@
         stockList(data, obj).then(res => {
           if (res.flag) {
             this.loading = false
-            this.list2= {
+            this.list2 = {
               current: res.data.current,
               pages: res.data.pages,
               size: res.data.size,

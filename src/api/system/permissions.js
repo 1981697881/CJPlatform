@@ -98,3 +98,17 @@ export function getPermission(data) {
     method: 'get'
   })
 }
+// 查询操作日志
+export function journalList(data, query) {
+  // 查询分页数据
+  const url = '/operation-log/list/' + data.pageNum + '/' + data.pageSize
+  return request({
+    headers: {
+      'authorization': getToken('plrx'),
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+    data: query
+  })
+}
