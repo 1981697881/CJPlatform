@@ -64,6 +64,7 @@ export default {
       columns: [
         { text: "oid", name: "oid", default: false },
         { text: "日期", name: "createTime", width: '150' },
+        {text: "审核日期", name: "auditTime", width: '150'},
         { text: "订单单号", name: "orderNum", width: '150' },
         {text: "购货单位", name: "customer", width: '120'},
         { text: "物料代码", name: "goodCode", width: '100' },

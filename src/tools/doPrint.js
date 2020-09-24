@@ -455,6 +455,7 @@ const PrintSales2 = (data, codetype, url, code) => {
   }
   dObj.orderDetails = dArray
   let printArray = [dObj]
+  console.log(printArray)
   for (let i = 0; i < printArray.length; i++) {
     //if (Math.ceil(printArray[i].orderDetails.length / 8) > 1) {
       var printNum = Math.ceil(printArray[i].orderDetails.length / 8)
@@ -488,21 +489,19 @@ const PrintSales2 = (data, codetype, url, code) => {
         LODOP.SET_PRINT_STYLE('FontSize', 10);
         LODOP.ADD_PRINT_TEXT('22.15mm', '1mm', '11mm', '5.37mm', '序号');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '12mm', '26mm', '5.37mm', '产品代码');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '12mm', '40mm', '5.37mm', '单号');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '38mm', '40mm', '5.37mm', '产品名称');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '52mm', '26mm', '5.37mm', '产品代码');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '78mm', '18mm', '5.37mm', '规格型号');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '78mm', '40mm', '5.37mm', '产品名称');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '96mm', '15mm', '5.37mm', '单位');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '118mm', '18mm', '5.37mm', '规格型号');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '111mm', '18mm', '5.37mm', '实发数量');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '136mm', '15mm', '5.37mm', '单位');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '129mm', '20mm', '5.37mm', '单价');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '151mm', '18mm', '5.37mm', '实发数量');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '149mm', '20mm', '5.37mm', '金额');
-        LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-        LODOP.ADD_PRINT_TEXT('22.15mm', '169mm', '31mm', '5.37mm', '备注');
+        LODOP.ADD_PRINT_TEXT('22.15mm', '169mm', '31mm', '5.37mm', ' 备注');
         LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
         //表格线
         LODOP.ADD_PRINT_LINE('19.31mm', '1mm', '19.31mm', '201.55mm', 0, 1);// 最上条标题横线
@@ -511,12 +510,11 @@ const PrintSales2 = (data, codetype, url, code) => {
 
         //添加一条线，参数(开始短点距离头部距离，开始端点距左边距离，结束端点距头部距离，结束端点距左边距离)
         LODOP.ADD_PRINT_LINE('19.31mm', '10mm', '28.11mm', '10mm', 0, 1);  // 收款后竖线  序号
-        LODOP.ADD_PRINT_LINE('19.31mm', '38mm', '28.11mm', '38mm', 0, 1);  // 起始日期后竖线      编码
+        LODOP.ADD_PRINT_LINE('19.31mm', '52mm', '28.11mm', '52mm', 0, 1);  // 起始日期后竖线      编码
         LODOP.ADD_PRINT_LINE('19.31mm', '78mm', '28.11mm', '78mm', 0, 1);  // 终止日期后竖线      名称
-        LODOP.ADD_PRINT_LINE('19.31mm', '96mm', '28.11mm', '96mm', 0, 1);// 上次读数后竖线    规格
-        LODOP.ADD_PRINT_LINE('19.31mm', '111mm', '28.11mm', '111mm', 0, 1);// 本次读数后竖线   单位
-        LODOP.ADD_PRINT_LINE('19.31mm', '129mm', '28.11mm', '129mm', 0, 1);// 用量后竖线       实发数量
-        LODOP.ADD_PRINT_LINE('19.31mm', '149mm', '28.11mm', '149mm', 0, 1);// 单价后竖线       单价
+        LODOP.ADD_PRINT_LINE('19.31mm', '118mm', '28.11mm', '118mm', 0, 1);// 上次读数后竖线    规格
+        LODOP.ADD_PRINT_LINE('19.31mm', '136mm', '28.11mm', '136mm', 0, 1);// 本次读数后竖线   单位
+        LODOP.ADD_PRINT_LINE('19.31mm', '151mm', '28.11mm', '151mm', 0, 1);// 用量后竖线       实发数量
         LODOP.ADD_PRINT_LINE('19.31mm', '169mm', '28.11mm', '169mm', 0, 1);// 后后竖线      金额
         LODOP.ADD_PRINT_LINE('19.31mm', '201.55mm', '28.11mm', '201.55mm', 0, 1);// 后后竖线      备注
 
@@ -542,24 +540,22 @@ const PrintSales2 = (data, codetype, url, code) => {
           if (((a + 1) * 8 - 8 + k) < printArray[i]['orderDetails'].length) {
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', parseInt(1 + k));
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '11mm', '27mm', '12mm', printArray[i]['orderDetails'][((a + 1) * 8 - 8 + k)].goodCode);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '11mm', '40mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].orderNum);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '38mm', '40mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].goodName);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '52mm', '27mm', '12mm', printArray[i]['orderDetails'][((a + 1) * 8 - 8 + k)].goodCode);
+            LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '78mm', '40mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].goodName);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             if (fucCheckLength(printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].standard) > 8) {
-              LODOP.ADD_PRINT_TEXT(thHeight + newHeight - 2.5 + 'mm', '78mm', '19mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].standard);
+              LODOP.ADD_PRINT_TEXT(thHeight + newHeight - 2.5 + 'mm', '118mm', '19mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].standard);
               LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             } else {
-              LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '78mm', '19mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].standard);
+              LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '118mm', '19mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].standard);
               LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             }
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '96mm', '15mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].unitOfMea);
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '136mm', '15mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].unitOfMea);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].actualNum);
-            LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
-            LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '151mm', '18mm', '12mm', printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].actualNum);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', printArray[i].remark);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
@@ -570,17 +566,15 @@ const PrintSales2 = (data, codetype, url, code) => {
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '11mm', '27mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '38mm', '40mm', '12mm', '');
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '52mm', '40mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '78mm', '19mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '96mm', '15mm', '12mm', '');
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '118mm', '15mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '111mm', '18mm', '12mm', '');
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '136mm', '18mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '129mm', '20mm', '12mm', '');
-            LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '149mm', '20mm', '12mm', '');
+            LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '151mm', '20mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', '');
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
@@ -592,12 +586,11 @@ const PrintSales2 = (data, codetype, url, code) => {
           }
           LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '1mm', trheight + newHeight + 9.37 + 'mm', '1mm', 0, 1);//最左竖线
           LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '10mm', trheight + newHeight + 9.37 + 'mm', '10mm', 0, 1);//行号后竖线
-          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '38mm', trheight + newHeight + 9.37 + 'mm', '38mm', 0, 1);//供货商后竖线
+          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '52mm', trheight + newHeight + 9.37 + 'mm', '52mm', 0, 1);//供货商后竖线
           LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '78mm', trheight + newHeight + 9.37 + 'mm', '78mm', 0, 1);//型号后竖线
-          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '96mm', trheight + newHeight + 9.37 + 'mm', '96mm', 0, 1);//型号后竖线
-          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '111mm', trheight + newHeight + 9.37 + 'mm', '111mm', 0, 1);//型号后竖线
-          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '129mm', trheight + newHeight + 9.37 + 'mm', '129mm', 0, 1);//颜色后竖线
-          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '149mm', trheight + newHeight + 9.37 + 'mm', '149mm', 0, 1);//单价后竖线
+          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '118mm', trheight + newHeight + 9.37 + 'mm', '118mm', 0, 1);//型号后竖线
+          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '136mm', trheight + newHeight + 9.37 + 'mm', '136mm', 0, 1);//型号后竖线
+          LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '151mm', trheight + newHeight + 9.37 + 'mm', '151mm', 0, 1);//颜色后竖线
           LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '169mm', trheight + newHeight + 9.37 + 'mm', '169mm', 0, 1);//单价后竖线
           LODOP.ADD_PRINT_LINE(trheight + newHeight - SizeTmpt * fonsize + 'mm', '201.55mm', trheight + newHeight + 9.37 + 'mm', '201.55mm', 0, 1);//最右竖线
           LODOP.ADD_PRINT_LINE(trheight + newHeight + 9.57 + 'mm', '1mm', trheight + newHeight + 9.57 + 'mm', '201.55mm', 0, 1);//每条数据后加一横线
