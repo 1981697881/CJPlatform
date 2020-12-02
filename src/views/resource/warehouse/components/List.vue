@@ -60,6 +60,7 @@ export default {
         { text: "wid", name: "wid",default:false },
         { text: "编号", name: "code" },
         { text: "名称", name: "name" },
+        /*{ text: "状态", name: "isDel", formatt: 'checkWarning' },*/
         { text: "更新时间", name: "updateTime" },
       ]
     };

@@ -56,7 +56,7 @@
 import { mapGetters } from "vuex"
 import { exportData, saleReset, salesListT, cancelAuditSale, delSaleOrder } from "@/api/indent/sales"
 import {getPlas} from "@/api/system/users"
-import { PrintSales2 } from '@/tools/doPrint'
+import { PrintSales } from '@/tools/doPrint'
 export default {
   components: {},
   computed: {
@@ -162,7 +162,7 @@ export default {
             if(res.flag && res.data != null) {
               this.list = res.data
               let record = res.data.records
-              PrintSales2(record)
+              PrintSales(record)
               LODOP.PREVIEW()
             }
           });

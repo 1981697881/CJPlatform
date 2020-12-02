@@ -26,6 +26,7 @@
         v-if="t.default!=undefined?t.default:true"
         :label="t.text"
         :width="t.width?t.width:(selfAdaption?'':'120px')"
+        :formatter="t.formatt!=undefined? onFun(t.formatt) : null"
         show-overflow-tooltip
         align="center"
       ></el-table-column>
@@ -103,6 +104,18 @@ export default {
     }
   },
   methods: {
+    checkWarning(row, column) {
+      let stau = ''
+      if(row.nature == 1) {
+        stau = '办公室'
+      }else if(row.nature == 3) {
+        stau = '其他'
+      }
+      return  stau
+    },
+    onFun(method){
+      this[method]()
+    },
     tableRowClassName({row, rowIndex}) {
       if (row.totalPrice <= 0) {
         return 'urgent-row';
