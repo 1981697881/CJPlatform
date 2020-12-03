@@ -1236,6 +1236,9 @@ const PrintSales3 = (data, codetype, url, code) => {
       LODOP.ADD_PRINT_TEXT(lastheght + table_hegth + 11 + 'mm', '52mm', '120.13mm', '7.37mm', '发货人：' + printArray[i].auditor);
       LODOP.ADD_PRINT_TEXT(lastheght + table_hegth + 11 + 'mm', '102mm', '120.13mm', '7.37mm', '司机：');
       LODOP.ADD_PRINT_TEXT(lastheght + table_hegth + 11 + 'mm', '152mm', '120.13mm', '7.37mm', '收货单位签收人：');
+      LODOP.ADD_PRINT_TEXT(lastheght + table_hegth + 20 + 'mm', '2mm', '120.13mm', '7.37mm', '注：以上价格仅供参考，结算以当月实际报价为准！');
+      LODOP.SET_PRINT_STYLEA(0, 'TextFrame', 8);
+      LODOP.SET_PRINT_STYLEA(0, 'ItemType', 0);
       LODOP.NewPage();
     }
   }
