@@ -124,7 +124,7 @@
         <el-row :gutter="20" type="flex" justify="center">
           <el-col :span="12">
             <el-form-item :label="'退货数量'">
-              <el-input-number v-model="num1" :min="0" :precision="2" :step="1" :max='max' label="请输入数量"></el-input-number>
+              <el-input-number v-model="num1" :min="0.1" :precision="2" :step="1" :max='max' label="请输入数量"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -321,7 +321,8 @@
           if (number == 0) {
             this.obj["actualNum"] = this.num1
             //查询窗口插入数据
-            this.tList.push(obj)
+            console.log(obj)
+            this.list.push(obj)
           }
           //数量添加后 数量输入框还原默认1
           this.num1 = 1;

@@ -1168,7 +1168,7 @@ const PrintSales3 = (data, codetype, url, code) => {
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', printArray[i].remark);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          actualNum = Math.round((actualNum + parseInt(printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].actualNum)) * 100) / 100;
+          actualNum = actualNum + (parseFloat(printArray[i]['orderDetails'][(a + 1) * 8 - 8 + k].actualNum) * 100) / 100;
           totalPrice = floatAdd(totalPrice, printArray[i]['orderDetails'][(a + 1) * 7 - 7 + k].totalPrice);
         } else {
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
@@ -1394,7 +1394,7 @@ const PrintReturn = (data, codetype, url, code) => {
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
             LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-            actualNum = Math.round((actualNum + parseInt(data[i]['returnOrderDetailVOS'][(a + 1) * 8 - 8 + k].actualNum)) * 100) / 100;
+            actualNum = actualNum + (parseFloat(data[i]['returnOrderDetailVOS'][(a + 1) * 8 - 8 + k].actualNum) * 100) / 100;
             /*  totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][(a + 1) * 7 - 7 + k].totalPrice);*/
           } else {
             LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
@@ -1564,7 +1564,7 @@ const PrintReturn = (data, codetype, url, code) => {
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '169mm', '31mm', '12mm', data[i].remark);
           LODOP.SET_PRINT_STYLEA(0, 'Alignment', 2);
-          actualNum = Math.round((actualNum + parseInt(data[i]['returnOrderDetailVOS'][k].actualNum)) * 100) / 100;
+          actualNum = actualNum + (parseFloat(data[i]['returnOrderDetailVOS'][k].actualNum) * 100) / 100;
           /* totalPrice = floatAdd(totalPrice, data[i]['returnOrderDetailVOS'][k].totalPrice);*/
         } else {
           LODOP.ADD_PRINT_TEXT(thHeight + newHeight + 'mm', '1mm', '9mm', '9mm', '');
